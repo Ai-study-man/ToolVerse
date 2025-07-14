@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/sync",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/crawl-tools?secret=your-crawler-secret",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}
