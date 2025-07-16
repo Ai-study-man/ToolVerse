@@ -39,13 +39,14 @@ export default function Home() {
         ]);
         
         // 处理分类数据
+        console.log(`Fetched ${categoriesData.length} categories from data source`);
         setCategories(categoriesData || []);
         
-        // 处理工具数据
-        const limitedToolsData = toolsData.slice(0, 50); // 限制初始加载的工具数量
+        // 处理工具数据 - 显示所有工具
+        console.log(`Fetched ${toolsData.length} tools from data source`);
         
         // 获取前6个工具作为特色工具，优先显示有本地logo的工具
-        const featuredToolsData = limitedToolsData
+        const featuredToolsData = toolsData
           .sort((a: Tool, b: Tool) => {
             // 优先显示有本地logo的工具
             const aHasLocalLogo = a.logo?.startsWith('/logos/') || false;
@@ -54,10 +55,11 @@ export default function Home() {
             if (!aHasLocalLogo && bHasLocalLogo) return 1;
             return 0;
           })
-          .slice(0, 6);
+          .slice(0, 6); // 只显示6个特色工具
         
+        console.log(`Setting ${featuredToolsData.length} featured tools and ${toolsData.length} total tools`);
         setFeaturedTools(featuredToolsData);
-        setAllTools(limitedToolsData);
+        setAllTools(toolsData); // 显示所有工具，不限制数量
         
       } catch (error) {
         console.error('Error fetching data:', error);

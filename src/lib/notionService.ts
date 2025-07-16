@@ -195,25 +195,23 @@ export function transformNotionToolToAppTool(page: PageObjectResponse): any {
 export class NotionToolsService {
   
   /**
-   * 获取所有已发布的工具
+   * 获取所有已发布的工具（包括所有状态的工具以确保最大数据覆盖）
    */
   static async getAllPublishedTools() {
     try {
+      // 首先尝试获取所有工具，不过滤状态
       const response = await notion.databases.query({
         database_id: TOOLS_DATABASE_ID,
-        filter: {
-          property: '状态',
-          status: {
-            equals: '进行中'  // 使用数据库中存在的状态
-          }
-        },
         sorts: [
           {
-            timestamp: 'last_edited_time',  // 使用系统字段而不是自定义字段
+            timestamp: 'last_edited_time',
             direction: 'descending'
           }
-        ]
+        ],
+        page_size: 100  // 增加页面大小以获取更多工具
       });
+
+      console.log(`Found ${response.results.length} total tools in Notion database`);
 
       return response.results
         .filter((page): page is PageObjectResponse => 'properties' in page)
@@ -221,6 +219,34 @@ export class NotionToolsService {
 
     } catch (error) {
       console.error('Error fetching tools from Notion:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * 获取所有工具（包括未发布的）
+   */
+  static async getAllTools() {
+    try {
+      const response = await notion.databases.query({
+        database_id: TOOLS_DATABASE_ID,
+        sorts: [
+          {
+            timestamp: 'last_edited_time',
+            direction: 'descending'
+          }
+        ],
+        page_size: 100
+      });
+
+      console.log(`Found ${response.results.length} total tools (all statuses) in Notion database`);
+
+      return response.results
+        .filter((page): page is PageObjectResponse => 'properties' in page)
+        .map(transformNotionToolToAppTool);
+
+    } catch (error) {
+      console.error('Error fetching all tools from Notion:', error);
       throw error;
     }
   }

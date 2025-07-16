@@ -1,33 +1,15 @@
 import DataSyncService from '../../../lib/dataSyncService';
 
-// 为静态导出生成预定义的工具ID
+// 生成所有工具的静态参数
 export async function generateStaticParams() {
   try {
-    // 获取所有工具并生成前50个工具的静态页面
     const tools = await DataSyncService.getTools();
-    const params = tools.slice(0, 50).map((tool) => ({
+    return tools.map((tool) => ({
       id: tool.id,
     }));
-    
-    // 添加一些常见的工具ID作为备选
-    const commonIds = ['chatgpt', 'claude', 'midjourney', 'canva', 'notion'];
-    commonIds.forEach(id => {
-      if (!params.find(p => p.id === id)) {
-        params.push({ id });
-      }
-    });
-    
-    return params;
   } catch (error) {
     console.error('Error generating static params:', error);
-    // 如果获取失败，返回一些默认的工具ID
-    return [
-      { id: 'chatgpt' },
-      { id: 'claude' },
-      { id: 'midjourney' },
-      { id: 'canva' },
-      { id: 'notion' }
-    ];
+    return [];
   }
 }
 

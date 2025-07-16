@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // 启用静态导出 - Cloudflare Pages需要
-  trailingSlash: true,
   images: {
-    unoptimized: true, // 静态导出必须设置
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: 'https',

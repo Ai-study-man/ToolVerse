@@ -1,5 +1,6 @@
 import { NotionToolsService } from './notionService';
 import { Tool, Category } from '../types';
+import { allTools as mockTools, categories as mockCategories } from '../data/mockData';
 
 /**
  * 数据同步服务
@@ -28,10 +29,34 @@ export class DataSyncService {
         }
       }
 
-      // 客户端和服务端都直接调用NotionService
+      // 客户端通过API获取数据，服务端直接调用NotionService
       let tools: Tool[];
-      console.log('Fetching fresh tools data from Notion');
-      tools = await NotionToolsService.getAllPublishedTools();
+      if (typeof window !== 'undefined') {
+        // 客户端：通过API获取工具
+        console.log('Fetching tools data from API');
+        const response = await fetch('/api/tools');
+        if (!response.ok) {
+          throw new Error(`API call failed: ${response.statusText}`);
+        }
+        tools = await response.json();
+      } else {
+        // 服务端：直接调用NotionService
+        console.log('Fetching fresh tools data from Notion');
+        tools = await NotionToolsService.getAllPublishedTools();
+      }
+      
+      // 如果工具数量太少，使用mockData作为补充
+      if (tools.length < 10) {
+        console.log(`Only ${tools.length} tools, using mockData as backup`);
+        tools = [...tools, ...mockTools];
+        
+        // 去重（基于name或id）
+        const uniqueTools = tools.filter((tool, index, self) => 
+          index === self.findIndex(t => t.name === tool.name || t.id === tool.id)
+        );
+        tools = uniqueTools;
+        console.log(`Combined tools count: ${tools.length}`);
+      }
       
       // 更新缓存
       this.updateCache({ tools, categories: [] });
@@ -79,10 +104,22 @@ export class DataSyncService {
         }
         
         notionCategories = result.data.categories || [];
-      } else {
-        // 服务端：直接调用NotionService
-        console.log('Fetching fresh categories data from Notion');
-        notionCategories = await NotionToolsService.getAllCategories();
+      } else {      // 服务端：直接调用NotionService
+      console.log('Fetching fresh categories data from Notion');
+      notionCategories = await NotionToolsService.getAllCategories();
+      
+      // 如果Notion返回的分类数量太少，使用mockData作为补充
+      if (notionCategories.length < 5) {
+        console.log(`Only ${notionCategories.length} categories from Notion, using mockData as backup`);
+        notionCategories = [...notionCategories, ...mockCategories];
+        
+        // 去重（基于name或slug）
+        const uniqueCategories = notionCategories.filter((cat, index, self) => 
+          index === self.findIndex(c => c.name === cat.name || c.slug === cat.slug)
+        );
+        notionCategories = uniqueCategories;
+        console.log(`Combined categories count: ${notionCategories.length}`);
+      }
       }
       
       // 添加 toolCount 字段
