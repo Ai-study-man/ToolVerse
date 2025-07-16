@@ -20,7 +20,8 @@ Package manager: npm
 Functions compatibility date: 2024-07-01
 Compatible flags: nodejs_compat
 
-# 重要提醒：
+# ⚠️ 重要提醒：
 # 1. 确保输出目录设置为 'out'（Next.js静态导出目录）
 # 2. 域名DNS必须正确指向Cloudflare
 # 3. 等待DNS传播完成（24-48小时）
+# 4. 如果构建失败，检查Notion环境变量是否正确设置
