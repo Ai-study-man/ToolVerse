@@ -1,14 +1,15 @@
 # Cloudflare Pages部署配置
 
 # 构建设置
+Framework preset: Next.js (Static HTML Export)
 Build command: npm run build
-Build output directory: .next
+Build output directory: out
 Root directory: /
 
 # 环境变量（在Cloudflare Pages设置中配置）
 # NOTION_TOKEN=your_notion_token
 # NOTION_DATABASE_ID=your_database_id  
-# NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+# NEXT_PUBLIC_SITE_URL=https://toolsverse.tools
 # NEXT_PUBLIC_SITE_NAME=ToolVerse
 
 # 运行时设置
@@ -18,3 +19,8 @@ Package manager: npm
 # 性能设置
 Functions compatibility date: 2024-07-01
 Compatible flags: nodejs_compat
+
+# 重要提醒：
+# 1. 确保输出目录设置为 'out'（Next.js静态导出目录）
+# 2. 域名DNS必须正确指向Cloudflare
+# 3. 等待DNS传播完成（24-48小时）

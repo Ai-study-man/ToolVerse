@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import DataSyncService from '../../lib/dataSyncService';
 
 export default function TestData() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -12,17 +13,17 @@ export default function TestData() {
       try {
         console.log('开始获取数据...');
         
-        // 获取类别
-        const categoriesResponse = await fetch('/api/categories?direct=true');
-        const categoriesResult = await categoriesResponse.json();
-        console.log('类别数据:', categoriesResult);
-        setCategories(categoriesResult.data?.categories || []);
+        // 直接使用 DataSyncService 获取数据
+        const [categoriesData, toolsData] = await Promise.all([
+          DataSyncService.getCategories(),
+          DataSyncService.getTools()
+        ]);
         
-        // 获取工具
-        const toolsResponse = await fetch('/api/tools?direct=true');
-        const toolsResult = await toolsResponse.json();
-        console.log('工具数据:', toolsResult);
-        setTools(toolsResult.data?.tools || []);
+        console.log('类别数据:', categoriesData);
+        setCategories(categoriesData || []);
+        
+        console.log('工具数据:', toolsData);
+        setTools(toolsData || []);
         
       } catch (error) {
         console.error('获取数据失败:', error);

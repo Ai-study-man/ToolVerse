@@ -28,24 +28,10 @@ export class DataSyncService {
         }
       }
 
-      // 客户端通过API获取数据，服务端直接调用NotionService
+      // 客户端和服务端都直接调用NotionService
       let tools: Tool[];
-      if (typeof window !== 'undefined') {
-        // 客户端：通过API获取数据
-        console.log('Fetching tools data from API');
-        const response = await fetch('/api/tools');
-        const result = await response.json();
-        
-        if (!result.success) {
-          throw new Error(result.error || 'API call failed');
-        }
-        
-        tools = result.data.tools;
-      } else {
-        // 服务端：直接调用NotionService
-        console.log('Fetching fresh tools data from Notion');
-        tools = await NotionToolsService.getAllPublishedTools();
-      }
+      console.log('Fetching fresh tools data from Notion');
+      tools = await NotionToolsService.getAllPublishedTools();
       
       // 更新缓存
       this.updateCache({ tools, categories: [] });

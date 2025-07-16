@@ -22,25 +22,11 @@ function ToolsContent() {
     
     const fetchData = async () => {
       try {
-        // 直接调用API，跳过缓存
-        const [toolsResponse, categoriesResponse] = await Promise.all([
-          fetch('/api/tools?direct=true', { cache: 'no-store' }),
-          fetch('/api/categories?direct=true', { cache: 'no-store' })
+        // 直接使用 DataSyncService 获取数据
+        const [toolsData, categoriesData] = await Promise.all([
+          DataSyncService.getTools(),
+          DataSyncService.getCategories()
         ]);
-        
-        // 检查响应状态
-        if (!toolsResponse.ok) {
-          console.error('Tools API failed with status:', toolsResponse.status);
-        }
-        if (!categoriesResponse.ok) {
-          console.error('Categories API failed with status:', categoriesResponse.status);
-        }
-        
-        const toolsResult = toolsResponse.ok ? await toolsResponse.json() : { success: false };
-        const categoriesResult = categoriesResponse.ok ? await categoriesResponse.json() : { success: false };
-        
-        const toolsData = toolsResult.success ? toolsResult.data.tools : [];
-        const categoriesData = categoriesResult.success ? categoriesResult.data.categories : [];
         
         console.log('Tools page - fetched tools data:', toolsData.length);
         console.log('Tools page - fetched categories data:', categoriesData.length);

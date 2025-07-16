@@ -32,65 +32,35 @@ export default function Home() {
       try {
         console.log('Starting to fetch homepage data...');
         
-        // 使用并行请求但添加超时控制
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
-        
-        const [categoriesResponse, toolsResponse] = await Promise.allSettled([
-          fetch('/api/categories?direct=true', { 
-            cache: 'no-store',
-            signal: controller.signal
-          }),
-          fetch('/api/tools?direct=true&limit=50', { // 限制初始加载的工具数量
-            cache: 'no-store',
-            signal: controller.signal
-          })
+        // 直接使用 DataSyncService 获取数据
+        const [categoriesData, toolsData] = await Promise.all([
+          DataSyncService.getCategories(),
+          DataSyncService.getTools()
         ]);
         
-        clearTimeout(timeoutId);
-        
         // 处理分类数据
-        if (categoriesResponse.status === 'fulfilled' && categoriesResponse.value.ok) {
-          const categoriesResult = await categoriesResponse.value.json();
-          if (categoriesResult.success) {
-            setCategories(categoriesResult.data.categories || []);
-          }
-        } else {
-          console.warn('Categories API failed, using empty array');
-          setCategories([]);
-        }
+        setCategories(categoriesData || []);
         
         // 处理工具数据
-        if (toolsResponse.status === 'fulfilled' && toolsResponse.value.ok) {
-          const toolsResult = await toolsResponse.value.json();
-          if (toolsResult.success) {
-            const toolsData = toolsResult.data.tools || [];
-            // 获取前6个工具作为特色工具，优先显示有本地logo的工具
-            const featuredToolsData = toolsData
-              .sort((a: Tool, b: Tool) => {
-                // 优先显示有本地logo的工具
-                const aHasLocalLogo = a.logo?.startsWith('/logos/') || false;
-                const bHasLocalLogo = b.logo?.startsWith('/logos/') || false;
-                if (aHasLocalLogo && !bHasLocalLogo) return -1;
-                if (!aHasLocalLogo && bHasLocalLogo) return 1;
-                return 0;
-              })
-              .slice(0, 6);
-            
-            setFeaturedTools(featuredToolsData);
-            setAllTools(toolsData);
-          }
-        } else {
-          console.warn('Tools API failed, using empty arrays');
-          setFeaturedTools([]);
-          setAllTools([]);
-        }
+        const limitedToolsData = toolsData.slice(0, 50); // 限制初始加载的工具数量
+        
+        // 获取前6个工具作为特色工具，优先显示有本地logo的工具
+        const featuredToolsData = limitedToolsData
+          .sort((a: Tool, b: Tool) => {
+            // 优先显示有本地logo的工具
+            const aHasLocalLogo = a.logo?.startsWith('/logos/') || false;
+            const bHasLocalLogo = b.logo?.startsWith('/logos/') || false;
+            if (aHasLocalLogo && !bHasLocalLogo) return -1;
+            if (!aHasLocalLogo && bHasLocalLogo) return 1;
+            return 0;
+          })
+          .slice(0, 6);
+        
+        setFeaturedTools(featuredToolsData);
+        setAllTools(limitedToolsData);
+        
       } catch (error) {
-        if (error instanceof Error && error.name === 'AbortError') {
-          console.warn('Request timed out');
-        } else {
-          console.error('Error fetching data:', error);
-        }
+        console.error('Error fetching data:', error);
         // 确保设置默认值
         setCategories([]);
         setFeaturedTools([]);

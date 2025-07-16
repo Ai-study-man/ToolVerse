@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 暂时禁用静态导出，先让构建通过
+  // output: 'export', 
+  trailingSlash: true,
   images: {
     remotePatterns: [
       {
@@ -7,8 +10,6 @@ const nextConfig = {
         hostname: '**',
       }
     ],
-    formats: ['image/webp', 'image/avif'],
-    minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
