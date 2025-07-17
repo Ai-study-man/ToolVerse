@@ -53,23 +53,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body suppressHydrationWarning={true}>
-        {/* Google AdSense */}
-        <Script
+      <head>
+        {/* Google AdSense - 直接嵌入确保爬虫可以检测 */}
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4372695356377122"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        
+        ></script>
         {/* Google Analytics */}
-        <Script
-          strategy="afterInteractive"
+        <script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=G-TTK01C8NN5"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
+        ></script>
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -79,6 +75,8 @@ export default function RootLayout({
             `,
           }}
         />
+      </head>
+      <body suppressHydrationWarning={true}>
         {children}
       </body>
     </html>
