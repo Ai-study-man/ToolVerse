@@ -370,7 +370,7 @@ export default function AdvancedSearch({ tools, categories, onSearchResults, cla
           className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-primary-500"
         >
           <option value="">All Categories</option>
-          {categories.map(category => (
+          {Array.isArray(categories) && categories.map(category => (
             <option key={category.id} value={category.name}>
               {category.name}
             </option>

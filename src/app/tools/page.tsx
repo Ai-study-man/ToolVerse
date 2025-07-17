@@ -16,27 +16,74 @@ function ToolsContent() {
   const [loading, setLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
 
-  // 初始化数据
+  // 初始化数据和处理URL参数
   useEffect(() => {
     setIsClient(true);
     
     const fetchData = async () => {
       try {
-        // 直接使用 DataSyncService 获取数据
-        const [toolsData, categoriesData] = await Promise.all([
-          DataSyncService.getTools(),
-          DataSyncService.getCategories()
+        console.log('🚀 开始获取工具和分类数据...');
+        
+        // 直接调用API而不是通过DataSyncService
+        const [toolsResponse, categoriesResponse] = await Promise.all([
+          fetch('/api/tools', { cache: 'no-cache' }),
+          fetch('/api/categories', { cache: 'no-cache' })
         ]);
         
-        console.log('Tools page - fetched tools data:', toolsData.length);
-        console.log('Tools page - fetched categories data:', categoriesData.length);
+        if (!toolsResponse.ok) {
+          throw new Error(`Tools API failed: ${toolsResponse.statusText}`);
+        }
+        if (!categoriesResponse.ok) {
+          throw new Error(`Categories API failed: ${categoriesResponse.statusText}`);
+        }
+        
+        const toolsData = await toolsResponse.json();
+        const categoriesData = await categoriesResponse.json();
+        
+        console.log('✅ Tools page - 直接API获取到工具数据:', toolsData.length, '个');
+        console.log('✅ Tools page - 直接API获取到分类数据:', categoriesData.length, '个');
         
         setTools(toolsData);
         setCategories(categoriesData);
-        setFilteredTools(toolsData);
+        
+        // 立即进行URL参数过滤
+        const category = searchParams.get('category');
+        const search = searchParams.get('search');
+        
+        console.log('� [TOOLS PAGE] 立即过滤:');
+        console.log('- URL分类参数:', `"${category}"`);
+        console.log('- URL搜索参数:', `"${search}"`);
+        
+        let filtered = [...toolsData];
+        
+        // 按分类筛选
+        if (category) {
+          console.log(`🎯 开始分类筛选，查找分类: "${category}"`);
+          filtered = filtered.filter(tool => tool.category === category);
+          console.log(`📂 分类筛选 "${category}" 结果: ${filtered.length} 个工具`);
+          
+          if (filtered.length > 0) {
+            console.log('✅ 匹配的工具:', filtered.slice(0, 3).map(t => t.name));
+          }
+        }
+        
+        // 按搜索关键词筛选
+        if (search) {
+          const searchLower = search.toLowerCase();
+          filtered = filtered.filter(tool => 
+            tool.name.toLowerCase().includes(searchLower) ||
+            tool.description.toLowerCase().includes(searchLower) ||
+            tool.category.toLowerCase().includes(searchLower) ||
+            (tool.tags && tool.tags.some((tag: string) => tag.toLowerCase().includes(searchLower)))
+          );
+          console.log(`🔍 搜索筛选 "${search}": 找到 ${filtered.length} 个工具`);
+        }
+        
+        console.log('✅ 最终设置筛选结果:', filtered.length, '个工具');
+        setFilteredTools(filtered);
+        
       } catch (error) {
-        console.error('Error fetching data:', error);
-        // 降级处理：使用空数组
+        console.error('❌ Error fetching data:', error);
         setTools([]);
         setCategories([]);
         setFilteredTools([]);
@@ -46,59 +93,7 @@ function ToolsContent() {
     };
 
     fetchData();
-  }, []);
-
-  // 处理URL参数筛选
-  useEffect(() => {
-    if (!isClient || tools.length === 0) return;
-
-    const category = searchParams.get('category');
-    const search = searchParams.get('search');
-    
-    console.log('🔍 工具筛选调试信息:');
-    console.log('- URL分类参数:', category);
-    console.log('- URL搜索参数:', search);
-    console.log('- 总工具数:', tools.length);
-    console.log('- 所有分类列表:', Array.from(new Set(tools.map(t => t.category))));
-    console.log('- First 3 tools categories:', tools.slice(0, 3).map(t => `${t.name}: "${t.category}"`));
-    
-    let filtered = [...tools];
-    
-    // 按分类筛选
-    if (category) {
-      const originalCount = filtered.length;
-      filtered = filtered.filter(tool => tool.category === category);
-      console.log(`📂 分类筛选 "${category}":`, {
-        原始工具数: originalCount,
-        匹配工具数: filtered.length,
-        匹配的工具: filtered.slice(0, 5).map(t => t.name)
-      });
-      
-      // 如果没有找到匹配的工具，检查是否有相似的分类名
-      if (filtered.length === 0) {
-        const similarCategories = tools
-          .map(t => t.category)
-          .filter(cat => cat.toLowerCase().includes(category.toLowerCase()) || 
-                        category.toLowerCase().includes(cat.toLowerCase()));
-        console.log('❌ 未找到匹配分类，相似分类:', Array.from(new Set(similarCategories)));
-      }
-    }
-    
-    // 按搜索关键词筛选
-    if (search) {
-      const searchLower = search.toLowerCase();
-      filtered = filtered.filter(tool => 
-        tool.name.toLowerCase().includes(searchLower) ||
-        tool.description.toLowerCase().includes(searchLower) ||
-        tool.category.toLowerCase().includes(searchLower) ||
-        (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(searchLower)))
-      );
-      console.log(`🔍 搜索筛选 "${search}": 找到 ${filtered.length} 个工具`);
-    }
-    
-    console.log('✅ 最终筛选结果:', filtered.length, '个工具');
-    setFilteredTools(filtered);
-  }, [searchParams, tools, isClient]);
+  }, [searchParams]); // 依赖searchParams，这样URL变化时会重新运行
 
   // 处理搜索结果更新
   const handleSearchResults = (results: Tool[]) => {
