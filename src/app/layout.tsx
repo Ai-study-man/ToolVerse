@@ -40,6 +40,9 @@ export const metadata: Metadata = {
   verification: {
     google: 'your-google-verification-code',
   },
+  other: {
+    'google-analytics': 'G-TTK01C8NN5',
+  },
 }
 
 export default function RootLayout({
