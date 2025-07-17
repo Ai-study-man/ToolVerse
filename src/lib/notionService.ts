@@ -381,14 +381,15 @@ export class NotionToolsService {
    */
   static async getAllCategories() {
     try {
+      // 获取所有工具，不过滤状态
       const response = await notion.databases.query({
         database_id: TOOLS_DATABASE_ID,
-        filter: {
-          property: '状态',
-          status: {
-            equals: '进行中'
+        sorts: [
+          {
+            timestamp: 'last_edited_time',
+            direction: 'descending'
           }
-        }
+        ]
       });
 
       const categoryCount = new Map<string, number>();

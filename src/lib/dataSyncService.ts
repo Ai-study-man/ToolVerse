@@ -122,15 +122,21 @@ export class DataSyncService {
       }
       }
       
-      // 添加 toolCount 字段
-      const categories: Category[] = notionCategories.map(cat => ({
-        ...cat,
-        toolCount: 0 // 可以后续计算实际工具数量
-      }));
+      // 获取工具数据以计算分类中的工具数量
+      const allTools = await this.getTools();
+      
+      // 计算每个分类的工具数量
+      const categories: Category[] = notionCategories.map(cat => {
+        const toolCount = allTools.filter(tool => tool.category === cat.name).length;
+        return {
+          ...cat,
+          toolCount
+        };
+      });
       
       // 更新缓存
-      const tools = this.getCachedData()?.tools || [];
-      this.updateCache({ tools, categories });
+      const cachedTools = this.getCachedData()?.tools || [];
+      this.updateCache({ tools: cachedTools, categories });
       
       return categories;
     } catch (error) {
