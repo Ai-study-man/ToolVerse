@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import GoogleAnalytics from '../components/GoogleAnalytics'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: {
@@ -50,9 +50,23 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body suppressHydrationWarning={true}>
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        )}
+        {/* Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-TTK01C8NN5"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-TTK01C8NN5');
+            `,
+          }}
+        />
         {children}
       </body>
     </html>
