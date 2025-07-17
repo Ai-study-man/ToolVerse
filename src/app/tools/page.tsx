@@ -55,19 +55,33 @@ function ToolsContent() {
     const category = searchParams.get('category');
     const search = searchParams.get('search');
     
-    console.log('开始筛选工具:');
+    console.log('🔍 工具筛选调试信息:');
     console.log('- URL分类参数:', category);
     console.log('- URL搜索参数:', search);
     console.log('- 总工具数:', tools.length);
-    console.log('- First 3 tools categories:', tools.slice(0, 3).map(t => `${t.name}: ${t.category}`));
+    console.log('- 所有分类列表:', Array.from(new Set(tools.map(t => t.category))));
+    console.log('- First 3 tools categories:', tools.slice(0, 3).map(t => `${t.name}: "${t.category}"`));
     
     let filtered = [...tools];
     
     // 按分类筛选
     if (category) {
+      const originalCount = filtered.length;
       filtered = filtered.filter(tool => tool.category === category);
-      console.log(`Filtering by category "${category}", found ${filtered.length} tools`);
-      console.log('筛选结果:', filtered.map(t => t.name));
+      console.log(`📂 分类筛选 "${category}":`, {
+        原始工具数: originalCount,
+        匹配工具数: filtered.length,
+        匹配的工具: filtered.slice(0, 5).map(t => t.name)
+      });
+      
+      // 如果没有找到匹配的工具，检查是否有相似的分类名
+      if (filtered.length === 0) {
+        const similarCategories = tools
+          .map(t => t.category)
+          .filter(cat => cat.toLowerCase().includes(category.toLowerCase()) || 
+                        category.toLowerCase().includes(cat.toLowerCase()));
+        console.log('❌ 未找到匹配分类，相似分类:', Array.from(new Set(similarCategories)));
+      }
     }
     
     // 按搜索关键词筛选
@@ -79,9 +93,10 @@ function ToolsContent() {
         tool.category.toLowerCase().includes(searchLower) ||
         (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(searchLower)))
       );
-      console.log(`Filtering by search "${search}", found ${filtered.length} tools`);
+      console.log(`🔍 搜索筛选 "${search}": 找到 ${filtered.length} 个工具`);
     }
     
+    console.log('✅ 最终筛选结果:', filtered.length, '个工具');
     setFilteredTools(filtered);
   }, [searchParams, tools, isClient]);
 
