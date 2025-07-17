@@ -3,6 +3,14 @@ import Script from 'next/script'
 export default function Head() {
   return (
     <>
+      {/* Google AdSense */}
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4372695356377122"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
+      
       {/* Google Analytics */}
       <Script
         strategy="afterInteractive"

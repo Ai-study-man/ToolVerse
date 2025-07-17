@@ -42,6 +42,7 @@ export const metadata: Metadata = {
   },
   other: {
     'google-analytics': 'G-TTK01C8NN5',
+    'google-adsense-account': 'ca-pub-4372695356377122',
   },
 }
 
@@ -53,6 +54,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body suppressHydrationWarning={true}>
+        {/* Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4372695356377122"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
