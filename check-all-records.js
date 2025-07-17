@@ -1,5 +1,5 @@
 require('dotenv').config({ path: '.env.local' });
-const { Client } = require('@notion/client');
+const { Client } = require('@notionhq/client');
 
 const notion = new Client({
   auth: process.env.NOTION_API_TOKEN,
