@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdSense Test</title>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4372695356377122"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>AdSense测试页面</h1>
+    <p>这个页面用于测试Google AdSense代码是否正确加载。</p>
+    
+    <script>
+        // 检查AdSense是否加载
+        if (typeof adsbygoogle !== 'undefined') {
+            console.log('✅ AdSense脚本已加载');
+        } else {
+            console.log('❌ AdSense脚本未加载');
+        }
+        
+        // 检查网络请求
+        window.addEventListener('load', function() {
+            console.log('页面已加载，检查AdSense脚本...');
+            setTimeout(function() {
+                if (window.adsbygoogle) {
+                    console.log('✅ AdSense对象存在');
+                } else {
+                    console.log('❌ AdSense对象不存在');
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
