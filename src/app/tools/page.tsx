@@ -200,21 +200,56 @@ function ToolsContent() {
         {/* Simple search when filtering by category */}
         {searchParams.get('category') && (
           <div className="bg-white rounded-xl p-6 mb-8 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
                   {searchParams.get('category')} Tools
                 </h3>
                 <p className="text-gray-600 mt-1">
-                  Found {filteredTools.length} tools
+                  Found {filteredTools.length} tools in this category
                 </p>
               </div>
               <a 
                 href="/tools"
-                className="text-primary-600 hover:text-primary-700 font-medium"
+                className="text-primary-600 hover:text-primary-700 font-medium whitespace-nowrap"
               >
                 View All Tools →
               </a>
+            </div>
+            
+            {/* Category-specific search */}
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder={`Search in ${searchParams.get('category')} tools...`}
+                  className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  onChange={(e) => {
+                    const query = e.target.value.toLowerCase();
+                    if (query.trim()) {
+                      const categoryTools = tools.filter(tool => tool.category === searchParams.get('category'));
+                      const filtered = categoryTools.filter(tool => 
+                        tool.name.toLowerCase().includes(query) ||
+                        tool.description.toLowerCase().includes(query) ||
+                        (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(query)))
+                      );
+                      setFilteredTools(filtered);
+                    } else {
+                      // Reset to all tools in this category
+                      const categoryTools = tools.filter(tool => tool.category === searchParams.get('category'));
+                      setFilteredTools(categoryTools);
+                    }
+                  }}
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-2 text-sm text-gray-500">
+                Search within {searchParams.get('category')} tools by name, description, or tags
+              </div>
             </div>
           </div>
         )}

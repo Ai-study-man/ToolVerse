@@ -1,14 +1,27 @@
 import { NextResponse } from 'next/server';
-import DataSyncService from '@/lib/dataSyncService';
+import DataSyncService from '../../../lib/dataSyncService';
 
 export async function GET() {
   try {
-    const categories = await DataSyncService.getCategories();
-    return NextResponse.json(categories);
+    const [categories, tools] = await Promise.all([
+      DataSyncService.getCategories(),
+      DataSyncService.getTools()
+    ]);
+    
+    return NextResponse.json({
+      success: true,
+      data: {
+        categories,
+        totalToolCount: tools.length
+      }
+    });
   } catch (error) {
     console.error('Error fetching categories:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch categories' },
+      { 
+        success: false,
+        error: 'Failed to fetch categories' 
+      },
       { status: 500 }
     );
   }

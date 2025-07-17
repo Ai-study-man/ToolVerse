@@ -9,7 +9,7 @@ import { allTools as mockTools, categories as mockCategories } from '../data/moc
 export class DataSyncService {
   private static CACHE_KEY = 'toolverse_cached_data';
   private static CACHE_TIMESTAMP_KEY = 'toolverse_cache_timestamp';
-  private static CACHE_DURATION = 24 * 60 * 60 * 1000; // 24小时
+  private static CACHE_DURATION = 0; // 禁用缓存以便立即看到最新数据
 
   // 服务器端内存缓存
   private static memoryCache: { tools: Tool[], categories: Category[] } | null = null;
@@ -34,7 +34,13 @@ export class DataSyncService {
       if (typeof window !== 'undefined') {
         // 客户端：通过API获取工具
         console.log('Fetching tools data from API');
-        const response = await fetch('/api/tools');
+        const response = await fetch('/api/tools', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          cache: 'no-cache'
+        });
         if (!response.ok) {
           throw new Error(`API call failed: ${response.statusText}`);
         }
@@ -96,47 +102,60 @@ export class DataSyncService {
       if (typeof window !== 'undefined') {
         // 客户端：通过API获取分类
         console.log('Fetching categories data from API');
-        const response = await fetch('/api/categories');
-        const result = await response.json();
-        
-        if (!result.success) {
-          throw new Error(result.error || 'Categories API call failed');
+        try {
+          // 使用相对路径，避免端口问题
+          const apiUrl = '/api/categories';
+          const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            cache: 'no-cache' // 确保不缓存
+          });
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          
+          const result = await response.json();
+          
+          if (!result.success) {
+            throw new Error(result.error || 'Categories API call failed');
+          }
+          
+          notionCategories = result.data.categories || [];
+          console.log(`Successfully fetched ${notionCategories.length} categories from API`);
+          
+        } catch (fetchError) {
+          console.error('Categories API fetch failed:', fetchError);
+          // 直接返回默认分类，不要混合数据
+          console.log('Using default categories due to API failure');
+          return this.getDefaultCategories();
         }
+      } else {
+        // 服务端：直接调用NotionService
+        console.log('Fetching fresh categories data from Notion');
+        notionCategories = await NotionToolsService.getAllCategories();
         
-        notionCategories = result.data.categories || [];
-      } else {      // 服务端：直接调用NotionService
-      console.log('Fetching fresh categories data from Notion');
-      notionCategories = await NotionToolsService.getAllCategories();
-      
-      // 如果Notion返回的分类数量太少，使用mockData作为补充
-      if (notionCategories.length < 5) {
-        console.log(`Only ${notionCategories.length} categories from Notion, using mockData as backup`);
-        notionCategories = [...notionCategories, ...mockCategories];
-        
-        // 去重（基于name或slug）
-        const uniqueCategories = notionCategories.filter((cat, index, self) => 
-          index === self.findIndex(c => c.name === cat.name || c.slug === cat.slug)
-        );
-        notionCategories = uniqueCategories;
-        console.log(`Combined categories count: ${notionCategories.length}`);
-      }
+        // 如果Notion返回的分类数量太少，使用mockData作为补充
+        if (notionCategories.length < 5) {
+          console.log(`Only ${notionCategories.length} categories from Notion, using mockData as backup`);
+          notionCategories = [...notionCategories, ...mockCategories];
+          
+          // 去重（基于name或slug）
+          const uniqueCategories = notionCategories.filter((cat, index, self) => 
+            index === self.findIndex(c => c.name === cat.name || c.slug === cat.slug)
+          );
+          notionCategories = uniqueCategories;
+          console.log(`Combined categories count: ${notionCategories.length}`);
+        }
       }
       
-      // 获取工具数据以计算分类中的工具数量
-      const allTools = await this.getTools();
-      
-      // 计算每个分类的工具数量
-      const categories: Category[] = notionCategories.map(cat => {
-        const toolCount = allTools.filter(tool => tool.category === cat.name).length;
-        return {
-          ...cat,
-          toolCount
-        };
-      });
+      // 直接使用Notion返回的分类，不重新计算工具数量以避免循环依赖
+      const categories: Category[] = notionCategories;
       
       // 更新缓存
-      const cachedTools = this.getCachedData()?.tools || [];
-      this.updateCache({ tools: cachedTools, categories });
+      this.updateCache({ tools: [], categories });
       
       return categories;
     } catch (error) {
@@ -309,7 +328,7 @@ export class DataSyncService {
   }
 
   /**
-   * 获取默认分类（备用数据）
+   * 获取默认分类（备用数据）- 匹配实际的11个分类
    */
   private static getDefaultCategories(): Category[] {
     return [
@@ -319,7 +338,7 @@ export class DataSyncService {
         slug: 'writing-content',
         description: 'AI tools for content creation and writing assistance',
         icon: '✍️',
-        toolCount: 0
+        toolCount: 9
       },
       {
         id: 'design-art',
@@ -327,7 +346,63 @@ export class DataSyncService {
         slug: 'design-art',
         description: 'Creative AI tools for design and artistic work',
         icon: '🎨',
-        toolCount: 0
+        toolCount: 8
+      },
+      {
+        id: 'development',
+        name: 'Development',
+        slug: 'development',
+        description: 'AI tools for software development and coding',
+        icon: '💻',
+        toolCount: 7
+      },
+      {
+        id: 'business-analytics',
+        name: 'Business & Analytics',
+        slug: 'business-analytics',
+        description: 'AI solutions for business and data analytics',
+        icon: '📊',
+        toolCount: 8
+      },
+      {
+        id: 'marketing-seo',
+        name: 'Marketing & SEO',
+        slug: 'marketing-seo',
+        description: 'AI tools for marketing and search engine optimization',
+        icon: '�',
+        toolCount: 8
+      },
+      {
+        id: 'video-audio',
+        name: 'Video & Audio',
+        slug: 'video-audio',
+        description: 'AI tools for video and audio processing',
+        icon: '🎬',
+        toolCount: 7
+      },
+      {
+        id: 'language-translation',
+        name: 'Language & Translation',
+        slug: 'language-translation',
+        description: 'AI tools for language processing and translation',
+        icon: '🌐',
+        toolCount: 3
+      },
+      {
+        id: 'conversational-ai',
+        name: 'Conversational AI',
+        slug: 'conversational-ai',
+        description: 'AI chatbots and conversational tools',
+        icon: '🤖',
+        toolCount: 5
+      },
+      {
+        id: 'image-generation',
+        name: 'Image Generation',
+        slug: 'image-generation',
+        description: 'AI tools for generating and editing images',
+        icon: '🎨',
+        toolCount: 5
       },
       {
         id: 'productivity',
@@ -335,31 +410,15 @@ export class DataSyncService {
         slug: 'productivity',
         description: 'AI tools to boost your productivity and efficiency',
         icon: '⚡',
-        toolCount: 0
+        toolCount: 6
       },
       {
-        id: 'business',
-        name: 'Business',
-        slug: 'business',
-        description: 'AI solutions for business and enterprise',
-        icon: '💼',
-        toolCount: 0
-      },
-      {
-        id: 'developer-tools',
-        name: 'Developer Tools',
-        slug: 'developer-tools',
-        description: 'AI-powered development and coding tools',
-        icon: '⚙️',
-        toolCount: 0
-      },
-      {
-        id: 'data-analytics',
-        name: 'Data & Analytics',
-        slug: 'data-analytics',
-        description: 'AI tools for data analysis and insights',
-        icon: '📊',
-        toolCount: 0
+        id: 'code-development',
+        name: 'Code Development',
+        slug: 'code-development',
+        description: 'AI-powered coding and development tools',
+        icon: '�',
+        toolCount: 6
       }
     ];
   }

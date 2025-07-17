@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import DataSyncService from '@/lib/dataSyncService';
+import DataSyncService from '../../../lib/dataSyncService';
 
 export async function GET() {
   try {
