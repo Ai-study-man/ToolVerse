@@ -99,12 +99,14 @@ export default function Home() {
       'Conversational AI': '🤖',
       'Image Generation': '🎨', 
       'Code Development': '💻',
-      'Productivity': '⚡',
-      'Video & Audio': '🎬',
+      'Design & Art': '🎨',
+      'Development': '⚙️',
       'Writing & Content': '✍️',
-      'Language & Translation': '🌐',
       'Business & Analytics': '📊',
       'Marketing & SEO': '📈',
+      'Video & Audio': '�',
+      'Language & Translation': '🌐',
+      'Productivity': '⚡',
       'Finance': '💰',
       'Education': '📚'
     };
