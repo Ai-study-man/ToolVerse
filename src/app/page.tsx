@@ -104,7 +104,7 @@ export default function Home() {
       'Writing & Content': '✍️',
       'Business & Analytics': '📊',
       'Marketing & SEO': '📈',
-      'Video & Audio': '�',
+      'Video & Audio': '🎬',
       'Language & Translation': '🌐',
       'Productivity': '⚡',
       'Finance': '💰',
