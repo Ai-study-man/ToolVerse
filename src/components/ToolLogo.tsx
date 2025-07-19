@@ -31,7 +31,7 @@ const SIMPLE_LOGOS: Record<string, string> = {
   // Image Generation & Design - 使用官方logo API
   'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg', // 使用OpenAI官方logo
   'DALL-E': '/logos/OpenAI_Icon_0.jpeg', // 使用OpenAI官方logo
-  'Midjourney': '/logos/Midjourney.png',
+  'Midjourney': '/logos/midjourney.png',
   'Stable Diffusion': 'https://stability.ai/favicon.ico',
   'Leonardo AI': 'https://app.leonardo.ai/favicon.ico',
   'Adobe Firefly': 'https://www.adobe.com/favicon.ico',
@@ -80,7 +80,7 @@ const SIMPLE_LOGOS: Record<string, string> = {
   // Business & Analytics
   'Tableau AI': 'https://www.tableau.com/favicon.ico',
   'H2O.ai': 'https://h2o.ai/favicon.ico',
-  'Crystal': '/logos/Crystal.png',
+  'Crystal': '/logos/crystal.png',
   'Dataiku': 'https://www.dataiku.com/favicon.ico',
   'MonkeyLearn': 'https://monkeylearn.com/favicon.ico',
   'Qlik Sense AI': '/logos/Qlik.jpeg',
@@ -90,9 +90,9 @@ const SIMPLE_LOGOS: Record<string, string> = {
   // Marketing & SEO
   'Alli AI': '/logos/Alli AI.jpeg',
   'BrightEdge': 'https://www.brightedge.com/favicon.ico',
-  'Clearscope': '/logos/Clearscope.jpeg',
+  'Clearscope': '/logos/clearscope.jpeg',
   'ContentKing': 'https://www.contentkingapp.com/favicon.ico',
-  'Frase': '/logos/Frase.png',
+  'Frase': '/logos/frase.png',
   'MarketMuse': 'https://www.marketmuse.com/favicon.ico',
   'Semrush AI': 'https://www.semrush.com/favicon.ico',
   'Surfer SEO': '/logos/Surfer.jpeg'
@@ -104,7 +104,7 @@ const BRAND_COLORS: Record<string, string> = {
   'Claude': '/logos/claude.svg',
   'Google Gemini': '/logos/google-gemini.png',
   'GitHub Copilot': '#000000',
-  'Midjourney': '#000000',
+  'Midjourney': '/logos/midjourney.png',
   'DALL-E 2': '#10A37F',
   'Notion AI': '#000000',
   'Grammarly': '/logos/grammarly.svg',
@@ -141,7 +141,7 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Windsurf Editor': '🌊',
   'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg',
   'DALL-E': '/logos/OpenAI_Icon_0.jpeg',
-  'Midjourney': '/logos/Midjourney.png',
+  'Midjourney': '/logos/midjourney.png',
   'Stable Diffusion': '🎯',
   'Leonardo AI': '🖌️',
   'Adobe Firefly': '🔥',
@@ -180,7 +180,7 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Linguee': '📚',
   'Tableau AI': '📊',
   'H2O.ai': '💧',
-  'Crystal': '/logos/Crystal.png',
+  'Crystal': '/logos/crystal.png',
   'Dataiku': '📈',
   'MonkeyLearn': '🐵',
   'Qlik Sense AI': '/logos/Qlik.jpeg',
@@ -188,9 +188,9 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Medallia': '/logos/Medallia.jpeg',
   'Alli AI': '/logos/Alli AI.jpeg',
   'BrightEdge': '⭐',
-  'Clearscope': '/logos/Clearscope.jpeg',
+  'Clearscope': '/logos/clearscope.jpeg',
   'ContentKing': '👑',
-  'Frase': '/logos/Frase.png',
+  'Frase': '/logos/frase.png',
   'MarketMuse': '🎯',
   'Semrush AI': '📈',
   'Surfer SEO': '/logos/Surfer.jpeg'

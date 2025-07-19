@@ -24,45 +24,38 @@ export default function ToolDetailClient({ params }: PageProps) {
   useEffect(() => {
     setIsClient(true);
     
-    // 通过DataSyncService获取工具信息
+    // 从API获取工具信息
     const fetchTool = async () => {
       try {
         setLoading(true);
         setError(null);
-        // 暂时使用模拟数据，等构建成功后再修复
         console.log(`获取工具详情: ${params.id}`);
         
-        // 模拟工具数据
-        const mockTool: Tool = {
-          id: params.id,
-          name: 'Loading Tool',
-          description: 'Tool information is loading...',
-          shortDescription: 'Loading...',
-          website: '#',
-          logo: '',
-          category: 'General',
-          subcategory: '',
-          tags: [],
-          pricing: 'Loading...',
-          pricingModel: 'freemium',
-          features: [],
-          rating: 4.5,
-          reviewCount: 0,
-          createdAt: new Date().toISOString()
-        };
+        // 从API获取所有工具数据
+        const response = await fetch('/api/tools');
+        if (!response.ok) {
+          throw new Error('Failed to fetch tools');
+        }
         
-        setTool(mockTool);
-        console.log(`临时设置模拟工具数据`);
+        const tools = await response.json();
+        const foundTool = tools.find((t: Tool) => t.id === params.id);
+        
+        if (!foundTool) {
+          throw new Error('Tool not found');
+        }
+        
+        setTool(foundTool);
+        console.log(`成功获取工具详情:`, foundTool.name);
         
         // 记录访问工具详情页的行为
-        if (mockTool) {
+        if (foundTool) {
           const userId = 'guest-user'; // 暂时使用访客用户，后续替换为真实用户ID
           const searchQuery = new URLSearchParams(window.location.search).get('from_search');
           const sourcePage = document.referrer.includes('/tools') ? 'tools-page' : 
                             document.referrer.includes('/search') ? 'search-results' :
                             document.referrer === '' ? 'direct' : 'external';
           
-          logViewTool(userId, mockTool.id, sourcePage, searchQuery || undefined)
+          logViewTool(userId, foundTool.id, sourcePage, searchQuery || undefined)
             .catch(error => console.error('Failed to log tool view:', error));
         }
       } catch (error) {

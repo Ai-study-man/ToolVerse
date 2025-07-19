@@ -76,7 +76,8 @@ export default function ToolImage({ src, alt, className = '', name }: ToolImageP
       'Medallia': 'Medallia.jpeg',
       'Replit': 'Replit.jpeg',
       'Rytr': 'Rytr.jpeg',
-      'Surfer': 'Surfer.jpeg'
+      'Surfer': 'Surfer.jpeg',
+      'Writesonic': 'Writesonic.jpeg'
     };
     
     // 先尝试精确匹配
@@ -99,6 +100,7 @@ export default function ToolImage({ src, alt, className = '', name }: ToolImageP
       'stable diffusion': 'dreamstudio.png',
       'runway ml': 'runway-ml.jpeg',
       'copy.ai': 'Copy.ai_idhj7Th-aL_0.svg',
+      'writesonic': 'Writesonic.jpeg',
     };
     
     return lowerMapping[lowerName] || null;
