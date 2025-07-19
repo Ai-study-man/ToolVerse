@@ -99,9 +99,9 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`);
         break;
       default:
-        // 复制到剪贴板
+        // Copy to clipboard
         navigator.clipboard.writeText(shareUrl);
-        alert('链接已复制到剪贴板！');
+        alert('Link copied to clipboard!');
     }
   };
 
@@ -146,7 +146,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
           </button>
         ))}
         <span className="text-sm text-gray-500 ml-2">
-          {userRating > 0 ? `你的评分: ${userRating}` : `${tool.rating}/5`}
+          {userRating > 0 ? `Your rating: ${userRating}` : `${tool.rating}/5`}
         </span>
       </div>
 
@@ -164,7 +164,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
                 ? 'bg-red-100 text-red-600 hover:bg-red-200' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
-            title="收藏"
+            title="Favorite"
           >
             <svg className="w-4 h-4" fill={isFavorited ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -182,7 +182,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
                 ? 'bg-blue-100 text-blue-600 hover:bg-blue-200' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
-            title="点赞"
+            title="Like"
           >
             <svg className="w-4 h-4" fill={isLiked ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
@@ -193,7 +193,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
           <div className="relative group">
             <button
               className="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-              title="分享"
+              title="Share"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
@@ -218,7 +218,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
                 onClick={(e) => handleShare('copy', e)}
                 className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded-b-lg"
               >
-                复制链接
+                Copy Link
               </button>
             </div>
           </div>
@@ -229,7 +229,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
           onClick={handleVisitWebsite}
           className="px-4 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors"
         >
-          访问官网
+          Visit Website
         </button>
       </div>
     </div>

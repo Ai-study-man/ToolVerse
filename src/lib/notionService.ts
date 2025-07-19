@@ -276,7 +276,6 @@ const logoMappings: { [key: string]: string } = {
   'ChatGPT': '/logos/chatgpt.svg',
   'Claude': '/logos/claude.svg',
   'Clearscope': '/logos/Clearscope.jpeg',
-  'Codeium': '/logos/codium-ai.png',
   'ContentBot': '/logos/ContentBot.jpeg',
   'Copy.ai': '/logos/Copy.ai_idhj7Th-aL_0.svg',
   'Crystal': '/logos/Crystal.png',
@@ -306,27 +305,27 @@ const logoMappings: { [key: string]: string } = {
   'Zapier AI': '/logos/zapier-ai.jpeg',
   'Aider': '/logos/aider.png',
   
-  // 使用现有文件的映射
-  'Stable Diffusion': '/logos/dreamstudio.png', // 使用DreamStudio作为Stable Diffusion的logo
-  'CodeT5': '/logos/codium-ai.png', // 暂时使用类似的代码工具logo
-  'Playground AI': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用OpenAI logo
-  
-  // 需要添加新logo文件的工具（暂时使用最接近的现有logo）
-  'Leonardo AI': '/logos/Midjourney.png', // 暂时使用另一个AI图像生成工具的logo
-  'Looka': '/logos/Canva_Logo_0.svg', // 暂时使用设计工具logo
-  'Notion AI': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'MonkeyLearn': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'Dataiku': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'Semrush AI': '/logos/Surfer.jpeg', // 使用类似的SEO工具logo
-  'ContentKing': '/logos/Surfer.jpeg', // 使用类似的SEO工具logo
-  'Perplexity AI': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'Otter.ai': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'Motion': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'Reclaim.ai': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'Krisp': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
-  'Windsurf Editor': '/logos/codium-ai.png', // 使用代码工具logo
-  'CodeT5+': '/logos/codium-ai.png', // 使用代码工具logo
-  'Sourcegraph Cody': '/logos/codium-ai.png', // 使用代码工具logo
+  // 需要官方logo的工具 - 使用临时SVG占位符
+  'Worldtune': '/logos/worldtune.svg',
+  'Stable Diffusion': '/logos/stable-diffusion.svg',
+  'Leonardo AI': '/logos/leonardo-ai.svg',
+  'Looka': '/logos/looka.svg', 
+  'CodeT5': '/logos/codet5.svg',
+  'Codeium': '/logos/codeium.svg',
+  'Notion AI': '/logos/notion-ai.svg',
+  'MonkeyLearn': '/logos/monkeylearn.svg',
+  'Dataiku': '/logos/dataiku.svg',
+  'Semrush AI': '/logos/semrush-ai.svg',
+  'ContentKing': '/logos/contentking.svg',
+  'Perplexity AI': '/logos/perplexity-ai.svg',
+  'Playground AI': '/logos/playground-ai.svg',
+  'Otter.ai': '/logos/otter-ai.svg',
+  'Motion': '/logos/motion.svg',
+  'Reclaim.ai': '/logos/reclaim-ai.svg',
+  'Krisp': '/logos/krisp.svg',
+  'Windsurf Editor': '/logos/windsurf.svg',
+  'CodeT5+': '/logos/code-t5-plus.svg',
+  'Sourcegraph Cody': '/logos/sourcegraph-cody.svg'
 };
 
 // 获取工具logo
@@ -339,6 +338,34 @@ function getToolLogo(toolName: string, notionLogoUrl: string): string {
   // 如果Notion有logo URL且不为空，使用Notion的logo
   if (notionLogoUrl && notionLogoUrl.trim() && !notionLogoUrl.startsWith('data:image/svg+xml')) {
     return notionLogoUrl;
+  }
+  
+  // 为缺失官方logo的工具提供临时备选方案
+  const tempMappings: { [key: string]: string } = {
+    'Worldtune': '/logos/OpenAI_Icon_0.jpeg',
+    'Stable Diffusion': '/logos/dreamstudio.png',
+    'Leonardo AI': '/logos/Midjourney.png',
+    'Looka': '/logos/Canva_Logo_0.svg',
+    'CodeT5': '/logos/codium-ai.png',
+    'Codeium': '/logos/codium-ai.png',
+    'Notion AI': '/logos/OpenAI_Icon_0.jpeg',
+    'MonkeyLearn': '/logos/OpenAI_Icon_0.jpeg',
+    'Dataiku': '/logos/OpenAI_Icon_0.jpeg',
+    'Semrush AI': '/logos/Surfer.jpeg',
+    'ContentKing': '/logos/Surfer.jpeg',
+    'Perplexity AI': '/logos/OpenAI_Icon_0.jpeg',
+    'Playground AI': '/logos/OpenAI_Icon_0.jpeg',
+    'Otter.ai': '/logos/OpenAI_Icon_0.jpeg',
+    'Motion': '/logos/OpenAI_Icon_0.jpeg',
+    'Reclaim.ai': '/logos/OpenAI_Icon_0.jpeg',
+    'Krisp': '/logos/OpenAI_Icon_0.jpeg',
+    'Windsurf Editor': '/logos/codium-ai.png',
+    'CodeT5+': '/logos/codium-ai.png',
+    'Sourcegraph Cody': '/logos/codium-ai.png'
+  };
+  
+  if (tempMappings[toolName]) {
+    return tempMappings[toolName];
   }
   
   // 否则生成默认logo

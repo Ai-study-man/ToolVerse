@@ -473,7 +473,7 @@ export default function AdvancedSearch({ tools, categories, onSearchResults, cla
       {recentSearches.length > 0 && !filters.query && (
         <div className="border-t border-gray-200 pt-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            最近搜索
+            Recent Searches
           </label>
           <div className="flex flex-wrap gap-2">
             {recentSearches.map((search, index) => (
@@ -492,7 +492,7 @@ export default function AdvancedSearch({ tools, categories, onSearchResults, cla
       {/* 搜索结果统计和清除 */}
       <div className="flex items-center justify-between pt-4 border-t border-gray-200">
         <span className="text-sm text-gray-600">
-          找到 {searchResults.length} 个工具
+          Found {searchResults.length} tools
         </span>
         
         {(filters.query || filters.category || filters.pricing || filters.tags.length > 0 || filters.useCase || filters.rating > 0) && (
@@ -500,7 +500,7 @@ export default function AdvancedSearch({ tools, categories, onSearchResults, cla
             onClick={clearFilters}
             className="text-sm text-primary-600 hover:text-primary-800 font-medium"
           >
-            清除所有过滤器
+            Clear All Filters
           </button>
         )}
       </div>

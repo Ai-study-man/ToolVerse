@@ -79,10 +79,10 @@ export default function ToolsPage() {
         {/* 页面标题 */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            AI 工具大全
+            AI Tools Directory
           </h1>
           <p className="text-lg text-gray-600 mb-6">
-            探索和发现 {tools.length}+ 个精选 AI 工具，涵盖各种应用场景和需求
+            Explore and discover {tools.length}+ curated AI tools covering various application scenarios and needs
           </p>
         </div>
 
@@ -137,20 +137,20 @@ export default function ToolsPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                未找到匹配的工具
+                No tools found
               </h3>
               <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                尝试调整搜索条件或过滤器，或者浏览所有可用的 AI 工具。
+                Try adjusting your search criteria or filters, or browse all available AI tools.
               </p>
               <div className="space-y-4">
                 <div className="text-sm text-gray-500">
-                  建议：
+                  Suggestions:
                 </div>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• 尝试更通用的关键词</li>
-                  <li>• 检查拼写是否正确</li>
-                  <li>• 移除一些过滤条件</li>
-                  <li>• 浏览不同的分类</li>
+                  <li>• Try more general keywords</li>
+                  <li>• Check spelling</li>
+                  <li>• Remove some filters</li>
+                  <li>• Browse different categories</li>
                 </ul>
               </div>
             </div>
@@ -160,7 +160,7 @@ export default function ToolsPage() {
           {!loading && filteredTools.length > 0 && filteredTools.length >= 20 && (
             <div className="text-center pt-8">
               <button className="bg-primary-600 text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium">
-                加载更多工具
+                Load More Tools
               </button>
             </div>
           )}
@@ -170,32 +170,32 @@ export default function ToolsPage() {
         {!loading && (
           <div className="mt-12 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              浏览统计
+              Browse Statistics
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-primary-600">
                   {tools.length}
                 </div>
-                <div className="text-sm text-gray-600">总工具数</div>
+                <div className="text-sm text-gray-600">Total Tools</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-secondary-600">
                   {categories.length}
                 </div>
-                <div className="text-sm text-gray-600">工具分类</div>
+                <div className="text-sm text-gray-600">Categories</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-accent-600">
                   {filteredTools.length}
                 </div>
-                <div className="text-sm text-gray-600">搜索结果</div>
+                <div className="text-sm text-gray-600">Search Results</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-gray-600">
                   {tools.filter(t => t.pricingModel === 'free').length}
                 </div>
-                <div className="text-sm text-gray-600">免费工具</div>
+                <div className="text-sm text-gray-600">Free Tools</div>
               </div>
             </div>
           </div>

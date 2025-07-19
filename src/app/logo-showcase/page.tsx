@@ -107,17 +107,17 @@ export default function LogoShowcase() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            🎨 AI工具官方Logo展示
+            🎨 AI Tools Official Logo Showcase
           </h1>
           <p className="text-xl text-gray-600">
-            展示所有{allTools.length}个AI工具的高质量官方logo
+            Showcase of high-quality official logos for {allTools.length}+ AI tools
           </p>
         </div>
 
         {Object.entries(groupedTools).map(([category, tools]) => (
           <div key={category} className="mb-12">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">
-              📂 {category} ({tools.length}个工具)
+              📂 {category} ({tools.length} tools)
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
               {tools.map((tool) => (
@@ -141,25 +141,25 @@ export default function LogoShowcase() {
         <div className="mt-16 text-center">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              ✨ Logo功能特性
+              ✨ Logo Features
             </h3>
             <div className="grid md:grid-cols-3 gap-6 text-left">
               <div>
-                <h4 className="font-semibold text-lg text-blue-600 mb-2">🎯 官方Logo</h4>
+                <h4 className="font-semibold text-lg text-blue-600 mb-2">🎯 Official Logos</h4>
                 <p className="text-gray-600">
-                  使用AI工具的官方高质量logo，确保品牌认知度和专业性
+                  Use high-quality official logos from AI tools to ensure brand recognition and professionalism
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-lg text-green-600 mb-2">🔄 智能备用</h4>
+                <h4 className="font-semibold text-lg text-green-600 mb-2">🔄 Smart Fallback</h4>
                 <p className="text-gray-600">
-                  当官方logo不可用时，自动生成美观的备用logo
+                  Automatically generate beautiful fallback logos when official logos are unavailable
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-lg text-purple-600 mb-2">📱 响应式</h4>
+                <h4 className="font-semibold text-lg text-purple-600 mb-2">📱 Responsive</h4>
                 <p className="text-gray-600">
-                  支持多种尺寸（sm/md/lg/xl），适配不同设备和场景
+                  Support multiple sizes (sm/md/lg/xl), adapting to different devices and scenarios
                 </p>
               </div>
             </div>
