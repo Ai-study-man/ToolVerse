@@ -16,9 +16,11 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <a href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">T</span>
-            </div>
+            <img 
+              src="/favicon.png" 
+              alt="ToolVerse" 
+              className="w-8 h-8 rounded-lg"
+            />
             <span className="text-xl font-bold text-gray-900">ToolVerse</span>
           </a>
 
