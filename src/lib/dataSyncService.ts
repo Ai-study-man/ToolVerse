@@ -402,7 +402,7 @@ export class DataSyncService {
         slug: 'image-generation',
         description: 'AI tools for generating and editing images',
         icon: '🎨',
-        toolCount: 5
+        toolCount: 5  // Match actual count from data
       },
       {
         id: 'productivity',
