@@ -265,6 +265,87 @@ function translateDescription(toolName: string, chineseText: string, isShort: bo
   return chineseText; // 如果没有翻译，返回原文
 }
 
+// Logo映射配置
+const logoMappings: { [key: string]: string } = {
+  // 现有的logo文件映射
+  'Alli AI': '/logos/Alli AI.jpeg',
+  'Blackbox AI': '/logos/Blackbox.png', 
+  'Calendly AI': '/logos/calendly-ai.png',
+  'Canva AI': '/logos/Canva_Logo_0.svg',
+  'Character.AI': '/logos/character-ai.png',
+  'ChatGPT': '/logos/chatgpt.svg',
+  'Claude': '/logos/claude.svg',
+  'Clearscope': '/logos/Clearscope.jpeg',
+  'Codeium': '/logos/codium-ai.png',
+  'ContentBot': '/logos/ContentBot.jpeg',
+  'Copy.ai': '/logos/Copy.ai_idhj7Th-aL_0.svg',
+  'Crystal': '/logos/Crystal.png',
+  'DeepSeek': '/logos/deepseek.png',
+  'Descript': '/logos/descript.jpeg',
+  'DreamStudio': '/logos/dreamstudio.png',
+  'ElevenLabs': '/logos/elevenlabs.jpeg',
+  'Flux AI': '/logos/flux-ai.png',
+  'Frase': '/logos/Frase.png',
+  'Google Gemini': '/logos/google-gemini.png',
+  'Grammarly': '/logos/grammarly.svg',
+  'Ideogram': '/logos/ideogram.png',
+  'Jasper AI': '/logos/jasper-ai.png',
+  'Loom AI': '/logos/loom-ai.jpeg',
+  'Medallia': '/logos/Medallia.jpeg',
+  'Midjourney': '/logos/Midjourney.png',
+  'Murf AI': '/logos/murf-ai.jpeg',
+  'OpenAI': '/logos/OpenAI_Icon_0.jpeg',
+  'Pictory AI': '/logos/pictory-ai.jpeg',
+  'Qlik Sense AI': '/logos/Qlik.jpeg',
+  'Replit AI': '/logos/Replit.jpeg',
+  'Runway ML': '/logos/runway-ml.jpeg',
+  'Rytr': '/logos/Rytr.jpeg',
+  'Surfer SEO': '/logos/Surfer.jpeg',
+  'Synthesia': '/logos/synthesia.png',
+  'Writesonic': '/logos/Writesonic.jpeg',
+  'Zapier AI': '/logos/zapier-ai.jpeg',
+  'Aider': '/logos/aider.png',
+  
+  // 使用现有文件的映射
+  'Stable Diffusion': '/logos/dreamstudio.png', // 使用DreamStudio作为Stable Diffusion的logo
+  'CodeT5': '/logos/codium-ai.png', // 暂时使用类似的代码工具logo
+  'Playground AI': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用OpenAI logo
+  
+  // 需要添加新logo文件的工具（暂时使用最接近的现有logo）
+  'Leonardo AI': '/logos/Midjourney.png', // 暂时使用另一个AI图像生成工具的logo
+  'Looka': '/logos/Canva_Logo_0.svg', // 暂时使用设计工具logo
+  'Notion AI': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'MonkeyLearn': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'Dataiku': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'Semrush AI': '/logos/Surfer.jpeg', // 使用类似的SEO工具logo
+  'ContentKing': '/logos/Surfer.jpeg', // 使用类似的SEO工具logo
+  'Perplexity AI': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'Otter.ai': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'Motion': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'Reclaim.ai': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'Krisp': '/logos/OpenAI_Icon_0.jpeg', // 暂时使用AI logo
+  'Windsurf Editor': '/logos/codium-ai.png', // 使用代码工具logo
+  'CodeT5+': '/logos/codium-ai.png', // 使用代码工具logo
+  'Sourcegraph Cody': '/logos/codium-ai.png', // 使用代码工具logo
+};
+
+// 获取工具logo
+function getToolLogo(toolName: string, notionLogoUrl: string): string {
+  // 首先检查本地logo映射
+  if (logoMappings[toolName]) {
+    return logoMappings[toolName];
+  }
+  
+  // 如果Notion有logo URL且不为空，使用Notion的logo
+  if (notionLogoUrl && notionLogoUrl.trim() && !notionLogoUrl.startsWith('data:image/svg+xml')) {
+    return notionLogoUrl;
+  }
+  
+  // 否则生成默认logo
+  const firstLetter = toolName.charAt(0).toUpperCase();
+  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='url(%23gradient)'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Inter, Arial, sans-serif' font-size='28' font-weight='bold' fill='white'%3E${firstLetter}%3C/text%3E%3C/svg%3E`;
+}
+
 // Notion工具数据转换为应用工具数据
 export function transformNotionToolToAppTool(page: PageObjectResponse): any {
   const properties = page.properties as unknown as NotionToolProperties;
@@ -291,11 +372,14 @@ export function transformNotionToolToAppTool(page: PageObjectResponse): any {
   // 生成工具ID（使用Notion页面ID或基于名称生成）
   const toolId = page.id.replace(/-/g, '');
 
-  // 获取Logo URL，如果没有则使用默认SVG
-  const logoUrl = getFiles(properties['官方Logo']);
+  // 获取工具名称
   const toolName = getTitle(properties.Name);
-  const firstLetter = toolName.charAt(0).toUpperCase();
-  const defaultLogo = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='url(%23gradient)'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Inter, Arial, sans-serif' font-size='28' font-weight='bold' fill='white'%3E${firstLetter}%3C/text%3E%3C/svg%3E`;
+  
+  // 获取Notion中的Logo URL
+  const notionLogoUrl = getFiles(properties['官方Logo']);
+  
+  // 使用新的logo获取逻辑
+  const logo = getToolLogo(toolName, notionLogoUrl);
 
   // 获取原始中文描述
   const originalShortDesc = getRichText(properties['简介']);
@@ -307,7 +391,7 @@ export function transformNotionToolToAppTool(page: PageObjectResponse): any {
     shortDescription: translateDescription(toolName, originalShortDesc, true),
     description: translateDescription(toolName, originalDescription, false),
     website: getUrl(properties['网址']),
-    logo: logoUrl || defaultLogo,
+    logo: logo,
     category: getSelect(properties['分类']),
     subcategory: getSelect(properties['子分类']) || undefined,
     tags: getMultiSelect(properties['标签']),
