@@ -40,6 +40,11 @@ export const metadata: Metadata = {
   verification: {
     google: 'your-google-verification-code',
   },
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
   other: {
     'google-analytics': 'G-TTK01C8NN5',
     'google-adsense-account': 'ca-pub-4372695356377122',
@@ -54,6 +59,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head>
+        {/* Favicon */}
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+        
         {/* Google AdSense - 直接嵌入确保爬虫可以检测 */}
         <script
           async
