@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除缓存 - ToolVerse</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f7fafc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2d3748; text-align: center; }
+        .status { margin: 15px 0; padding: 10px; border-radius: 6px; }
+        .success { background: #f0fff4; color: #22543d; border: 1px solid #9ae6b4; }
+        .warning { background: #fffbf0; color: #744210; border: 1px solid #f6e05e; }
+        button {
+            background: #4299e1;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        button:hover { background: #3182ce; }
+        .log { 
+            background: #1a202c; 
+            color: #e2e8f0; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-family: monospace; 
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 清除缓存工具</h1>
+        <p>如果您看到的工具数量不正确，点击下面的按钮清除缓存并刷新数据。</p>
+        
+        <button onclick="clearAllCaches()">清除所有缓存并刷新</button>
+        <button onclick="checkCurrentData()">检查当前数据</button>
+        <button onclick="forceRefresh()">强制刷新页面</button>
+        
+        <div id="log" class="log"></div>
+        
+        <div class="status success">
+            <strong>当前状态:</strong> Image Generation 类别应该显示 <strong>5 个工具</strong>
+        </div>
+        
+        <div class="status warning">
+            <strong>如果仍看到 10 个工具:</strong> 请按 Ctrl+Shift+R 进行硬刷新
+        </div>
+    </div>
+
+    <script>
+        const log = document.getElementById('log');
+        
+        function addLog(message) {
+            log.innerHTML += message + '\n';
+            log.scrollTop = log.scrollHeight;
+            console.log(message);
+        }
+        
+        // 清除所有可能的缓存
+        const clearAllCaches = () => {
+            addLog('🧹 开始清除所有缓存...');
+            
+            // 清除localStorage
+            try {
+                const keys = Object.keys(localStorage);
+                keys.forEach(key => {
+                    if (key.includes('toolverse') || key.includes('cache')) {
+                        localStorage.removeItem(key);
+                        addLog(`✅ 清除 localStorage: ${key}`);
+                    }
+                });
+            } catch (e) {
+                addLog('⚠️ localStorage 清除失败: ' + e.message);
+            }
+            
+            // 清除sessionStorage
+            try {
+                const keys = Object.keys(sessionStorage);
+                keys.forEach(key => {
+                    if (key.includes('toolverse') || key.includes('cache')) {
+                        sessionStorage.removeItem(key);
+                        addLog(`✅ 清除 sessionStorage: ${key}`);
+                    }
+                });
+            } catch (e) {
+                addLog('⚠️ sessionStorage 清除失败: ' + e.message);
+            }
+            
+            // 清除Service Worker缓存
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    for(let registration of registrations) {
+                        registration.unregister();
+                        addLog('✅ Service Worker 已注销');
+                    }
+                });
+            }
+            
+            addLog('🔄 3秒后自动刷新页面...');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 3000);
+        };
+        
+        // 检查当前数据
+        const checkCurrentData = async () => {
+            addLog('🔍 检查当前 API 数据...');
+            try {
+                const response = await fetch('/api/categories');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const imageGenCategory = result.data.categories.find(cat => cat.name === 'Image Generation');
+                    if (imageGenCategory) {
+                        addLog(`📊 Image Generation 类别: ${imageGenCategory.toolCount} 个工具`);
+                        if (imageGenCategory.toolCount === 5) {
+                            addLog('✅ API 数据正确!');
+                        } else {
+                            addLog('❌ API 数据异常!');
+                        }
+                    } else {
+                        addLog('❌ 未找到 Image Generation 类别');
+                    }
+                } else {
+                    addLog('❌ API 调用失败: ' + result.error);
+                }
+            } catch (error) {
+                addLog('❌ 网络错误: ' + error.message);
+            }
+        };
+        
+        // 强制刷新
+        const forceRefresh = () => {
+            addLog('🔄 强制刷新页面...');
+            window.location.reload(true);
+        };
+        
+        // 页面加载时自动检查
+        window.addEventListener('load', checkCurrentData);
+    </script>
+</body>
+</html>
