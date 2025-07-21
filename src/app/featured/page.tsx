@@ -209,7 +209,7 @@ export default function FeaturedPage() {
               <div className="text-4xl mb-4">🚀</div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Innovation</h3>
               <p className="text-gray-600">
-                Cutting-edge AI technologies that push the boundaries of what's possible.
+                Cutting-edge AI technologies that push the boundaries of what&apos;s possible.
               </p>
             </div>
           </div>

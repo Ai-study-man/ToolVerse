@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import ToolCard from '../components/ToolCard';
@@ -247,9 +248,11 @@ export default function Home() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                  <img 
+                  <Image 
                     src="/favicon.png" 
                     alt="ToolVerse" 
+                    width={32}
+                    height={32}
                     className="w-8 h-8 rounded-lg"
                   />
                 </div>

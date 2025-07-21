@@ -86,7 +86,7 @@ export default function TermsOfService() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">7. Disclaimers and Limitation of Liability</h2>
               <p className="text-gray-600 mb-4">
-                ToolVerse is provided on an "as is" and "as available" basis. We make no warranties, expressed or implied, 
+                ToolVerse is provided on an &quot;as is&quot; and &quot;as available&quot; basis. We make no warranties, expressed or implied, 
                 and hereby disclaim all other warranties including implied warranties of merchantability, fitness for a 
                 particular purpose, or non-infringement.
               </p>

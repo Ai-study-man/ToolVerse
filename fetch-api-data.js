@@ -2,12 +2,12 @@
 async function fetchToolData() {
   try {
     // 获取工具数据
-    const toolsResponse = await fetch('http://localhost:3000/api/tools');
+    const toolsResponse = await fetch('http://localhost:3001/api/tools');
     const tools = await toolsResponse.json();
     
-    console.log(`📊 API返回的总工具数量: ${tools.length}\n`);
+    console.log(`📊 API返回的总工具数�? ${tools.length}\n`);
     
-    // 按类别统计
+    // 按类别统�?
     const categoryStats = {};
     tools.forEach(tool => {
       const category = tool.category;
@@ -21,7 +21,7 @@ async function fetchToolData() {
       categoryStats[category].count++;
       categoryStats[category].tools.push(tool.name);
       
-      // 检查中文描述
+      // 检查中文描�?
       const chineseRegex = /[\u4e00-\u9fff]/;
       if (chineseRegex.test(tool.shortDescription || '')) {
         categoryStats[category].chineseDescriptions.push({
@@ -37,7 +37,7 @@ async function fetchToolData() {
       }
     });
     
-    console.log('📈 按类别统计 (来自API):\n');
+    console.log('📈 按类别统�?(来自API):\n');
     
     // 按需要的顺序显示相关类别
     const targetCategories = [
@@ -54,11 +54,11 @@ async function fetchToolData() {
         const stats = categoryStats[category];
         console.log(`🔸 ${category}: ${stats.count}个工具`);
         stats.tools.forEach(tool => {
-          console.log(`   • ${tool}`);
+          console.log(`   �?${tool}`);
         });
         
         if (stats.chineseDescriptions.length > 0) {
-          console.log(`   ❌ 发现${stats.chineseDescriptions.length}个中文描述:`);
+          console.log(`   �?发现${stats.chineseDescriptions.length}个中文描�?`);
           stats.chineseDescriptions.forEach(item => {
             console.log(`      - ${item.name}: ${item.description.substring(0, 50)}...`);
           });
@@ -67,8 +67,8 @@ async function fetchToolData() {
       }
     });
     
-    // 显示所有类别
-    console.log('🗂️ 所有类别:\n');
+    // 显示所有类�?
+    console.log('🗂�?所有类�?\n');
     Object.entries(categoryStats).sort(([,a], [,b]) => b.count - a.count).forEach(([category, stats]) => {
       console.log(`${category}: ${stats.count}个工具`);
     });
@@ -76,13 +76,13 @@ async function fetchToolData() {
     // 特别检查Image Generation
     const imageGenCategory = 'Image Generation - AI Tools';
     if (categoryStats[imageGenCategory]) {
-      console.log(`\n🖼️ ${imageGenCategory} 详情:`);
-      console.log(`实际工具数: ${categoryStats[imageGenCategory].count}`);
+      console.log(`\n🖼�?${imageGenCategory} 详情:`);
+      console.log(`实际工具�? ${categoryStats[imageGenCategory].count}`);
       console.log(`工具列表: ${categoryStats[imageGenCategory].tools.join(', ')}`);
     }
     
   } catch (error) {
-    console.error('❌ 获取API数据失败:', error.message);
+    console.error('�?获取API数据失败:', error.message);
   }
 }
 
