@@ -93,7 +93,7 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'BrightEdge': 'https://www.brightedge.com/favicon.ico',
   'Clearscope': '/logos/clearscope.jpeg',
   'ContentKing': 'https://www.contentkingapp.com/favicon.ico',
-  'Frase': '/logos/frase.png',
+  'Frase': '/logos/Frase.png',
   'MarketMuse': 'https://www.marketmuse.com/favicon.ico',
   'Semrush AI': 'https://www.semrush.com/favicon.ico',
   'Surfer SEO': '/logos/Surfer.jpeg'
@@ -192,7 +192,7 @@ const EMOJI_LOGOS: Record<string, string> = {
   'BrightEdge': '⭐',
   'Clearscope': '/logos/clearscope.jpeg',
   'ContentKing': '👑',
-  'Frase': '/logos/frase.png',
+  'Frase': '/logos/Frase.png',
   'MarketMuse': '🎯',
   'Semrush AI': '📈',
   'Surfer SEO': '/logos/Surfer.jpeg'
