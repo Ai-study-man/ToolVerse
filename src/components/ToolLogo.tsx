@@ -78,6 +78,7 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Linguee': 'https://www.linguee.com/favicon.ico',
   
   // Business & Analytics
+  'Chatsimple': '/logos/chatsimple.jpeg',
   'Tableau AI': 'https://www.tableau.com/favicon.ico',
   'H2O.ai': 'https://h2o.ai/favicon.ico',
   'Crystal': '/logos/crystal.png',
@@ -178,6 +179,7 @@ const EMOJI_LOGOS: Record<string, string> = {
   'DeepL': '🌐',
   'Google Translate AI': '🔄',
   'Linguee': '📚',
+  'Chatsimple': '💬',
   'Tableau AI': '📊',
   'H2O.ai': '💧',
   'Crystal': '/logos/crystal.png',

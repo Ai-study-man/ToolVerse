@@ -61,6 +61,75 @@ export const categories: Category[] = [
 
 export const featuredTools: Tool[] = [
   {
+    id: '238dcb13-a9b9-81ac-aecc-c371cab8b43e',
+    name: 'Chatsimple',
+    description: 'Intelligent customer service chatbot platform that automates business communications and enhances customer engagement through AI-powered conversations.',
+    shortDescription: 'AI-powered customer service and sales acceleration platform',
+    logo: '/logos/chatsimple.jpeg',
+    website: 'https://chatsimple.ai/?via=aitoolverse',
+    category: 'Business & Analytics',
+    subcategory: 'Customer Service',
+    pricingModel: 'paid',
+    pricing: 'Contact for pricing',
+    rating: 4.6,
+    reviewCount: 456,
+    tags: ['Customer Service', 'Sales', 'Lead Generation', 'Multilingual', 'Voice'],
+    features: [
+      'Website voice customer service',
+      '3x lead acquisition increase',
+      '2x high-quality meeting boost',
+      'Personalized follow-up and conversion',
+      'Support for 175+ languages'
+    ],
+    createdAt: '2024-01-15'
+  },
+  {
+    id: '238dcb13-a9b9-81dd-b308-e449a096bb99',
+    name: 'Frase',
+    description: 'Comprehensive SEO and content optimization platform that helps businesses create data-driven content strategies and improve search rankings.',
+    shortDescription: 'AI content creation and SEO optimization platform',
+    logo: '/logos/Frase.png',
+    website: 'https://www.frase.io/?via=aitoolverse',
+    category: 'Marketing & SEO',
+    subcategory: 'Content Optimization',
+    pricingModel: 'paid',
+    pricing: 'From $15/month',
+    rating: 4.5,
+    reviewCount: 723,
+    tags: ['SEO', 'Content Creation', 'Research', 'Optimization', 'Analytics'],
+    features: [
+      'AI content research and analysis',
+      'SEO-optimized content briefs',
+      'Content scoring and optimization',
+      'Competitor content analysis',
+      'SERP analysis and insights'
+    ],
+    createdAt: '2024-01-15'
+  },
+  {
+    id: '238dcb13-a9b9-814b-8dd6-d0117d20aae9',
+    name: 'Murf AI',
+    description: 'Advanced AI voice generation platform that creates natural-sounding voiceovers and audio content for professional multimedia projects.',
+    shortDescription: 'Professional AI voice synthesis and text-to-speech platform',
+    logo: '/logos/murf-ai.jpeg',
+    website: 'https://murf.ai/?lmref=aitoolverse',
+    category: 'Video & Audio',
+    subcategory: 'Voice Synthesis',
+    pricingModel: 'freemium',
+    pricing: 'Free / From $19/month',
+    rating: 4.7,
+    reviewCount: 891,
+    tags: ['Voice Synthesis', 'Text-to-Speech', 'Voiceover', 'Multilingual', 'Professional'],
+    features: [
+      'Natural human-like voices',
+      'Multiple language support',
+      'Voice customization controls',
+      'Professional audio quality',
+      'Video production integration'
+    ],
+    createdAt: '2024-01-15'
+  },
+  {
     id: '1',
     name: 'ChatGPT',
     description: 'ChatGPT is an AI chatbot developed by OpenAI that can engage in conversational dialogue and assist with a wide variety of tasks including writing, analysis, math, coding, and creative projects.',
