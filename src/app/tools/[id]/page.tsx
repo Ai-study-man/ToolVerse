@@ -2,7 +2,37 @@ import DataSyncService from '../../../lib/dataSyncService';
 import Header from '../../../components/Header';
 import ToolImage from '../../../components/ToolImage';
 import ToolActions from '../../../components/ToolActions';
+import StructuredData from '../../../components/StructuredData';
+import { generateToolMetadata } from '../../../lib/seoConfig';
 import { Tool } from '../../../types';
+import { Metadata } from 'next';
+
+// 生成动态元数据
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  try {
+    const tools = await DataSyncService.getTools();
+    const tool = tools.find(t => t.id === params.id);
+    
+    if (!tool) {
+      return {
+        title: '工具未找到 | ToolVerse',
+        description: '抱歉，您访问的AI工具页面不存在。',
+      };
+    }
+
+    return generateToolMetadata(tool);
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    return {
+      title: '工具详情 | ToolVerse',
+      description: 'ToolVerse - 发现最佳AI工具',
+    };
+  }
+}
 
 // 生成所有工具的静态参数
 export async function generateStaticParams() {
@@ -132,6 +162,22 @@ export default async function ToolDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      
+      {/* SEO结构化数据 */}
+      <StructuredData 
+        type="tool" 
+        data={{
+          name: tool.name,
+          description: tool.description,
+          category: tool.category,
+          pricing: tool.pricing,
+          rating: tool.rating,
+          tags: tool.tags,
+          logo: tool.logo,
+          website: tool.website,
+          pricingModel: tool.pricingModel
+        }} 
+      />
       
       {/* 面包屑导航 */}
       <div className="bg-white border-b border-gray-200">

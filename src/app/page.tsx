@@ -3,11 +3,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Head from 'next/head';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import ToolCard from '../components/ToolCard';
 import CategoryCard from '../components/CategoryCard';
 import { LoadingSkeleton } from '../components/LoadingSkeleton';
+import StructuredData from '../components/StructuredData';
 import DataSyncService from '../lib/dataSyncService';
 import { navigateToUrl } from '../lib/navigation';
 import { Tool, Category } from '../types';
@@ -135,8 +137,29 @@ export default function Home() {
   }, [featuredTools]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <>
+      {/* SEO结构化数据 */}
+      <Head>
+        <title>ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台</title>
+        <meta name="description" content="发现和使用最好的AI工具！ToolVerse提供500+AI工具详细评测、使用指南。包括ChatGPT、Midjourney、GitHub Copilot等热门AI工具，找到适合您业务和创意项目的AI解决方案。" />
+        <meta name="keywords" content="AI工具,人工智能工具,ChatGPT,Midjourney,AI绘画,AI写作,AI编程,AI工具大全,AI工具目录,AI工具评测" />
+        <link rel="canonical" href="https://toolverse.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台" />
+        <meta property="og:description" content="发现和使用最好的AI工具！提供500+AI工具详细评测、使用指南。" />
+        <meta property="og:url" content="https://toolverse.com" />
+        <meta property="og:image" content="https://toolverse.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ToolVerse - 发现最佳AI工具" />
+        <meta name="twitter:description" content="发现和使用最好的AI工具！提供500+AI工具详细评测。" />
+        <meta name="twitter:image" content="https://toolverse.com/og-image.png" />
+      </Head>
+      
+      <StructuredData type="website" data={{}} />
+      <StructuredData type="organization" data={{}} />
+      
+      <div className="min-h-screen bg-gray-50">
+        <Header />
       
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-20">
@@ -292,5 +315,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

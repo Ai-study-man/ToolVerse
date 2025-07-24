@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Header from '../../components/Header';
 import AdvancedSearch from '../../components/AdvancedSearch';
 import ToolCard from '../../components/ToolCard';
+import StructuredData from '../../components/StructuredData';
 import DataSyncService from '../../lib/dataSyncService';
 import { Tool, Category } from '../../types';
 
@@ -128,6 +129,16 @@ function ToolsContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      
+      {/* SEO结构化数据 */}
+      <StructuredData 
+        type="website" 
+        data={{
+          name: "AI工具大全",
+          description: "浏览ToolVerse收录的500+优质AI工具",
+          url: "https://toolverse.com/tools"
+        }} 
+      />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb Navigation */}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import CategoryCard from '../../components/CategoryCard';
+import StructuredData from '../../components/StructuredData';
 import { LoadingSkeleton } from '../../components/LoadingSkeleton';
 import DataSyncService from '../../lib/dataSyncService';
 import { Category } from '../../types';
@@ -37,6 +38,16 @@ export default function CategoriesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      
+      {/* SEO结构化数据 */}
+      <StructuredData 
+        type="website" 
+        data={{
+          name: "AI工具分类",
+          description: "按分类浏览AI工具：对话AI、图像生成、代码开发等",
+          url: "https://toolverse.com/categories"
+        }} 
+      />
       
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-16">
