@@ -9,6 +9,7 @@ import SearchBar from '../components/SearchBar';
 import ToolCard from '../components/ToolCard';
 import CategoryCard from '../components/CategoryCard';
 import { LoadingSkeleton } from '../components/LoadingSkeleton';
+import { ContentBanner, FooterBanner } from '../components/AdBanner';
 import StructuredData from '../components/StructuredData';
 import DataSyncService from '../lib/dataSyncService';
 import { navigateToUrl } from '../lib/navigation';
@@ -205,6 +206,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 内容广告 - 放置在分类和特色工具之间 */}
+      <section className="py-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-4">
+            <span className="text-xs text-gray-400 uppercase tracking-wide">Advertisement</span>
+          </div>
+          <ContentBanner />
+        </div>
+      </section>
+
       {/* Featured Tools Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -309,8 +320,17 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 ToolVerse. All rights reserved.</p>
+          <div className="border-t border-gray-700 mt-8 pt-8">
+            {/* Footer 广告 */}
+            <div className="mb-6">
+              <div className="text-center mb-4">
+                <span className="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
+              </div>
+              <FooterBanner />
+            </div>
+            <div className="text-center text-gray-400">
+              <p>&copy; 2024 ToolVerse. All rights reserved.</p>
+            </div>
           </div>
         </div>
       </footer>

@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Header from '../../components/Header';
 import AdvancedSearch from '../../components/AdvancedSearch';
 import ToolCard from '../../components/ToolCard';
+import { ContentBanner } from '../../components/AdBanner';
 import StructuredData from '../../components/StructuredData';
 import DataSyncService from '../../lib/dataSyncService';
 import { Tool, Category } from '../../types';
@@ -304,11 +305,32 @@ function ToolsContent() {
             </div>
           ) : filteredTools.length > 0 ? (
             // 工具网格
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredTools.slice(0, 6).map((tool) => (
+                  <ToolCard key={tool.id} tool={tool} />
+                ))}
+              </div>
+              
+              {/* 工具列表中间广告 */}
+              {filteredTools.length > 6 && (
+                <div className="my-8">
+                  <div className="text-center mb-4">
+                    <span className="text-xs text-gray-400 uppercase tracking-wide">Advertisement</span>
+                  </div>
+                  <ContentBanner />
+                </div>
+              )}
+              
+              {/* 剩余工具 */}
+              {filteredTools.length > 6 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredTools.slice(6).map((tool) => (
+                    <ToolCard key={tool.id} tool={tool} />
+                  ))}
+                </div>
+              )}
+            </>
           ) : (
             // 无结果状态
             <div className="text-center py-16">

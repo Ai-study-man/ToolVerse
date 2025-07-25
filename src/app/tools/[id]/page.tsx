@@ -2,6 +2,7 @@ import DataSyncService from '../../../lib/dataSyncService';
 import Header from '../../../components/Header';
 import ToolImage from '../../../components/ToolImage';
 import ToolActions from '../../../components/ToolActions';
+import { SidebarBanner, ContentBanner } from '../../../components/AdBanner';
 import StructuredData from '../../../components/StructuredData';
 import { generateToolMetadata } from '../../../lib/seoConfig';
 import { Tool } from '../../../types';
@@ -474,6 +475,24 @@ export default async function ToolDetailPage({ params }: PageProps) {
               </div>
             </div>
           </div>
+
+          {/* 内容中间广告 */}
+          <div className="lg:col-span-2">
+            <div className="my-8">
+              <div className="text-center mb-4">
+                <span className="text-xs text-gray-400 uppercase tracking-wide">Advertisement</span>
+              </div>
+              <ContentBanner />
+            </div>
+          </div>
+        </div>
+
+        {/* 侧边栏广告 */}
+        <div className="mt-8 lg:mt-0">
+          <div className="text-center mb-4">
+            <span className="text-xs text-gray-400 uppercase tracking-wide">Advertisement</span>
+          </div>
+          <SidebarBanner />
         </div>
       </div>
     </div>
