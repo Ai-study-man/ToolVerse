@@ -82,6 +82,15 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="shortcut icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
+        
+        {/* Ahrefs Analytics */}
+        <Script
+          id="ahrefs-analytics"
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="Y3EhGUnu3K8A0krIGV1Rdg"
+          strategy="afterInteractive"
+          async
+        />
       </head>
       <body suppressHydrationWarning={true}>
         {children}
