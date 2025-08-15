@@ -2,6 +2,7 @@ import DataSyncService from '../../../lib/dataSyncService';
 import Header from '../../../components/Header';
 import ToolImage from '../../../components/ToolImage';
 import ToolActions from '../../../components/ToolActions';
+import ReviewSection from '../../../components/ReviewSection';
 import { SidebarBanner, ContentBanner } from '../../../components/AdBanner';
 import StructuredData from '../../../components/StructuredData';
 import { generateToolMetadata } from '../../../lib/seoConfig';
@@ -354,6 +355,13 @@ export default async function ToolDetailPage({ params }: PageProps) {
                 </div>
               </div>
             )}
+
+            {/* 用户评论和评分系统 */}
+            <ReviewSection 
+              toolId={tool.id} 
+              toolName={tool.name}
+              className="mt-8"
+            />
           </div>
 
           {/* 右侧边栏 */}
