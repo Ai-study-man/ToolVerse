@@ -65,6 +65,9 @@ export const metadata: Metadata = {
     ],
   },
   manifest: '/manifest.json',
+  verification: {
+    google: '3dqJHfaHU8v1sPuS8FsnELHoY0IOGAexZlMKc7xC93Q',
+  },
   other: {
     'google-analytics': 'G-TTK01C8NN5',
     'google-adsense-account': 'ca-pub-4372695356377122',

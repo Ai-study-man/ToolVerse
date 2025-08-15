@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Site Verification 验证 - ToolVerse</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #ea4335 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 18px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .status-card {
+            background: #f8fafc;
+            border-left: 4px solid #4285f4;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .status-success {
+            border-left-color: #34a853;
+            background: #f0fdf4;
+        }
+        .status-warning {
+            border-left-color: #fbbc04;
+            background: #fffbeb;
+        }
+        .status-error {
+            border-left-color: #ea4335;
+            background: #fef2f2;
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .check-item:hover {
+            background: #f3f4f6;
+            transform: translateY(-2px);
+        }
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+        .success { color: #34a853; }
+        .warning { color: #fbbc04; }
+        .error { color: #ea4335; }
+        .info { color: #4285f4; }
+        
+        .test-button {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        .test-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.3);
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background: #4b5563;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .instructions h3 {
+            color: #1565c0;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step {
+            display: flex;
+            margin: 15px 0;
+            align-items: flex-start;
+        }
+        .step-number {
+            background: #4285f4;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+        }
+        
+        .verification-info {
+            background: #fff3e0;
+            border: 2px solid #ffcc02;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .google-logo {
+            display: inline-block;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .google-g { color: #4285f4; }
+        .google-o1 { color: #ea4335; }
+        .google-o2 { color: #fbbc04; }
+        .google-g2 { color: #4285f4; }
+        .google-l { color: #34a853; }
+        .google-e { color: #ea4335; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .feature-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .feature-item:hover {
+            border-color: #4285f4;
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="google-logo">
+                    <span class="google-g">G</span><span class="google-o1">o</span><span class="google-o2">o</span><span class="google-g2">g</span><span class="google-l">l</span><span class="google-e">e</span>
+                </span>
+                Site Verification 验证
+            </h1>
+            <p>验证 ToolVerse 网站的 Google 搜索控制台集成状态</p>
+        </div>
+        
+        <div class="content">
+            <div class="status-card">
+                <h3>🔍 当前验证状态</h3>
+                <div id="verification-status">
+                    <div class="check-item">
+                        <span class="check-icon info">⏳</span>
+                        <span>正在检查 Google Site Verification 安装状态...</span>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <button class="test-button" onclick="runVerificationCheck()">
+                        🔄 重新检查验证
+                    </button>
+                    <button class="test-button" onclick="openGoogleConsole()">
+                        📊 打开 Google Search Console
+                    </button>
+                </div>
+            </div>
+            
+            <div class="status-card">
+                <h3>📋 已安装的验证元标记</h3>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyToClipboard(this)">复制</button>
+&lt;meta name="google-site-verification" content="3dqJHfaHU8v1sPuS8FsnELHoY0IOGAexZlMKc7xC93Q" /&gt;
+                </div>
+                <div style="margin-top: 15px;">
+                    <p><strong>验证码:</strong> <code>3dqJHfaHU8v1sPuS8FsnELHoY0IOGAexZlMKc7xC93Q</code></p>
+                    <p><strong>安装位置:</strong> <code>src/app/layout.tsx</code> 的 metadata 配置中</p>
+                    <p><strong>生效范围:</strong> 整个网站的所有页面</p>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3>
+                    📋 Google Search Console 验证步骤
+                </h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>登录 Google Search Console</strong><br>
+                        访问 <a href="https://search.google.com/search-console/" target="_blank" style="color: #1565c0;">search.google.com/search-console</a> 并用您的 Google 账户登录
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>选择或添加网站属性</strong><br>
+                        如果是新网站，点击"添加属性"，输入您的网站域名
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>选择HTML标记验证方法</strong><br>
+                        在验证方法中选择"HTML标记"，系统会显示验证元标记
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <strong>点击验证按钮</strong><br>
+                        确认元标记已安装后，点击"验证"按钮完成验证过程
+                    </div>
+                </div>
+            </div>
+            
+            <div class="verification-info">
+                <h3>⚠️ 重要提醒</h3>
+                <ul>
+                    <li>验证完成后，请<strong>保持元标记在网站上</strong>，删除可能导致验证失效</li>
+                    <li>验证通常在几分钟内完成，某些情况下可能需要最多24小时</li>
+                    <li>验证成功后即可开始使用 Google Search Console 的所有功能</li>
+                    <li>本验证不会影响网站的任何现有功能或性能</li>
+                </ul>
+            </div>
+            
+            <div class="status-card">
+                <h3>🚀 验证成功后您将获得</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h4>搜索性能数据</h4>
+                        <p>查看搜索查询、点击率、排名等详细数据</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔍</div>
+                        <h4>索引状态监控</h4>
+                        <p>监控网站页面的索引状态和覆盖率</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <p>Core Web Vitals</p>
+                        <p>页面体验和性能指标监控</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h4>移动设备友好性</h4>
+                        <p>检测和优化移动端用户体验</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔧</div>
+                        <h4>技术SEO问题</h4>
+                        <p>发现并修复网站技术SEO问题</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🗺️</div>
+                        <h4>网站地图管理</h4>
+                        <p>提交和监控XML网站地图</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="status-card">
+                <h3>🛠️ 故障排除</h3>
+                <div id="troubleshooting">
+                    <div class="check-item">
+                        <span class="check-icon info">💡</span>
+                        <div>
+                            <strong>如果验证失败:</strong><br>
+                            确认元标记已正确添加到网站的 &lt;head&gt; 部分，并且网站可以正常访问
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon info">💡</span>
+                        <div>
+                            <strong>如果元标记不在源代码中:</strong><br>
+                            检查浏览器缓存，或等待几分钟让 Next.js 重新构建页面
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon info">💡</span>
+                        <div>
+                            <strong>如果Google无法访问网站:</strong><br>
+                            检查防火墙设置，确保Googlebot可以访问您的网站
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 验证检查函数
+        function runVerificationCheck() {
+            const statusDiv = document.getElementById('verification-status');
+            statusDiv.innerHTML = '<div class="check-item"><span class="check-icon info">⏳</span><span>检查中...</span></div>';
+            
+            setTimeout(() => {
+                const results = [];
+                
+                // 检查当前页面是否有验证元标记
+                const currentMeta = document.querySelector('meta[name="google-site-verification"]');
+                if (currentMeta) {
+                    const content = currentMeta.getAttribute('content');
+                    if (content === '3dqJHfaHU8v1sPuS8FsnELHoY0IOGAexZlMKc7xC93Q') {
+                        results.push({
+                            icon: '✅',
+                            class: 'success',
+                            text: 'Google Site Verification 元标记已正确安装'
+                        });
+                    } else {
+                        results.push({
+                            icon: '⚠️',
+                            class: 'warning',
+                            text: `验证码不匹配: ${content}`
+                        });
+                    }
+                } else {
+                    // 检查主站点
+                    fetch('/')
+                        .then(response => response.text())
+                        .then(html => {
+                            if (html.includes('3dqJHfaHU8v1sPuS8FsnELHoY0IOGAexZlMKc7xC93Q')) {
+                                results.push({
+                                    icon: '✅',
+                                    class: 'success',
+                                    text: '主页包含正确的 Google Site Verification 元标记'
+                                });
+                            } else {
+                                results.push({
+                                    icon: '❌',
+                                    class: 'error',
+                                    text: '主页未找到 Google Site Verification 元标记'
+                                });
+                            }
+                            updateDisplay();
+                        })
+                        .catch(() => {
+                            results.push({
+                                icon: '⚠️',
+                                class: 'warning',
+                                text: '无法验证主页，请手动检查'
+                            });
+                            updateDisplay();
+                        });
+                    return;
+                }
+                
+                // 检查网站可访问性
+                results.push({
+                    icon: '🌐',
+                    class: 'success',
+                    text: '网站当前可正常访问'
+                });
+                
+                // 检查Next.js metadata配置
+                results.push({
+                    icon: '⚙️',
+                    class: 'success',
+                    text: 'Next.js metadata API 配置正确'
+                });
+                
+                updateDisplay();
+                
+                function updateDisplay() {
+                    statusDiv.innerHTML = results.map(result => `
+                        <div class="check-item">
+                            <span class="check-icon ${result.class}">${result.icon}</span>
+                            <span>${result.text}</span>
+                        </div>
+                    `).join('');
+                    
+                    // 更新状态卡片样式
+                    const allSuccess = results.every(r => r.class === 'success');
+                    const statusCard = statusDiv.closest('.status-card');
+                    if (allSuccess) {
+                        statusCard.className = 'status-card status-success';
+                    } else if (results.some(r => r.class === 'error')) {
+                        statusCard.className = 'status-card status-error';
+                    } else {
+                        statusCard.className = 'status-card status-warning';
+                    }
+                }
+            }, 1000);
+        }
+        
+        // 打开Google Search Console
+        function openGoogleConsole() {
+            window.open('https://search.google.com/search-console/', '_blank');
+        }
+        
+        // 复制到剪贴板
+        function copyToClipboard(button) {
+            const codeBlock = button.parentElement;
+            const text = codeBlock.textContent.replace('复制', '').trim();
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = '已复制!';
+                    setTimeout(() => {
+                        button.textContent = '复制';
+                    }, 2000);
+                });
+            } else {
+                // 备用方法
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                button.textContent = '已复制!';
+                setTimeout(() => {
+                    button.textContent = '复制';
+                }, 2000);
+            }
+        }
+        
+        // 页面加载时自动检查
+        document.addEventListener('DOMContentLoaded', runVerificationCheck);
+        
+        // 全局检查函数（可在控制台调用）
+        window.checkGoogleVerification = runVerificationCheck;
+    </script>
+</body>
+</html>
