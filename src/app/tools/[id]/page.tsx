@@ -1,8 +1,10 @@
 import DataSyncService from '../../../lib/dataSyncService';
 import Header from '../../../components/Header';
 import ToolImage from '../../../components/ToolImage';
-import ToolActions from '../../../components/ToolActions';
+import EnhancedToolActions from '../../../components/EnhancedToolActions';
 import ReviewSection from '../../../components/ReviewSection';
+import UseCaseSection from '../../../components/UseCaseSection';
+import ToolComparison from '../../../components/ToolComparison';
 import { SidebarBanner, ContentBanner } from '../../../components/AdBanner';
 import StructuredData from '../../../components/StructuredData';
 import { generateToolMetadata } from '../../../lib/seoConfig';
@@ -272,10 +274,11 @@ export default async function ToolDetailPage({ params }: PageProps) {
                     </div>
                     
                     {/* 快速操作按钮 */}
-                    <ToolActions tool={{
+                    <EnhancedToolActions tool={{
                       name: tool.name,
                       website: tool.website,
-                      description: tool.description
+                      description: tool.description,
+                      pricing: tool.pricing
                     }} />
                   </div>
                 </div>
@@ -355,6 +358,15 @@ export default async function ToolDetailPage({ params }: PageProps) {
                 </div>
               </div>
             )}
+
+            {/* 使用场景说明 */}
+            <UseCaseSection tool={tool} />
+
+            {/* 同类工具对比 */}
+            <ToolComparison 
+              currentTool={tool} 
+              relatedTools={relatedTools}
+            />
 
             {/* 用户评论和评分系统 */}
             <ReviewSection 

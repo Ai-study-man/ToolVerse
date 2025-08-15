@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-// 官方logo映射 - 使用经过验证的高质量官方logo
+// Official logo mapping - using verified high-quality official logos
 const SIMPLE_LOGOS: Record<string, string> = {
-  // Conversational AI - 使用稳定的CDN和官方源
+  // Conversational AI - using stable CDN and official sources
   'ChatGPT': '/logos/chatgpt.svg',
   'Claude': '/logos/claude.svg',
   'Google Gemini': '/logos/google-gemini.png',
@@ -13,7 +13,7 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Perplexity AI': 'https://pplx.ai/favicon.ico',
   'DeepSeek': '/logos/deepseek.png',
   
-  // Code Development - 使用GitHub和官方CDN
+  // Code Development - using GitHub and official CDNs
   'GitHub Copilot': 'https://github.githubassets.com/favicons/favicon.png',
   'Tabnine': 'https://www.tabnine.com/favicon.ico',
   'Replit AI': '/logos/Replit.jpeg',
@@ -28,8 +28,8 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Sourcegraph Cody': 'https://about.sourcegraph.com/favicon.ico',
   'Windsurf Editor': 'https://codeium.com/favicon.svg',
   
-  // Image Generation & Design - 使用官方logo API
-  'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg', // 使用OpenAI官方logo
+  // Image Generation & Design - using official logo APIs
+  'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg', // using OpenAI official logo
   'DALL-E': '/logos/OpenAI_Icon_0.jpeg', // 使用OpenAI官方logo
   'Midjourney': '/logos/midjourney.png',
   'Stable Diffusion': 'https://stability.ai/favicon.ico',

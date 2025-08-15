@@ -16,25 +16,25 @@ export default function ReviewSection({ toolId, toolName, className = '' }: Revi
 
   const handleSubmitSuccess = () => {
     setShowForm(false);
-    // 刷新评论列表（通过改变key来重新挂载组件）
+    // Refresh review list (by changing key to remount component)
     setRefreshKey(prev => prev + 1);
   };
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* 评论显示区域 */}
+      {/* Review display area */}
       <ReviewDisplay 
         key={refreshKey}
         toolId={toolId} 
         toolName={toolName}
       />
       
-      {/* 写评论按钮或评论表单 */}
+      {/* Write review button or review form */}
       {!showForm ? (
         <div className="bg-white rounded-xl border border-gray-200 p-6 text-center">
-          <h4 className="text-lg font-semibold text-gray-900 mb-2">分享您的使用体验</h4>
+          <h4 className="text-lg font-semibold text-gray-900 mb-2">Share Your Experience</h4>
           <p className="text-gray-600 mb-4">
-            您的真实评价将帮助其他用户更好地了解 {toolName}
+            Your honest review will help other users better understand {toolName}
           </p>
           <button
             onClick={() => setShowForm(true)}
@@ -43,7 +43,7 @@ export default function ReviewSection({ toolId, toolName, className = '' }: Revi
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
-            写评论
+            Write Review
           </button>
         </div>
       ) : (

@@ -819,6 +819,27 @@ export class NotionToolsService {
   }
 
   /**
+   * 删除工具
+   */
+  static async deleteTool(id: string) {
+    try {
+      console.log(`正在删除工具 ID: ${id}`);
+      
+      // 使用 Notion API 删除页面（实际是归档）
+      await notion.pages.update({
+        page_id: id,
+        archived: true
+      });
+      
+      console.log(`✅ 工具 ${id} 已归档删除`);
+      return true;
+    } catch (error) {
+      console.error(`❌ 删除工具 ${id} 失败:`, error);
+      throw error;
+    }
+  }
+
+  /**
    * 获取数据库结构信息
    */
   static async getDatabaseSchema() {

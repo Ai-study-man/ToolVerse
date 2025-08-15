@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import DataSyncService from '@/lib/dataSyncService';
+import NotionService from '@/lib/notionService';
 
 interface Params {
   id: string;
@@ -24,6 +25,38 @@ export async function GET(
     console.error('Error fetching tool:', error);
     return NextResponse.json(
       { error: 'Failed to fetch tool' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Params }
+) {
+  try {
+    console.log(`删除工具请求: ID ${params.id}`);
+    
+    const notionService = new NotionService();
+    const result = await notionService.deleteTool(params.id);
+    
+    if (result) {
+      console.log(`✅ 成功删除工具 ID: ${params.id}`);
+      return NextResponse.json({ 
+        success: true, 
+        message: `Tool ${params.id} deleted successfully` 
+      });
+    } else {
+      console.log(`❌ 删除工具失败 ID: ${params.id}`);
+      return NextResponse.json(
+        { error: 'Failed to delete tool' },
+        { status: 500 }
+      );
+    }
+  } catch (error) {
+    console.error('Error deleting tool:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete tool', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
