@@ -44,6 +44,7 @@ function ToolsContent() {
         
         console.log('✅ Tools page - 直接API获取到工具数据:', toolsData.length, '个');
         console.log('✅ Tools page - 直接API获取到分类数据:', categoriesData.length, '个');
+        console.log('🔍 DEBUG: 原始工具数据前5个:', toolsData.slice(0, 5).map((t: Tool) => ({ name: t.name, category: t.category })));
         
         setTools(toolsData);
         setCategories(categoriesData);

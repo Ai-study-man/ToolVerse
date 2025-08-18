@@ -510,12 +510,51 @@ export function transformNotionToolToAppTool(page: PageObjectResponse): any {
     '日程安排': 'Scheduling',
     '语言': 'Language',
     '文档': 'Documentation',
-    '知识管理': 'Knowledge Management'
+    '知识管理': 'Knowledge Management',
+    
+    // Use Cases specific translations (avoiding duplicates)
+    '大规模优化': 'Large-scale Optimization',
+    '自动化营销': 'Marketing Automation',
+    '电子商务': 'E-commerce',
+    '社交媒体': 'Social Media',
+    '品牌管理': 'Brand Management',
+    '用户体验': 'User Experience',
+    '界面设计': 'UI Design',
+    '原型设计': 'Prototyping',
+    '测试优化': 'Testing & Optimization',
+    '性能监控': 'Performance Monitoring',
+    '安全防护': 'Security Protection',
+    '云计算': 'Cloud Computing',
+    '数据库管理': 'Database Management',
+    'API开发': 'API Development',
+    '移动开发': 'Mobile Development',
+    '网站建设': 'Website Development',
+    '前端开发': 'Frontend Development',
+    '后端开发': 'Backend Development',
+    '全栈开发': 'Full-stack Development',
+    'DevOps': 'DevOps',
+    '持续集成': 'Continuous Integration',
+    '版本控制': 'Version Control',
+    '代码审查': 'Code Review',
+    '文档管理': 'Documentation Management',
+    '学习平台': 'Learning Platform',
+    '在线教育': 'Online Education',
+    '技能培训': 'Skill Training',
+    '认证考试': 'Certification Exam',
+    '语言学习': 'Language Learning',
+    '翻译服务': 'Translation Service',
+    '国际化': 'Internationalization',
+    '本地化': 'Localization'
   };
   
   // 翻译标签函数
   const translateTags = (tags: string[]): string[] => {
     return tags.map(tag => tagTranslations[tag] || tag);
+  };
+
+  // 翻译适用场景函数
+  const translateUseCases = (useCases: string[]): string[] => {
+    return useCases.map(useCase => tagTranslations[useCase] || useCase);
   };
   
   const getNumber = (prop: any) => prop?.number || 0;
@@ -529,7 +568,7 @@ export function transformNotionToolToAppTool(page: PageObjectResponse): any {
     : [];
 
   // 处理适用场景
-  const useCases = getMultiSelect(properties['适用场景']);
+  const useCases = translateUseCases(getMultiSelect(properties['适用场景']));
 
   // 生成工具ID（使用Notion页面ID或基于名称生成）
   const toolId = page.id.replace(/-/g, '');
@@ -583,23 +622,53 @@ export class NotionToolsService {
    */
   static async getAllPublishedTools() {
     try {
-      // 首先尝试获取所有工具，不过滤状态
-      const response = await notion.databases.query({
-        database_id: TOOLS_DATABASE_ID,
-        sorts: [
-          {
-            timestamp: 'last_edited_time',
-            direction: 'descending'
-          }
-        ],
-        page_size: 100  // 增加页面大小以获取更多工具
-      });
+      let allResults: any[] = [];
+      let hasMore = true;
+      let nextCursor: string | undefined;
 
-      console.log(`Found ${response.results.length} total tools in Notion database`);
+      // 使用分页获取所有工具
+      while (hasMore) {
+        const queryOptions: any = {
+          database_id: TOOLS_DATABASE_ID,
+          sorts: [
+            {
+              timestamp: 'last_edited_time',
+              direction: 'descending'
+            }
+          ],
+          page_size: 100
+        };
 
-      return response.results
-        .filter((page): page is PageObjectResponse => 'properties' in page)
-        .map(transformNotionToolToAppTool);
+        // 如果有下一页游标，添加到查询中
+        if (nextCursor) {
+          queryOptions.start_cursor = nextCursor;
+        }
+
+        const response = await notion.databases.query(queryOptions);
+        
+        // 添加当前页面的结果
+        allResults = allResults.concat(response.results);
+        
+        // 检查是否还有更多页面
+        hasMore = response.has_more;
+        nextCursor = response.next_cursor || undefined;
+        
+        console.log(`Fetched ${response.results.length} tools (page), total so far: ${allResults.length}`);
+      }
+
+      console.log(`Found ${allResults.length} total tools in Notion database (all pages)`);
+
+      const filteredResults = allResults.filter((page): page is PageObjectResponse => 'properties' in page);
+      console.log(`After filtering: ${filteredResults.length} valid page objects`);
+
+      const transformedTools = filteredResults.map(transformNotionToolToAppTool);
+      console.log(`After transformation: ${transformedTools.length} tools`);
+
+      // 检查是否有无效工具被过滤
+      const validTools = transformedTools.filter(tool => tool && tool.name && tool.description);
+      console.log(`After validation: ${validTools.length} valid tools`);
+
+      return validTools;
 
     } catch (error) {
       console.error('Error fetching tools from Notion:', error);
@@ -612,20 +681,43 @@ export class NotionToolsService {
    */
   static async getAllTools() {
     try {
-      const response = await notion.databases.query({
-        database_id: TOOLS_DATABASE_ID,
-        sorts: [
-          {
-            timestamp: 'last_edited_time',
-            direction: 'descending'
-          }
-        ],
-        page_size: 100
-      });
+      let allResults: any[] = [];
+      let hasMore = true;
+      let nextCursor: string | undefined;
 
-      console.log(`Found ${response.results.length} total tools (all statuses) in Notion database`);
+      // 使用分页获取所有工具
+      while (hasMore) {
+        const queryOptions: any = {
+          database_id: TOOLS_DATABASE_ID,
+          sorts: [
+            {
+              timestamp: 'last_edited_time',
+              direction: 'descending'
+            }
+          ],
+          page_size: 100
+        };
 
-      return response.results
+        // 如果有下一页游标，添加到查询中
+        if (nextCursor) {
+          queryOptions.start_cursor = nextCursor;
+        }
+
+        const response = await notion.databases.query(queryOptions);
+        
+        // 添加当前页面的结果
+        allResults = allResults.concat(response.results);
+        
+        // 检查是否还有更多页面
+        hasMore = response.has_more;
+        nextCursor = response.next_cursor || undefined;
+        
+        console.log(`Fetched ${response.results.length} tools (page), total so far: ${allResults.length}`);
+      }
+
+      console.log(`Found ${allResults.length} total tools (all statuses) in Notion database (all pages)`);
+
+      return allResults
         .filter((page): page is PageObjectResponse => 'properties' in page)
         .map(transformNotionToolToAppTool);
 

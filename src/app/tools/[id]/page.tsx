@@ -5,6 +5,7 @@ import EnhancedToolActions from '../../../components/EnhancedToolActions';
 import ReviewSection from '../../../components/ReviewSection';
 import UseCaseSection from '../../../components/UseCaseSection';
 import ToolComparison from '../../../components/ToolComparison';
+import PricingDisplay from '../../../components/PricingDisplay';
 import { SidebarBanner, ContentBanner } from '../../../components/AdBanner';
 import StructuredData from '../../../components/StructuredData';
 import { generateToolMetadata } from '../../../lib/seoConfig';
@@ -361,6 +362,9 @@ export default async function ToolDetailPage({ params }: PageProps) {
 
             {/* 使用场景说明 */}
             <UseCaseSection tool={tool} />
+
+            {/* 价格信息和方案对比 */}
+            <PricingDisplay tool={tool} className="mt-8" />
 
             {/* 同类工具对比 */}
             <ToolComparison 

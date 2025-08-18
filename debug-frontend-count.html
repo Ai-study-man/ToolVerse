@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Frontend Tool Count</title>
+</head>
+<body>
+    <h1>Tool Count Debug</h1>
+    <div id="results"></div>
+    
+    <script>
+        async function checkToolCount() {
+            try {
+                console.log('🔍 开始检查工具数量...');
+                
+                // 检查API返回
+                const response = await fetch('http://localhost:3002/api/tools');
+                const apiTools = await response.json();
+                console.log('📊 API返回工具数量:', apiTools.length);
+                
+                // 检查是否有无效工具
+                const validTools = apiTools.filter(tool => 
+                    tool && 
+                    tool.name && 
+                    tool.description && 
+                    tool.url &&
+                    tool.category
+                );
+                console.log('✅ 有效工具数量:', validTools.length);
+                
+                // 检查每个分类的工具数量
+                const categoryCount = {};
+                validTools.forEach(tool => {
+                    const category = tool.category || '未分类';
+                    categoryCount[category] = (categoryCount[category] || 0) + 1;
+                });
+                
+                console.log('📈 分类分布:');
+                Object.entries(categoryCount).forEach(([category, count]) => {
+                    console.log(`  - ${category}: ${count} 个工具`);
+                });
+                
+                // 检查是否有重复的工具
+                const toolNames = validTools.map(tool => tool.name);
+                const uniqueNames = new Set(toolNames);
+                const duplicates = toolNames.length - uniqueNames.size;
+                console.log('🔄 重复工具数量:', duplicates);
+                
+                // 显示结果
+                document.getElementById('results').innerHTML = `
+                    <h2>检查结果</h2>
+                    <p><strong>API返回:</strong> ${apiTools.length} 个工具</p>
+                    <p><strong>有效工具:</strong> ${validTools.length} 个工具</p>
+                    <p><strong>重复工具:</strong> ${duplicates} 个</p>
+                    <p><strong>唯一工具:</strong> ${uniqueNames.size} 个</p>
+                    <h3>分类分布</h3>
+                    <ul>
+                        ${Object.entries(categoryCount).map(([cat, count]) => 
+                            `<li>${cat}: ${count} 个工具</li>`
+                        ).join('')}
+                    </ul>
+                `;
+                
+            } catch (error) {
+                console.error('❌ 检查失败:', error);
+                document.getElementById('results').innerHTML = `<p>检查失败: ${error.message}</p>`;
+            }
+        }
+        
+        // 页面加载完成后执行
+        window.addEventListener('load', checkToolCount);
+    </script>
+</body>
+</html>

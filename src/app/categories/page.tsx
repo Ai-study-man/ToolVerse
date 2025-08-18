@@ -3,37 +3,60 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import CategoryCard from '../../components/CategoryCard';
+import CategoryFilter from '../../components/CategoryFilter';
+import FilteredToolsGrid from '../../components/FilteredToolsGrid';
 import StructuredData from '../../components/StructuredData';
 import { LoadingSkeleton } from '../../components/LoadingSkeleton';
 import DataSyncService from '../../lib/dataSyncService';
-import { Category } from '../../types';
+import { Category, Tool } from '../../types';
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [tools, setTools] = useState<Tool[]>([]);
+  const [filteredTools, setFilteredTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchData = async () => {
       try {
-        const categoriesData = await DataSyncService.getCategories();
+        const [categoriesData, toolsData] = await Promise.all([
+          DataSyncService.getCategories(),
+          DataSyncService.getTools()
+        ]);
         setCategories(categoriesData);
+        setTools(toolsData);
+        setFilteredTools(toolsData);
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCategories();
+    fetchData();
   }, []);
 
-  const filteredCategories = categories.filter(category =>
+  // Update categories with filtered tool counts
+  const getCategoriesWithFilteredCounts = () => {
+    return categories.map(category => {
+      const toolCount = filteredTools.filter(tool => tool.category === category.name).length;
+      return { ...category, toolCount };
+    });
+  };
+
+  const categoriesWithCounts = getCategoriesWithFilteredCounts();
+  
+  const filteredCategories = categoriesWithCounts.filter(category =>
     category.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     category.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const totalTools = categories.reduce((sum, category) => sum + category.toolCount, 0);
+  const totalFilteredTools = filteredTools.length;
+
+  const handleFilterChange = (newFilteredTools: Tool[]) => {
+    setFilteredTools(newFilteredTools);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -65,7 +88,7 @@ export default function CategoriesPage() {
             </div>
             <div className="flex items-center justify-center space-x-2">
               <span className="w-2 h-2 bg-accent-300 rounded-full"></span>
-              <span>{totalTools} AI Tools</span>
+              <span>{totalFilteredTools} AI Tools</span>
             </div>
           </div>
         </div>
@@ -98,14 +121,65 @@ export default function CategoriesPage() {
         </div>
       </section>
 
-      {/* Categories Grid */}
+      {/* Advanced Filters Section */}
+      <section className="py-6 bg-gray-50 border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900 mb-1">Advanced Filters</h2>
+              <p className="text-sm text-gray-600">
+                Refine your search by pricing, license type, difficulty level, and more
+              </p>
+            </div>
+            <CategoryFilter
+              tools={tools}
+              categories={categories}
+              onFilterChange={handleFilterChange}
+            />
+          </div>
+          
+          {/* Filter Results Summary */}
+          {filteredTools.length !== tools.length && (
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-blue-800 font-medium">
+                  Showing {filteredTools.length} of {tools.length} tools
+                </span>
+                <span className="text-blue-600">
+                  ({categoriesWithCounts.filter(c => c.toolCount > 0).length} categories have matching tools)
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Categories Grid or Filtered Tools */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <LoadingSkeleton variant="category" count={6} />
             </div>
+          ) : filteredTools.length !== tools.length ? (
+            // Show filtered tools when filters are active
+            <>
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Filtered Results</h2>
+                <p className="text-gray-600">
+                  Showing tools that match your filter criteria, organized by category
+                </p>
+              </div>
+              <FilteredToolsGrid 
+                tools={filteredTools} 
+                categories={categories}
+              />
+            </>
           ) : filteredCategories.length > 0 ? (
+            // Show category overview when no filters are active
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredCategories.map((category) => (
@@ -128,12 +202,12 @@ export default function CategoriesPage() {
                     <div className="text-gray-600">Total Categories</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-secondary-600 mb-2">{totalTools}</div>
+                    <div className="text-3xl font-bold text-secondary-600 mb-2">{totalFilteredTools}</div>
                     <div className="text-gray-600">Total AI Tools</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-accent-600 mb-2">
-                      {Math.round(totalTools / categories.length)}
+                      {categories.length > 0 ? Math.round(totalFilteredTools / categories.length) : 0}
                     </div>
                     <div className="text-gray-600">Avg Tools per Category</div>
                   </div>

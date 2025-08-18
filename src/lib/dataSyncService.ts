@@ -1,4 +1,5 @@
-import { NotionToolsService } from './notionService';
+import NotionToolsService from './notionService';
+import { PricingDataProcessor, ENHANCED_PRICING_DATA } from './pricingDataProcessor';
 import { Tool, Category } from '../types';
 import { allTools as mockTools, categories as mockCategories } from '../data/mockData';
 
@@ -50,6 +51,9 @@ export class DataSyncService {
         console.log('Fetching fresh tools data from Notion');
         tools = await NotionToolsService.getAllPublishedTools();
       }
+      
+      // 增强工具数据，添加详细价格信息
+      tools = this.enhanceToolsWithPricing(tools);
       
       // 如果工具数量太少，使用mockData作为补充
       if (tools.length < 10) {
@@ -444,6 +448,30 @@ export class DataSyncService {
       toolsCount: cachedData?.tools?.length || 0,
       categoriesCount: cachedData?.categories?.length || 0
     };
+  }
+
+  /**
+   * 增强工具数据，添加详细价格信息
+   */
+  private static enhanceToolsWithPricing(tools: Tool[]): Tool[] {
+    return tools.map(tool => {
+      // 首先尝试使用预定义的增强数据
+      const enhancedData = ENHANCED_PRICING_DATA[tool.name];
+      if (enhancedData) {
+        const enhanced = PricingDataProcessor.enhanceToolWithPricing(tool, enhancedData);
+        console.log(`Enhanced pricing for ${tool.name}`);
+        return enhanced;
+      }
+      
+      // 对于"Contact for pricing"的工具，自动生成联系询价信息
+      if (tool.pricing.toLowerCase().includes('contact') ||
+          tool.pricing.toLowerCase().includes('quote') ||
+          tool.pricing.toLowerCase().includes('custom')) {
+        return PricingDataProcessor.autoEnhanceContactPricing(tool);
+      }
+      
+      return tool;
+    });
   }
 
   /**

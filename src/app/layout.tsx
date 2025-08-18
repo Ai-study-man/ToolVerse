@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     google: '3dqJHfaHU8v1sPuS8FsnELHoY0IOGAexZlMKc7xC93Q',
   },
   other: {
-    'google-analytics': 'G-TTK01C8NN5',
+    'google-analytics': 'G-68YE02ND1P',
     'google-adsense-account': 'ca-pub-4372695356377122',
   },
 }
@@ -85,6 +85,13 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="shortcut icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
+        
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-68YE02ND1P"
+          strategy="afterInteractive"
+          async
+        />
         
         {/* Ahrefs Analytics */}
         <Script
@@ -103,7 +110,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-TTK01C8NN5');
+            gtag('config', 'G-68YE02ND1P');
           `}
         </Script>
         

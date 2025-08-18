@@ -8,6 +8,91 @@ interface UseCaseSectionProps {
   className?: string;
 }
 
+// Chinese to English translation mapping for use cases
+const USE_CASE_TRANSLATIONS: { [key: string]: string } = {
+  '技术SEO': 'Technical SEO',
+  '大规模优化': 'Large-scale Optimization',
+  '自动化营销': 'Marketing Automation',
+  '内容创作': 'Content Creation',
+  '客户服务': 'Customer Service',
+  '数据分析': 'Data Analysis',
+  '图像生成': 'Image Generation',
+  '代码开发': 'Code Development',
+  '教育培训': 'Education & Training',
+  '营销推广': 'Marketing & Promotion',
+  '生产力工具': 'Productivity Tools',
+  '商业智能': 'Business Intelligence',
+  '人工智能': 'Artificial Intelligence',
+  '机器学习': 'Machine Learning',
+  '自然语言处理': 'Natural Language Processing',
+  '语音识别': 'Speech Recognition',
+  '文本分析': 'Text Analysis',
+  '智能写作': 'AI Writing',
+  '视频编辑': 'Video Editing',
+  '音频处理': 'Audio Processing',
+  '设计工具': 'Design Tools',
+  '项目管理': 'Project Management',
+  '团队协作': 'Team Collaboration',
+  '自动化流程': 'Process Automation',
+  '数据可视化': 'Data Visualization',
+  '商业分析': 'Business Analytics',
+  '电子商务': 'E-commerce',
+  '社交媒体': 'Social Media',
+  '品牌管理': 'Brand Management',
+  '用户体验': 'User Experience',
+  '界面设计': 'UI Design',
+  '原型设计': 'Prototyping',
+  '测试优化': 'Testing & Optimization',
+  '性能监控': 'Performance Monitoring',
+  '安全防护': 'Security Protection',
+  '云计算': 'Cloud Computing',
+  '数据库管理': 'Database Management',
+  'API开发': 'API Development',
+  '移动开发': 'Mobile Development',
+  '网站建设': 'Website Development',
+  '前端开发': 'Frontend Development',
+  '后端开发': 'Backend Development',
+  '全栈开发': 'Full-stack Development',
+  'DevOps': 'DevOps',
+  '持续集成': 'Continuous Integration',
+  '版本控制': 'Version Control',
+  '代码审查': 'Code Review',
+  '文档管理': 'Documentation Management',
+  '知识管理': 'Knowledge Management',
+  '学习平台': 'Learning Platform',
+  '在线教育': 'Online Education',
+  '技能培训': 'Skill Training',
+  '认证考试': 'Certification Exam',
+  '语言学习': 'Language Learning',
+  '翻译服务': 'Translation Service',
+  '多语言支持': 'Multilingual Support',
+  '国际化': 'Internationalization',
+  '本地化': 'Localization'
+};
+
+// Function to translate Chinese use cases to English
+const translateToEnglish = (text: string): string => {
+  // Check if it's already in English (contains English letters)
+  if (/[a-zA-Z]/.test(text)) {
+    return text;
+  }
+  
+  // Try direct translation first
+  if (USE_CASE_TRANSLATIONS[text]) {
+    return USE_CASE_TRANSLATIONS[text];
+  }
+  
+  // Fallback: check for partial matches
+  for (const [chinese, english] of Object.entries(USE_CASE_TRANSLATIONS)) {
+    if (text.includes(chinese)) {
+      return english;
+    }
+  }
+  
+  // If no translation found, return a generic English version
+  return text.replace(/[\u4e00-\u9fff]+/g, 'AI Solutions');
+};
+
 // Use case scenario configuration data
 const USE_CASE_SCENARIOS = {
   'DeepL': [
@@ -101,12 +186,17 @@ const getUseCases = (tool: Tool) => {
 
   // If no predefined cases, generate from tool's useCases or features field
   const useCases = tool.useCases || tool.features || [];
-  const fallbackScenarios = useCases.slice(0, 3).map((useCase, index) => ({
-    title: useCase,
-    description: `Leverage the powerful capabilities of ${tool.name} to achieve intelligent solutions for ${useCase}, improving work efficiency.`,
-    icon: ['🎯', '⚡', '🚀'][index] || '✨',
-    example: `Apply ${tool.name} for ${useCase} task processing in real projects`
-  }));
+  const fallbackScenarios = useCases.slice(0, 3).map((useCase, index) => {
+    // Translate Chinese use cases to English
+    const englishUseCase = translateToEnglish(useCase);
+    
+    return {
+      title: englishUseCase,
+      description: `Leverage the powerful capabilities of ${tool.name} to achieve intelligent solutions for ${englishUseCase}, improving work efficiency.`,
+      icon: ['🎯', '⚡', '🚀'][index] || '✨',
+      example: `Apply ${tool.name} for ${englishUseCase} task processing in real projects`
+    };
+  });
 
   return fallbackScenarios;
 };

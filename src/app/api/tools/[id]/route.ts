@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import DataSyncService from '@/lib/dataSyncService';
-import NotionService from '@/lib/notionService';
+import { NotionToolsService } from '@/lib/notionService';
 
 interface Params {
   id: string;
@@ -37,8 +37,7 @@ export async function DELETE(
   try {
     console.log(`删除工具请求: ID ${params.id}`);
     
-    const notionService = new NotionService();
-    const result = await notionService.deleteTool(params.id);
+    const result = await NotionToolsService.deleteTool(params.id);
     
     if (result) {
       console.log(`✅ 成功删除工具 ID: ${params.id}`);
