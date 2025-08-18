@@ -665,8 +665,28 @@ export class NotionToolsService {
       console.log(`After transformation: ${transformedTools.length} tools`);
 
       // 检查是否有无效工具被过滤
-      const validTools = transformedTools.filter(tool => tool && tool.name && tool.description);
+      const validTools: any[] = [];
+      const invalidTools: any[] = [];
+      
+      transformedTools.forEach(tool => {
+        if (tool && tool.name && tool.description) {
+          validTools.push(tool);
+        } else {
+          invalidTools.push({
+            id: tool?.id || 'unknown',
+            name: tool?.name || 'MISSING_NAME',
+            description: tool?.description || 'MISSING_DESCRIPTION',
+            hasName: !!tool?.name,
+            hasDescription: !!tool?.description
+          });
+        }
+      });
+      
       console.log(`After validation: ${validTools.length} valid tools`);
+      
+      if (invalidTools.length > 0) {
+        console.log(`❌ Found ${invalidTools.length} invalid tools:`, invalidTools.slice(0, 10));
+      }
 
       return validTools;
 

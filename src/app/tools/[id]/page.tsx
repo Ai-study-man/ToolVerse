@@ -64,7 +64,44 @@ export default async function ToolDetailPage({ params }: PageProps) {
   let relatedTools: Tool[] = [];
   try {
     const tools = await DataSyncService.getTools();
+    console.log(`🔍 [Tool Detail] Looking for tool with ID: ${params.id}`);
+    console.log(`📊 [Tool Detail] Total tools available: ${tools.length}`);
+    
+    // 首先按ID查找
     tool = tools.find(t => t.id === params.id) || null;
+    
+    // 如果按ID没找到，尝试按名称查找
+    if (!tool) {
+      const searchName = params.id.toLowerCase()
+        .replace(/-/g, ' ')      // 将 - 替换为空格
+        .replace(/\./g, '')      // 移除点号
+        .replace(/\s+/g, ' ')    // 标准化空格
+        .trim();
+      
+      tool = tools.find(t => {
+        const toolName = t.name.toLowerCase()
+          .replace(/\s+/g, ' ')  // 标准化空格
+          .replace(/\./g, '')    // 移除点号
+          .trim();
+        
+        // 尝试多种匹配方式
+        return toolName === searchName || 
+               toolName.includes(searchName) ||
+               searchName.includes(toolName) ||
+               toolName.replace(/\s/g, '') === searchName.replace(/\s/g, ''); // 无空格匹配
+      }) || null;
+      
+      if (tool) {
+        console.log(`✅ [Tool Detail] Found tool by name matching: "${tool.name}" (ID: ${tool.id})`);
+      }
+    }
+    
+    if (!tool) {
+      console.log(`❌ [Tool Detail] Tool not found for ID: ${params.id}`);
+      console.log(`🔍 [Tool Detail] Available tool IDs:`, tools.slice(0, 10).map(t => ({ name: t.name, id: t.id })));
+    } else {
+      console.log(`✅ [Tool Detail] Tool found: ${tool.name}`);
+    }
     
     // 获取相关工具（同分类的其他工具）
     if (tool) {

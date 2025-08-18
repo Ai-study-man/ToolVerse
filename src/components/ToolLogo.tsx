@@ -5,6 +5,18 @@ import Image from 'next/image';
 
 // Official logo mapping - using verified high-quality official logos
 const SIMPLE_LOGOS: Record<string, string> = {
+  // 新上传的官方logo - 优先使用
+  'Lovable': '/logos/Lovable.jpeg',
+  'Bolt.new': '/logos/bolt.new.svg',
+  'Windsurf': '/logos/windsurf.jpeg',
+  'Windsurf Editor': '/logos/windsurf.jpeg',
+  'v0 by Vercel': '/logos/placeholder-logo.svg',
+  'Cursor': '/logos/cursor.jpeg',
+  'Reverso': '/logos/reverso.jpeg',
+  'Microsoft Translator': '/logos/microsoft translator.jpeg',
+  'Papago': '/logos/papago.jpeg',
+  'Whisper by OpenAI': '/logos/whisper by openai.jpeg',
+  
   // Conversational AI - using stable CDN and official sources
   'ChatGPT': '/logos/chatgpt.svg',
   'Claude': '/logos/claude.svg',
@@ -26,7 +38,6 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Aider': '/logos/aider.png',
   'Codium AI': '/logos/codium-ai.png',
   'Sourcegraph Cody': 'https://about.sourcegraph.com/favicon.ico',
-  'Windsurf Editor': 'https://codeium.com/favicon.svg',
   
   // Image Generation & Design - using official logo APIs
   'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg', // using OpenAI official logo
@@ -121,6 +132,18 @@ const BRAND_COLORS: Record<string, string> = {
 
 // emoji映射作为最后的备用方案
 const EMOJI_LOGOS: Record<string, string> = {
+  // 新上传的官方logo
+  'Lovable': '/logos/Lovable.jpeg',
+  'Bolt.new': '/logos/bolt.new.svg',
+  'Windsurf': '/logos/windsurf.jpeg',
+  'Windsurf Editor': '/logos/windsurf.jpeg',
+  'v0 by Vercel': '/logos/placeholder-logo.svg',
+  'Cursor': '/logos/cursor.jpeg',
+  'Reverso': '/logos/reverso.jpeg',
+  'Microsoft Translator': '/logos/microsoft translator.jpeg',
+  'Papago': '/logos/papago.jpeg',
+  'Whisper by OpenAI': '/logos/whisper by openai.jpeg',
+  
   'ChatGPT': '/logos/chatgpt.svg',
   'Claude': '/logos/claude.svg',
   'Google Gemini': '/logos/google-gemini.png',
@@ -139,7 +162,6 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Aider': '/logos/aider.png',
   'Codium AI': '/logos/codium-ai.png',
   'Sourcegraph Cody': '📊',
-  'Windsurf Editor': '🌊',
   'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg',
   'DALL-E': '/logos/OpenAI_Icon_0.jpeg',
   'Midjourney': '/logos/midjourney.png',

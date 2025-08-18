@@ -2,6 +2,7 @@ import NotionToolsService from './notionService';
 import { PricingDataProcessor, ENHANCED_PRICING_DATA } from './pricingDataProcessor';
 import { Tool, Category } from '../types';
 import { allTools as mockTools, categories as mockCategories } from '../data/mockData';
+import temporaryTools from '../data/temporaryTools';
 
 /**
  * 数据同步服务
@@ -55,16 +56,44 @@ export class DataSyncService {
       // 增强工具数据，添加详细价格信息
       tools = this.enhanceToolsWithPricing(tools);
       
+      // 添加临时工具来解决缺失的新工具问题
+      console.log(`Adding ${temporaryTools.length} temporary tools to supplement missing new tools`);
+      console.log(`Original tools count: ${tools.length}`);
+      
+      tools = [...tools, ...temporaryTools];
+      console.log(`After concatenation: ${tools.length} tools`);
+      
+      // 去重前记录一些临时工具信息
+      const tempToolNames = temporaryTools.map(t => t.name);
+      console.log(`Temporary tool names:`, tempToolNames);
+      
+      // 去重（基于name或id）
+      const duplicates: string[] = [];
+      const uniqueTools = tools.filter((tool, index, self) => {
+        const isDuplicate = index !== self.findIndex(t => t.name === tool.name || t.id === tool.id);
+        if (isDuplicate) {
+          duplicates.push(`"${tool.name}" (ID: ${tool.id})`);
+        }
+        return !isDuplicate;
+      });
+      
+      if (duplicates.length > 0) {
+        console.log(`🔄 Found ${duplicates.length} duplicates:`, duplicates);
+      }
+      
+      tools = uniqueTools;
+      console.log(`After deduplication: ${tools.length} total tools`);
+      
       // 如果工具数量太少，使用mockData作为补充
       if (tools.length < 10) {
         console.log(`Only ${tools.length} tools, using mockData as backup`);
         tools = [...tools, ...mockTools];
         
         // 去重（基于name或id）
-        const uniqueTools = tools.filter((tool, index, self) => 
+        const uniqueToolsWithMock = tools.filter((tool, index, self) => 
           index === self.findIndex(t => t.name === tool.name || t.id === tool.id)
         );
-        tools = uniqueTools;
+        tools = uniqueToolsWithMock;
         console.log(`Combined tools count: ${tools.length}`);
       }
       

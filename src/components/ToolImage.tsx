@@ -45,6 +45,18 @@ export default function ToolImage({ src, alt, className = '', name }: ToolImageP
       'Grammarly': 'grammarly.svg',
       'Canva AI': 'Canva_Logo_0.svg',
       
+      // 新添加的工具
+      'Lovable': 'Lovable.jpeg',
+      'Bolt.new': 'bolt.new.svg',
+      'Windsurf': 'windsurf.jpeg',
+      'Windsurf Editor': 'windsurf.jpeg',
+      'v0 by Vercel': 'placeholder-logo.svg',
+      'Cursor': 'cursor.jpeg',
+      'Reverso': 'reverso.jpeg',
+      'Microsoft Translator': 'microsoft translator.jpeg',
+      'Papago': 'papago.jpeg',
+      'Whisper by OpenAI': 'whisper by openai.jpeg',
+      
       // 其他可能的工具名称变体
       'Claude': 'claude.svg',
       'Claude 3': 'claude.svg',
@@ -101,6 +113,17 @@ export default function ToolImage({ src, alt, className = '', name }: ToolImageP
       'runway ml': 'runway-ml.jpeg',
       'copy.ai': 'Copy.ai_idhj7Th-aL_0.svg',
       'writesonic': 'Writesonic.jpeg',
+      // 新工具的小写映射
+      'lovable': 'Lovable.jpeg',
+      'bolt.new': 'bolt.new.svg',
+      'windsurf': 'windsurf.jpeg',
+      'windsurf editor': 'windsurf.jpeg',
+      'v0 by vercel': 'placeholder-logo.svg',
+      'cursor': 'cursor.jpeg',
+      'reverso': 'reverso.jpeg',
+      'microsoft translator': 'microsoft translator.jpeg',
+      'papago': 'papago.jpeg',
+      'whisper by openai': 'whisper by openai.jpeg'
     };
     
     return lowerMapping[lowerName] || null;
@@ -108,7 +131,7 @@ export default function ToolImage({ src, alt, className = '', name }: ToolImageP
 
   // 处理logo路径 - 确保路径格式正确
   const getImageSrc = (logoPath?: string, toolName?: string) => {
-    // 优先使用实际的logo文件
+    // 优先使用我们的映射文件 - 这样可以确保使用正确的官方logo
     if (toolName) {
       const logoFile = getLogoFileName(toolName);
       if (logoFile) {
