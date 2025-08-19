@@ -4,12 +4,12 @@ import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: {
-    default: 'ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台',
-    template: '%s | ToolVerse - AI工具目录'
+    default: 'ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews',
+    template: '%s | ToolVerse - AI Tools Directory'
   },
-  description: '发现和使用最好的AI工具！ToolVerse提供500+AI工具详细评测、使用指南。包括ChatGPT、Midjourney、GitHub Copilot等热门AI工具，找到适合您业务和创意项目的AI解决方案。',
-  keywords: 'AI工具,人工智能工具,ChatGPT,Midjourney,AI绘画,AI写作,AI编程,AI工具大全,AI工具目录,AI工具评测',
-  authors: [{ name: 'ToolVerse团队' }],
+  description: 'Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects.',
+  keywords: 'AI tools, artificial intelligence tools, ChatGPT, Midjourney, AI art generator, AI writing tools, AI coding assistant, best AI tools 2024, free AI tools, AI productivity tools, machine learning tools, AI software directory, AI platforms, AI applications, conversational AI, text to image AI, AI chatbots, AI image generation, AI code completion, natural language processing, computer vision AI, AI automation tools',
+  authors: [{ name: 'ToolVerse Team' }],
   creator: 'ToolVerse',
   publisher: 'ToolVerse',
   formatDetection: {
@@ -19,24 +19,24 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'zh_CN',
+    locale: 'en_US',
     url: 'https://toolverse.com',
-    title: 'ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台',
-    description: '发现和使用最好的AI工具！提供500+AI工具详细评测、使用指南。',
+    title: 'ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews',
+    description: 'Discover and use the best AI tools! Find 500+ AI tool reviews, comparisons, and guides for business and creative projects.',
     siteName: 'ToolVerse',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'ToolVerse - AI工具目录平台',
+        alt: 'ToolVerse - AI Tools Directory Platform',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ToolVerse - 发现最佳AI工具',
-    description: '发现和使用最好的AI工具！提供500+AI工具详细评测、使用指南。',
+    title: 'ToolVerse - Discover Best AI Tools',
+    description: 'Find the best AI tools for your needs. 500+ reviews, comparisons, and guides.',
     creator: '@toolverse',
     images: ['/og-image.png'],
   },
@@ -53,6 +53,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://toolverse.com',
+    languages: {
+      'en': 'https://toolverse.com',
+      'zh': 'https://toolverse.com/zh',
+    }
   },
   icons: {
     icon: [
@@ -71,6 +75,8 @@ export const metadata: Metadata = {
   other: {
     'google-analytics': 'G-68YE02ND1P',
     'google-adsense-account': 'ca-pub-4372695356377122',
+    'msvalidate.01': 'your-bing-verification-code',
+    'yandex-verification': 'your-yandex-verification-code',
   },
 }
 
@@ -100,6 +106,77 @@ export default function RootLayout({
           data-key="Y3EhGUnu3K8A0krIGV1Rdg"
           strategy="afterInteractive"
           async
+        />
+
+        {/* JSON-LD for Website */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'ToolVerse',
+              description: 'Discover the best AI tools for your business and creative projects',
+              url: 'https://toolverse.com',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://toolverse.com/tools?search={search_term_string}',
+                },
+                'query-input': 'required name=search_term_string',
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: 'ToolVerse',
+                logo: 'https://toolverse.com/logo.png',
+                sameAs: [
+                  'https://twitter.com/toolverse',
+                  'https://github.com/toolverse',
+                  'https://linkedin.com/company/toolverse'
+                ]
+              }
+            })
+          }}
+        />
+
+        {/* JSON-LD for Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'ToolVerse',
+              description: 'Professional AI tools discovery and review platform',
+              url: 'https://toolverse.com',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://toolverse.com/logo.png',
+                width: 200,
+                height: 60
+              },
+              foundingDate: '2024',
+              contactPoint: {
+                '@type': 'ContactPoint',
+                contactType: 'customer service',
+                email: 'contact@toolverse.com',
+                availableLanguage: ['English', 'Chinese']
+              },
+              sameAs: [
+                'https://twitter.com/toolverse',
+                'https://github.com/toolverse',
+                'https://linkedin.com/company/toolverse'
+              ],
+              knowsAbout: [
+                'Artificial Intelligence',
+                'Machine Learning',
+                'AI Tools',
+                'Software Reviews',
+                'Technology'
+              ]
+            })
+          }}
         />
       </head>
       <body suppressHydrationWarning={true}>

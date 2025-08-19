@@ -38,10 +38,6 @@ export interface Tool {
   useCases?: string[];  // 使用场景
   modelUsed?: string;   // 使用的 AI 模型
   createdAt: string;
-  // 新增筛选相关字段
-  commercialLicense?: boolean;  // 是否支持商用
-  difficulty?: 'beginner' | 'intermediate' | 'advanced';  // 难度等级
-  lastUpdated?: string;  // 最后更新时间
 }
 
 export interface Category {
@@ -58,23 +54,4 @@ export interface SearchFilters {
   pricingModel?: string;
   rating?: number;
   tags?: string[];
-}
-
-// 高级筛选接口
-export interface AdvancedFilters {
-  categories: string[];           // 选中的分类
-  pricingModels: string[];       // 价格模式：free, paid, freemium
-  commercialLicense: string[];   // 商用许可：supported, not-supported
-  difficulty: string[];          // 难度：beginner-friendly, advanced
-  rating: number;                // 最低评分
-  tags: string[];               // 标签筛选
-}
-
-// 筛选选项配置
-export interface FilterOption {
-  id: string;
-  label: string;
-  value: string;
-  count?: number;  // 匹配的工具数量
-  icon?: string;   // 图标
 }

@@ -141,23 +141,50 @@ export default function Home() {
     <>
       {/* SEO结构化数据 */}
       <Head>
-        <title>ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台</title>
-        <meta name="description" content="发现和使用最好的AI工具！ToolVerse提供500+AI工具详细评测、使用指南。包括ChatGPT、Midjourney、GitHub Copilot等热门AI工具，找到适合您业务和创意项目的AI解决方案。" />
-        <meta name="keywords" content="AI工具,人工智能工具,ChatGPT,Midjourney,AI绘画,AI写作,AI编程,AI工具大全,AI工具目录,AI工具评测" />
+        <title>ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews</title>
+        <meta name="description" content="Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects." />
+        <meta name="keywords" content="AI tools, artificial intelligence tools, ChatGPT, Midjourney, AI art generator, AI writing tools, AI coding assistant, best AI tools 2024, free AI tools, AI productivity tools" />
         <link rel="canonical" href="https://toolverse.com" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台" />
-        <meta property="og:description" content="发现和使用最好的AI工具！提供500+AI工具详细评测、使用指南。" />
+        <meta property="og:title" content="ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews" />
+        <meta property="og:description" content="Find the best AI tools for your needs. 500+ reviews, comparisons, and guides." />
         <meta property="og:url" content="https://toolverse.com" />
         <meta property="og:image" content="https://toolverse.com/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ToolVerse - 发现最佳AI工具" />
-        <meta name="twitter:description" content="发现和使用最好的AI工具！提供500+AI工具详细评测。" />
+        <meta name="twitter:title" content="ToolVerse - Discover Best AI Tools" />
+        <meta name="twitter:description" content="Find the best AI tools for your needs. 500+ reviews, comparisons, and guides." />
         <meta name="twitter:image" content="https://toolverse.com/og-image.png" />
       </Head>
       
-      <StructuredData type="website" data={{}} />
+      <StructuredData type="website" data={{ tools: featuredTools }} />
       <StructuredData type="organization" data={{}} />
+      
+      {/* FAQ结构化数据 */}
+      <StructuredData 
+        type="faq" 
+        data={[
+          {
+            question: "What are the best free AI tools available?",
+            answer: "Some of the best free AI tools include ChatGPT (free tier), Claude, Google Gemini, Canva AI, and numerous open-source alternatives. Our directory features over 200+ free AI tools across different categories including writing, image generation, coding, and productivity."
+          },
+          {
+            question: "How do I choose the right AI tool for my business?",
+            answer: "Consider your specific needs, budget, team size, and technical requirements. Use our category filters to browse AI tools by function (e.g., customer service, content creation, data analysis). Read user reviews and compare features to make an informed decision."
+          },
+          {
+            question: "Are there good alternatives to ChatGPT?",
+            answer: "Yes! Popular ChatGPT alternatives include Claude (Anthropic), Google Gemini, Microsoft Copilot, Perplexity AI, and many specialized AI assistants. Each has unique strengths - browse our conversational AI category to compare features and pricing."
+          },
+          {
+            question: "What's the difference between free and paid AI tools?",
+            answer: "Free AI tools typically have usage limits, fewer features, or basic functionality. Paid versions offer unlimited usage, advanced features, priority support, and often better performance. Many tools offer freemium models with free trials to test before upgrading."
+          },
+          {
+            question: "How often is the AI tools directory updated?",
+            answer: "We update our directory daily with new AI tools, reviews, and pricing information. Our team continuously monitors the AI landscape to ensure you have access to the latest and most innovative AI solutions for your needs."
+          }
+        ]} 
+      />
       
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -166,18 +193,39 @@ export default function Home() {
       <section className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Discover the Best <span className="text-accent-300">AI Tools</span>
+            Discover the Best <span className="text-accent-300">AI Tools</span> for Your Business
           </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-            Find the perfect AI tools for your business, creative projects, and productivity needs. 
-            Curated and reviewed by experts.
+          <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto">
+            Find the perfect AI tools for productivity, creativity, and business growth. 
+            Explore 500+ curated AI software including ChatGPT alternatives, AI image generators, 
+            coding assistants, and automation tools. All reviewed by experts.
           </p>
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto mb-8">
             <SearchBar 
               onSearch={handleSearch}
-              placeholder="Search for AI tools..."
+              placeholder="Search ChatGPT, Midjourney, coding tools..."
               className="w-full"
             />
+          </div>
+          
+          {/* SEO优化的快速导航 */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-sm">
+            <a href="/tools?category=Conversational%20AI" className="bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-colors">
+              <div className="font-semibold">AI Chatbots</div>
+              <div className="text-xs opacity-80">ChatGPT, Claude & more</div>
+            </a>
+            <a href="/tools?category=Image%20Generation" className="bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-colors">
+              <div className="font-semibold">AI Image Tools</div>
+              <div className="text-xs opacity-80">Midjourney, DALL-E alternatives</div>
+            </a>
+            <a href="/tools?category=Code%20Development" className="bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-colors">
+              <div className="font-semibold">AI Coding Tools</div>
+              <div className="text-xs opacity-80">GitHub Copilot & assistants</div>
+            </a>
+            <a href="/tools?search=free" className="bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-colors">
+              <div className="font-semibold">Free AI Tools</div>
+              <div className="text-xs opacity-80">Best free alternatives</div>
+            </a>
           </div>
         </div>
       </section>
@@ -271,6 +319,79 @@ export default function Home() {
             <button className="bg-accent-600 text-white px-6 py-3 rounded-lg hover:bg-accent-700 transition-colors font-medium">
               Subscribe
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section - SEO优化 */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-gray-600">
+              Get answers to common questions about AI tools and our directory
+            </p>
+          </div>
+          
+          <div className="space-y-6">
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                What are the best free AI tools available?
+              </h3>
+              <p className="text-gray-600">
+                Some of the best free AI tools include ChatGPT (free tier), Claude, Google Gemini, 
+                Canva AI, and numerous open-source alternatives. Our directory features over 200+ 
+                free AI tools across different categories including writing, image generation, 
+                coding, and productivity.
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                How do I choose the right AI tool for my business?
+              </h3>
+              <p className="text-gray-600">
+                Consider your specific needs, budget, team size, and technical requirements. 
+                Use our category filters to browse AI tools by function (e.g., customer service, 
+                content creation, data analysis). Read user reviews and compare features to make 
+                an informed decision.
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Are there good alternatives to ChatGPT?
+              </h3>
+              <p className="text-gray-600">
+                Yes! Popular ChatGPT alternatives include Claude (Anthropic), Google Gemini, 
+                Microsoft Copilot, Perplexity AI, and many specialized AI assistants. Each has 
+                unique strengths - browse our conversational AI category to compare features and pricing.
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                What's the difference between free and paid AI tools?
+              </h3>
+              <p className="text-gray-600">
+                Free AI tools typically have usage limits, fewer features, or basic functionality. 
+                Paid versions offer unlimited usage, advanced features, priority support, and often 
+                better performance. Many tools offer freemium models with free trials to test before upgrading.
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                How often is the AI tools directory updated?
+              </h3>
+              <p className="text-gray-600">
+                We update our directory daily with new AI tools, reviews, and pricing information. 
+                Our team continuously monitors the AI landscape to ensure you have access to the 
+                latest and most innovative AI solutions for your needs.
+              </p>
+            </div>
           </div>
         </div>
       </section>

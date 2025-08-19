@@ -4,24 +4,76 @@ export const seoConfig = {
   // 网站基本信息
   siteName: 'ToolVerse',
   siteUrl: 'https://toolverse.com',
-  defaultTitle: 'ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台',
-  defaultDescription: '发现和使用最好的AI工具！ToolVerse提供500+AI工具详细评测、使用指南。包括ChatGPT、Midjourney、GitHub Copilot等热门AI工具，找到适合您业务和创意项目的AI解决方案。',
+  defaultTitle: 'ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews',
+  defaultDescription: 'Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects.',
   
-  // 默认关键词
-  defaultKeywords: [
-    'AI工具',
-    '人工智能工具',
+  // 核心关键词 - 基于搜索量和竞争度优化
+  primaryKeywords: [
+    'AI tools',
+    'artificial intelligence tools',
     'ChatGPT',
     'Midjourney',
-    'AI绘画',
-    'AI写作',
-    'AI编程',
-    'AI工具大全',
-    'AI工具目录',
-    'AI工具评测',
-    'AI工具推荐',
-    '免费AI工具',
-    'AI工具排行榜'
+    'AI art generator',
+    'AI writing tools',
+    'AI coding assistant',
+    'best AI tools 2024',
+    'free AI tools',
+    'AI productivity tools'
+  ],
+
+  // 长尾关键词 - 提升精准流量
+  longTailKeywords: [
+    'best AI tools for business',
+    'free AI image generators',
+    'AI tools for content creation',
+    'ChatGPT alternatives',
+    'AI programming assistants',
+    'text to image AI tools',
+    'AI writing assistants for bloggers',
+    'enterprise AI software solutions',
+    'AI tools comparison 2024',
+    'beginner friendly AI tools'
+  ],
+
+  // 分类相关关键词
+  categoryKeywords: {
+    'Conversational AI': ['AI chatbots', 'conversational AI platforms', 'virtual assistants', 'ChatGPT alternatives', 'AI customer service'],
+    'Image Generation': ['AI image generators', 'text to image AI', 'AI art tools', 'Midjourney alternatives', 'DALL-E alternatives'],
+    'Code Development': ['AI coding tools', 'programming assistants', 'GitHub Copilot alternatives', 'AI code completion', 'developer tools'],
+    'Writing & Content': ['AI writing tools', 'content generation AI', 'blog writing AI', 'copywriting tools', 'SEO content tools'],
+    'Video & Audio': ['AI video editors', 'voice synthesis AI', 'audio generation tools', 'video creation AI', 'AI transcription'],
+    'Business & Analytics': ['business intelligence AI', 'data analysis tools', 'AI automation', 'workflow optimization', 'predictive analytics'],
+    'Language & Translation': ['AI translation tools', 'language learning AI', 'multilingual AI', 'DeepL alternatives', 'real-time translation'],
+    'Design & Art': ['AI design tools', 'graphic design AI', 'logo generators', 'UI/UX AI tools', 'creative AI platforms']
+  },
+
+  // 竞品关键词 - 捕获竞品搜索流量
+  competitorKeywords: [
+    'Product Hunt AI tools',
+    'There\'s An AI For That alternatives',
+    'AI Tools Directory',
+    'Future Tools alternatives',
+    'AI Scout alternatives',
+    'Tool Finder AI',
+    'AI Tools Hub',
+    'Best AI Software 2024'
+  ],
+
+  // 默认关键词
+  defaultKeywords: [
+    'AI tools directory',
+    'artificial intelligence software',
+    'machine learning tools',
+    'AI platforms',
+    'AI applications',
+    'conversational AI',
+    'natural language processing',
+    'computer vision AI',
+    'AI automation tools',
+    'enterprise AI solutions',
+    'AI workflow tools',
+    'creative AI tools',
+    'AI productivity software'
   ],
 
   // Open Graph 默认图片
@@ -31,72 +83,76 @@ export const seoConfig = {
   socialLinks: {
     twitter: 'https://twitter.com/toolverse',
     github: 'https://github.com/toolverse',
-    linkedin: 'https://linkedin.com/company/toolverse'
+    linkedin: 'https://linkedin.com/company/toolverse',
+    facebook: 'https://facebook.com/toolverse',
+    youtube: 'https://youtube.com/@toolverse'
   },
 
   // 联系信息
   contact: {
     email: 'contact@toolverse.com',
-    phone: '+86-400-000-0000'
+    phone: '+1-555-AI-TOOLS'
   },
 
   // 页面特定SEO配置
   pages: {
     home: {
-      title: 'ToolVerse - 发现最佳AI工具 | AI工具目录和评测平台',
-      description: '发现和使用最好的AI工具！ToolVerse提供500+AI工具详细评测、使用指南。包括ChatGPT、Midjourney、GitHub Copilot等热门AI工具，找到适合您业务和创意项目的AI解决方案。',
+      title: 'ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews',
+      description: 'Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects.',
       keywords: [
-        'AI工具',
-        '人工智能工具',
+        'AI tools',
+        'artificial intelligence tools',
+        'best AI tools 2024',
         'ChatGPT',
         'Midjourney',
-        'AI绘画',
-        'AI写作',
-        'AI编程',
-        'AI工具大全',
-        'AI工具目录',
-        'AI工具评测'
+        'AI tools directory',
+        'free AI tools',
+        'AI productivity tools',
+        'AI software reviews',
+        'AI tools comparison'
       ]
     },
     tools: {
-      title: 'AI工具大全 - 发现最佳人工智能工具 | ToolVerse',
-      description: '浏览ToolVerse收录的500+优质AI工具。包括ChatGPT、Midjourney、Claude等热门AI工具，按分类筛选、查看评分和价格信息，找到最适合您的AI解决方案。',
+      title: 'AI Tools Directory - Discover Best Artificial Intelligence Tools | ToolVerse',
+      description: 'Browse 500+ curated AI tools including ChatGPT, Midjourney, Claude, and more. Filter by category, pricing, and ratings. Find the perfect AI tool for your needs with detailed reviews and comparisons.',
       keywords: [
-        'AI工具大全',
-        'AI工具目录',
-        '人工智能工具',
-        'AI工具筛选',
-        'AI工具分类',
-        'ChatGPT',
-        'Midjourney',
-        'Claude',
-        'AI工具评测',
-        'AI工具排行'
+        'AI tools directory',
+        'artificial intelligence tools',
+        'AI software catalog',
+        'ChatGPT alternatives',
+        'Midjourney alternatives',
+        'best AI tools 2024',
+        'free AI tools',
+        'AI tools reviews',
+        'AI tools comparison',
+        'enterprise AI tools'
       ]
     },
     categories: {
-      title: 'AI工具分类 - 按类别浏览人工智能工具 | ToolVerse',
-      description: '按分类浏览AI工具：对话AI、图像生成、代码开发、视频编辑、内容创作、商业分析等。轻松找到您需要的AI工具类型，提高工作效率。',
+      title: 'AI Tools by Category - Browse Tools by Function | ToolVerse',
+      description: 'Explore AI tools by category: Conversational AI, Image Generation, Code Development, Content Writing, Business Analytics, and more. Find the right AI tool type for your specific needs.',
       keywords: [
-        'AI工具分类',
-        'AI工具类别',
-        '对话AI工具',
-        'AI图像生成',
-        'AI代码开发',
-        'AI视频编辑',
-        'AI内容创作',
-        'AI商业分析'
+        'AI tools categories',
+        'conversational AI tools',
+        'AI image generators',
+        'AI coding tools',
+        'AI writing tools',
+        'AI video editors',
+        'business AI tools',
+        'AI automation tools',
+        'AI design tools'
       ]
     },
     submit: {
-      title: '提交AI工具 - 推荐优质AI工具 | ToolVerse',
-      description: '向ToolVerse提交您发现的优质AI工具。我们欢迎开发者和用户推荐新的AI工具，共建最全面的AI工具目录。',
+      title: 'Submit AI Tool - Add Your AI Tool to ToolVerse Directory',
+      description: 'Submit your AI tool to ToolVerse directory. Get exposure to thousands of AI enthusiasts and businesses looking for the best AI solutions. Free listing with detailed reviews.',
       keywords: [
-        '提交AI工具',
-        '推荐AI工具',
-        'AI工具收录',
-        'AI工具推广',
-        'AI工具合作'
+        'submit AI tool',
+        'add AI tool',
+        'AI tool listing',
+        'AI directory submission',
+        'promote AI tool',
+        'AI tool marketing'
       ]
     }
   },
@@ -108,20 +164,26 @@ export const seoConfig = {
       '@type': 'WebSite',
       name: 'ToolVerse',
       url: 'https://toolverse.com',
+      description: 'The ultimate directory for discovering and comparing AI tools',
       potentialAction: {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://toolverse.com/search?q={search_term_string}',
+          urlTemplate: 'https://toolverse.com/tools?search={search_term_string}',
         },
         'query-input': 'required name=search_term_string',
-      }
+      },
+      sameAs: [
+        'https://twitter.com/toolverse',
+        'https://github.com/toolverse',
+        'https://linkedin.com/company/toolverse'
+      ]
     },
     organization: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'ToolVerse',
-      description: '专业的AI工具发现和评测平台',
+      description: 'Professional AI tools discovery and review platform',
       url: 'https://toolverse.com',
       logo: {
         '@type': 'ImageObject',
@@ -129,12 +191,24 @@ export const seoConfig = {
         width: 200,
         height: 60,
       },
+      foundingDate: '2024',
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+86-400-000-0000',
+        telephone: '+1-555-AI-TOOLS',
         contactType: 'customer service',
-        availableLanguage: ['Chinese', 'English'],
-      }
+        email: 'contact@toolverse.com',
+        availableLanguage: ['English', 'Chinese'],
+      },
+      sameAs: [
+        'https://twitter.com/toolverse',
+        'https://github.com/toolverse',
+        'https://linkedin.com/company/toolverse'
+      ]
+    },
+    breadcrumbList: {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: []
     }
   }
 };
@@ -181,7 +255,7 @@ export function generatePageMetadata(pageKey: keyof typeof seoConfig.pages, cust
   };
 }
 
-// 生成工具页面元数据
+// 生成工具页面元数据 - 优化SEO关键词策略
 export function generateToolMetadata(tool: {
   id: string;
   name: string;
@@ -194,24 +268,60 @@ export function generateToolMetadata(tool: {
   pricing?: string;
   logo?: string;
 }) {
-  const title = `${tool.name} - ${tool.shortDescription || tool.description} | ToolVerse`;
-  const description = `${tool.description} 了解${tool.name}的功能特点、价格信息、用户评价和使用教程。${tool.pricingModel === 'free' ? '免费使用' : tool.pricingModel === 'freemium' ? '免费试用' : '付费工具'}，评分${tool.rating}分。`;
-  
-  const keywords = [
+  // 生成竞品关键词
+  const competitorKeywords = [
+    `${tool.name} alternative`,
+    `${tool.name} vs`,
+    `best ${tool.category.toLowerCase()} tools`,
+    `${tool.name} competitor`,
+    `${tool.name} similar tools`
+  ];
+
+  // 生成功能性关键词
+  const functionalKeywords = [
+    `${tool.name} review`,
+    `${tool.name} pricing`,
+    `how to use ${tool.name}`,
+    `${tool.name} tutorial`,
+    `${tool.name} features`,
+    `${tool.name} pros and cons`,
+    `is ${tool.name} worth it`,
+    `${tool.name} discount`
+  ];
+
+  // 生成长尾关键词
+  const longTailKeywords = [
+    `best ${tool.category.toLowerCase()} AI tool`,
+    `${tool.pricingModel} AI ${tool.category.toLowerCase()} tool`,
+    `${tool.name} for business`,
+    `${tool.name} for professionals`,
+    `AI tool like ${tool.name}`,
+    `${tool.category} AI software`
+  ];
+
+  // 组合所有关键词
+  const allKeywords = [
     tool.name,
     ...tool.tags,
     tool.category,
-    'AI工具',
-    tool.pricingModel === 'free' ? '免费AI工具' : 'AI工具',
-    `${tool.name}教程`,
-    `${tool.name}使用方法`,
-    `${tool.name}评测`
+    'AI tool',
+    ...competitorKeywords,
+    ...functionalKeywords,
+    ...longTailKeywords,
+    tool.pricingModel === 'free' ? 'free AI tool' : tool.pricingModel === 'freemium' ? 'freemium AI tool' : 'premium AI tool',
+    `${tool.category} software`,
+    'artificial intelligence',
+    'AI software review',
+    'best AI tools 2024'
   ];
 
+  const title = `${tool.name} Review - ${tool.shortDescription || tool.category + ' AI Tool'} | ToolVerse`;
+  const description = `${tool.description} Discover ${tool.name}'s features, pricing, user reviews, and alternatives. ${tool.pricingModel === 'free' ? 'Free to use' : tool.pricingModel === 'freemium' ? 'Free trial available' : 'Premium AI tool'} with ${tool.rating}/5 rating. Compare with similar ${tool.category.toLowerCase()} tools.`;
+  
   return {
     title,
     description,
-    keywords: keywords.join(', '),
+    keywords: allKeywords.slice(0, 25).join(', '), // 限制关键词数量避免keyword stuffing
     openGraph: {
       title,
       description,
@@ -222,11 +332,11 @@ export function generateToolMetadata(tool: {
           url: tool.logo || seoConfig.defaultOgImage,
           width: 1200,
           height: 630,
-          alt: `${tool.name} Logo`,
+          alt: `${tool.name} - ${tool.category} AI Tool`,
         },
       ],
       siteName: seoConfig.siteName,
-      locale: 'zh_CN',
+      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
@@ -241,8 +351,12 @@ export function generateToolMetadata(tool: {
       'article:author': seoConfig.siteName,
       'article:section': tool.category,
       'article:tag': tool.tags.join(','),
-      'product:price:amount': tool.pricing || '联系获取报价',
-      'product:price:currency': 'CNY',
+      'product:price:amount': tool.pricing || 'Contact for pricing',
+      'product:price:currency': 'USD',
+      'product:availability': 'in_stock',
+      'product:condition': 'new',
+      'rating:value': tool.rating.toString(),
+      'rating:scale': '5',
     },
   };
 }
