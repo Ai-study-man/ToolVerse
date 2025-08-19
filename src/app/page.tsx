@@ -373,7 +373,7 @@ export default function Home() {
             
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                What's the difference between free and paid AI tools?
+                What&apos;s the difference between free and paid AI tools?
               </h3>
               <p className="text-gray-600">
                 Free AI tools typically have usage limits, fewer features, or basic functionality. 

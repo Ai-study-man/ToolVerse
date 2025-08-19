@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Tool } from '../types';
 
 interface FilterState {
@@ -56,7 +56,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   };
 
   // Determine tool characteristics based on tags and other properties
-  const getToolCharacteristics = (tool: Tool) => {
+  const getToolCharacteristics = useCallback((tool: Tool) => {
     const tags = tool.tags.map((tag: string) => tag.toLowerCase());
     const description = tool.description.toLowerCase();
     const features = tool.features.map((f: string) => f.toLowerCase());
@@ -118,10 +118,10 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
       commercialLicense: isOpenSource ? 'open-source' : hasCommercialLicense ? 'commercial' : 'personal',
       difficultyLevel: isAdvanced ? 'advanced' : isBeginnerFriendly ? 'beginner' : 'intermediate'
     };
-  };
+  }, []);
 
   // Apply filters to tools
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filteredTools = [...tools];
 
     // Filter by pricing model
@@ -169,7 +169,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     }
 
     onFilterChange(filteredTools);
-  };
+  }, [filters, tools, onFilterChange, getToolCharacteristics]);
 
   // Update filters and apply them
   const updateFilter = (filterType: keyof FilterState, value: string) => {
@@ -197,7 +197,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   // Apply filters when filters change
   useEffect(() => {
     applyFilters();
-  }, [filters, tools]);
+  }, [filters, tools, applyFilters]);
 
   // Count active filters
   const activeFiltersCount = Object.values(filters).flat().length;
