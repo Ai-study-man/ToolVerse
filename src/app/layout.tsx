@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://toolverse.com',
+    url: 'https://www.toolsverse.tools/',
     title: 'ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews',
     description: 'Discover and use the best AI tools! Find 500+ AI tool reviews, comparisons, and guides for business and creative projects.',
     siteName: 'ToolVerse',
@@ -52,10 +52,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://toolverse.com',
+    canonical: 'https://www.toolsverse.tools/',
     languages: {
-      'en': 'https://toolverse.com',
-      'zh': 'https://toolverse.com/zh',
+      'en': 'https://www.toolsverse.tools/',
+      'zh': 'https://www.toolsverse.tools/zh',
     }
   },
   icons: {
@@ -117,19 +117,19 @@ export default function RootLayout({
               '@type': 'WebSite',
               name: 'ToolVerse',
               description: 'Discover the best AI tools for your business and creative projects',
-              url: 'https://toolverse.com',
+              url: 'https://www.toolsverse.tools/',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
                   '@type': 'EntryPoint',
-                  urlTemplate: 'https://toolverse.com/tools?search={search_term_string}',
+                  urlTemplate: 'https://www.toolsverse.tools/tools?search={search_term_string}',
                 },
                 'query-input': 'required name=search_term_string',
               },
               publisher: {
                 '@type': 'Organization',
                 name: 'ToolVerse',
-                logo: 'https://toolverse.com/logo.png',
+                logo: 'https://www.toolsverse.tools/logo.png',
                 sameAs: [
                   'https://twitter.com/toolverse',
                   'https://github.com/toolverse',
@@ -149,10 +149,10 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'ToolVerse',
               description: 'Professional AI tools discovery and review platform',
-              url: 'https://toolverse.com',
+              url: 'https://www.toolsverse.tools/',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://toolverse.com/logo.png',
+                url: 'https://www.toolsverse.tools/logo.png',
                 width: 200,
                 height: 60
               },
@@ -160,7 +160,7 @@ export default function RootLayout({
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'customer service',
-                email: 'contact@toolverse.com',
+                email: 'contact@toolsverse.tools',
                 availableLanguage: ['English', 'Chinese']
               },
               sameAs: [

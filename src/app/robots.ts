@@ -60,7 +60,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/',
       },
     ],
-    sitemap: 'https://toolverse.com/sitemap.xml',
-    host: 'https://toolverse.com',
+    sitemap: 'https://www.toolsverse.tools/sitemap.xml',
+    host: 'https://www.toolsverse.tools',
   }
 }

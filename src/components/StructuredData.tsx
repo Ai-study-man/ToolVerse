@@ -14,12 +14,12 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
           '@type': 'WebSite',
           name: 'ToolVerse',
           description: 'Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides.',
-          url: 'https://toolverse.com',
+          url: 'https://www.toolsverse.tools',
           potentialAction: {
             '@type': 'SearchAction',
             target: {
               '@type': 'EntryPoint',
-              urlTemplate: 'https://toolverse.com/tools?search={search_term_string}',
+              urlTemplate: 'https://www.toolsverse.tools/tools?search={search_term_string}',
             },
             'query-input': 'required name=search_term_string',
           },
@@ -28,7 +28,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
             name: 'ToolVerse',
             logo: {
               '@type': 'ImageObject',
-              url: 'https://toolverse.com/logo.png',
+              url: 'https://www.toolsverse.tools/logo.png',
               width: 200,
               height: 60,
             },
@@ -48,7 +48,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
               position: index + 1,
               name: tool.name,
               description: tool.description,
-              url: `https://toolverse.com/tools/${tool.id}`,
+              url: `https://www.toolsverse.tools/tools/${tool.id}`,
               applicationCategory: tool.category,
             })) || []
           }
@@ -70,12 +70,12 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
           author: {
             '@type': 'Organization',
             name: 'ToolVerse',
-            url: 'https://toolverse.com',
+            url: 'https://www.toolsverse.tools',
           },
           publisher: {
             '@type': 'Organization',
             name: 'ToolVerse',
-            url: 'https://toolverse.com',
+            url: 'https://www.toolsverse.tools',
           },
           offers: {
             '@type': 'Offer',
@@ -133,10 +133,10 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
           '@type': 'Organization',
           name: 'ToolVerse',
           description: 'Professional AI tools discovery and review platform',
-          url: 'https://toolverse.com',
+          url: 'https://www.toolsverse.tools',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://toolverse.com/logo.png',
+            url: 'https://www.toolsverse.tools/logo.png',
             width: 200,
             height: 60,
           },
@@ -144,7 +144,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
             '@type': 'ContactPoint',
             telephone: '+1-555-AI-TOOLS',
             contactType: 'customer service',
-            email: 'contact@toolverse.com',
+            email: 'contact@toolsverse.tools',
             availableLanguage: ['English', 'Chinese'],
           },
           sameAs: [
@@ -175,20 +175,20 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
           '@type': 'Article',
           headline: data.title,
           description: data.description,
-          image: data.image || 'https://toolverse.com/og-image.png',
+          image: data.image || 'https://www.toolsverse.tools/og-image.png',
           datePublished: data.publishedAt,
           dateModified: data.modifiedAt || data.publishedAt,
           author: {
             '@type': 'Organization',
             name: 'ToolVerse',
-            url: 'https://toolverse.com',
+            url: 'https://www.toolsverse.tools',
           },
           publisher: {
             '@type': 'Organization',
             name: 'ToolVerse',
             logo: {
               '@type': 'ImageObject',
-              url: 'https://toolverse.com/logo.png',
+              url: 'https://www.toolsverse.tools/logo.png',
               width: 200,
               height: 60,
             },

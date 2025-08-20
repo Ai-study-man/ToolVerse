@@ -15,43 +15,43 @@ export const metadata: Metadata = {
     authors: ['ToolVerse Team'],
   },
   alternates: {
-    canonical: 'https://toolverse.com/guides/best-ai-tools-2024',
+    canonical: 'https://www.toolsverse.tools/guides/best-ai-tools-2024',
   },
 }
 
 const aiToolCategories = [
   {
-    name: 'Conversational AI',
+    name: 'Writing & Content',
     description: 'AI chatbots and virtual assistants',
     tools: ['ChatGPT', 'Claude', 'Google Gemini', 'Perplexity AI'],
     bestFor: 'Customer service, content creation, research'
   },
   {
-    name: 'AI Image Generation',
+    name: 'Design & Art',
     description: 'Text-to-image and AI art tools',
     tools: ['Midjourney', 'DALL-E 3', 'Stable Diffusion', 'Leonardo AI'],
     bestFor: 'Marketing visuals, concept art, social media'
   },
   {
-    name: 'AI Coding Assistants',
+    name: 'Development',
     description: 'Programming and development tools',
     tools: ['GitHub Copilot', 'Cursor', 'Codeium', 'Tabnine'],
     bestFor: 'Software development, code review, debugging'
   },
   {
-    name: 'AI Writing Tools',
+    name: 'Marketing & SEO',
     description: 'Content creation and copywriting',
     tools: ['Jasper', 'Copy.ai', 'Writesonic', 'Grammarly'],
     bestFor: 'Blog posts, marketing copy, SEO content'
   },
   {
-    name: 'AI Video & Audio',
+    name: 'Video & Audio',
     description: 'Video editing and audio generation',
     tools: ['Runway ML', 'Synthesia', 'ElevenLabs', 'Descript'],
     bestFor: 'Video marketing, podcasts, voiceovers'
   },
   {
-    name: 'Business AI Tools',
+    name: 'Business & Analytics',
     description: 'Analytics and automation',
     tools: ['Zapier AI', 'Tableau AI', 'Notion AI', 'Monday.com AI'],
     bestFor: 'Workflow automation, data analysis, project management'
@@ -129,17 +129,17 @@ export default function BestAITools2024() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
         {/* 文章头部 */}
-        <header className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <header className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Best AI Tools 2024: Complete Guide to Artificial Intelligence Software
           </h1>
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
             Discover the most powerful AI tools available in 2024. From ChatGPT alternatives to 
             AI image generators, coding assistants, and business automation tools - find the 
             perfect AI solution for your needs with our expert reviews and comparisons.
           </p>
           
-          <div className="flex items-center text-sm text-gray-500 mb-8">
+          <div className="flex items-center text-sm text-gray-500 mb-6">
             <time dateTime="2024-01-01">Updated January 2024</time>
             <span className="mx-2">•</span>
             <span>15 min read</span>
@@ -148,15 +148,15 @@ export default function BestAITools2024() {
           </div>
           
           {/* 快速导航 */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h2 className="text-lg font-semibold text-blue-900 mb-4">Quick Navigation</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-              <a href="#conversational-ai" className="text-blue-700 hover:text-blue-900">• Conversational AI Tools</a>
-              <a href="#image-generation" className="text-blue-700 hover:text-blue-900">• AI Image Generators</a>
-              <a href="#coding-assistants" className="text-blue-700 hover:text-blue-900">• AI Coding Assistants</a>
-              <a href="#writing-tools" className="text-blue-700 hover:text-blue-900">• AI Writing Tools</a>
-              <a href="#video-audio" className="text-blue-700 hover:text-blue-900">• Video & Audio AI</a>
-              <a href="#business-tools" className="text-blue-700 hover:text-blue-900">• Business AI Tools</a>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h2 className="text-base font-semibold text-blue-900 mb-3">Quick Navigation</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-1 text-sm">
+              <a href="#writing--content" className="text-blue-700 hover:text-blue-900 py-1">• Writing & Content</a>
+              <a href="#design--art" className="text-blue-700 hover:text-blue-900 py-1">• Design & Art</a>
+              <a href="#development" className="text-blue-700 hover:text-blue-900 py-1">• Development</a>
+              <a href="#marketing--seo" className="text-blue-700 hover:text-blue-900 py-1">• Marketing & SEO</a>
+              <a href="#video--audio" className="text-blue-700 hover:text-blue-900 py-1">• Video & Audio</a>
+              <a href="#business--analytics" className="text-blue-700 hover:text-blue-900 py-1">• Business Tools</a>
             </div>
           </div>
         </header>
@@ -183,8 +183,15 @@ export default function BestAITools2024() {
 
         {/* AI工具分类 */}
         <div className="space-y-12">
-          {aiToolCategories.map((category, index) => (
-            <section key={index} id={category.name.toLowerCase().replace(/\s+/g, '-')} className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+          {aiToolCategories.map((category, index) => {
+            // 生成与快速导航匹配的锚点ID
+            const generateAnchorId = (name: string) => {
+              return name.toLowerCase().replace(/\s+/g, '-').replace(/&/g, '');
+            };
+            const anchorId = generateAnchorId(category.name);
+            
+            return (
+            <section key={index} id={anchorId} className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 {category.name}
               </h2>
@@ -223,7 +230,8 @@ export default function BestAITools2024() {
                 </svg>
               </Link>
             </section>
-          ))}
+            );
+          })}
         </div>
 
         {/* FAQ部分 */}

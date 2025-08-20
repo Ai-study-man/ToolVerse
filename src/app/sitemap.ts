@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import DataSyncService from '../lib/dataSyncService'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://toolverse.com'
+  const baseUrl = 'https://www.toolsverse.tools'
   
   try {
     // 获取所有工具和分类数据

@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       creator: post.author.social?.twitter,
     },
     alternates: {
-      canonical: `https://toolverse.com/blog/${post.slug}`,
+      canonical: `https://www.toolsverse.tools/blog/${post.slug}`,
     }
   };
 }

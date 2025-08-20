@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: BlogCategoryPageProps): Promi
       description: `Latest ${category.name.toLowerCase()} articles and insights`,
     },
     alternates: {
-      canonical: `https://toolverse.com/blog/category/${params.slug}`,
+      canonical: `https://www.toolsverse.tools/blog/category/${params.slug}`,
     }
   };
 }

@@ -3,7 +3,7 @@
 export const seoConfig = {
   // 网站基本信息
   siteName: 'ToolVerse',
-  siteUrl: 'https://toolverse.com',
+  siteUrl: 'https://www.toolsverse.tools',
   defaultTitle: 'ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews',
   defaultDescription: 'Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects.',
   
@@ -90,7 +90,7 @@ export const seoConfig = {
 
   // 联系信息
   contact: {
-    email: 'contact@toolverse.com',
+    email: 'contact@toolsverse.tools',
     phone: '+1-555-AI-TOOLS'
   },
 
@@ -163,13 +163,13 @@ export const seoConfig = {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: 'ToolVerse',
-      url: 'https://toolverse.com',
+      url: 'https://www.toolsverse.tools',
       description: 'The ultimate directory for discovering and comparing AI tools',
       potentialAction: {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://toolverse.com/tools?search={search_term_string}',
+          urlTemplate: 'https://www.toolsverse.tools/tools?search={search_term_string}',
         },
         'query-input': 'required name=search_term_string',
       },
@@ -184,10 +184,10 @@ export const seoConfig = {
       '@type': 'Organization',
       name: 'ToolVerse',
       description: 'Professional AI tools discovery and review platform',
-      url: 'https://toolverse.com',
+      url: 'https://www.toolsverse.tools',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://toolverse.com/logo.png',
+        url: 'https://www.toolsverse.tools/logo.png',
         width: 200,
         height: 60,
       },
@@ -196,7 +196,7 @@ export const seoConfig = {
         '@type': 'ContactPoint',
         telephone: '+1-555-AI-TOOLS',
         contactType: 'customer service',
-        email: 'contact@toolverse.com',
+        email: 'contact@toolsverse.tools',
         availableLanguage: ['English', 'Chinese'],
       },
       sameAs: [

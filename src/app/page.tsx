@@ -145,16 +145,16 @@ export default function Home() {
         <title>ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews</title>
         <meta name="description" content="Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects." />
         <meta name="keywords" content="AI tools, artificial intelligence tools, ChatGPT, Midjourney, AI art generator, AI writing tools, AI coding assistant, best AI tools 2024, free AI tools, AI productivity tools" />
-        <link rel="canonical" href="https://toolverse.com" />
+        <link rel="canonical" href="https://www.toolsverse.tools/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews" />
         <meta property="og:description" content="Find the best AI tools for your needs. 500+ reviews, comparisons, and guides." />
-        <meta property="og:url" content="https://toolverse.com" />
-        <meta property="og:image" content="https://toolverse.com/og-image.png" />
+        <meta property="og:url" content="https://www.toolsverse.tools/" />
+        <meta property="og:image" content="https://www.toolsverse.tools/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="ToolVerse - Discover Best AI Tools" />
         <meta name="twitter:description" content="Find the best AI tools for your needs. 500+ reviews, comparisons, and guides." />
-        <meta name="twitter:image" content="https://toolverse.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.toolsverse.tools/og-image.png" />
       </Head>
       
       <StructuredData type="website" data={{ tools: featuredTools }} />

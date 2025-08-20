@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Tools Blog - Expert Reviews & Tutorials | ToolVerse',
     description: 'Expert AI tools reviews, tutorials, and industry insights. Learn how to master ChatGPT, Midjourney, and other cutting-edge AI technologies.',
-    url: 'https://toolverse.com/blog',
+    url: 'https://www.toolsverse.tools/blog',
     type: 'website',
     images: [
       {
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     images: ['/blog/og-blog.jpg'],
   },
   alternates: {
-    canonical: 'https://toolverse.com/blog',
+    canonical: 'https://www.toolsverse.tools/blog',
     types: {
-      'application/rss+xml': 'https://toolverse.com/blog/rss.xml',
+      'application/rss+xml': 'https://www.toolsverse.tools/blog/rss.xml',
     }
   }
 };
@@ -52,24 +52,24 @@ export default async function BlogPage() {
     '@type': 'Blog',
     name: 'ToolVerse AI Tools Blog',
     description: 'Expert reviews, tutorials, and insights on AI tools and artificial intelligence technologies',
-    url: 'https://toolverse.com/blog',
+    url: 'https://www.toolsverse.tools/blog',
     publisher: {
       '@type': 'Organization',
       name: 'ToolVerse',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://toolverse.com/logo.png'
+        url: 'https://www.toolsverse.tools/logo.png'
       }
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://toolverse.com/blog'
+      '@id': 'https://www.toolsverse.tools/blog'
     },
     blogPost: featuredPosts.map(post => ({
       '@type': 'BlogPosting',
       headline: post.title,
       description: post.excerpt,
-      url: `https://toolverse.com/blog/${post.slug}`,
+      url: `https://www.toolsverse.tools/blog/${post.slug}`,
       datePublished: post.publishedAt.toISOString(),
       dateModified: post.updatedAt.toISOString(),
       author: {
@@ -109,13 +109,13 @@ export default async function BlogPage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://toolverse.com'
+        item: 'https://www.toolsverse.tools'
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: 'https://toolverse.com/blog'
+        item: 'https://www.toolsverse.tools/blog'
       }
     ]
   };
