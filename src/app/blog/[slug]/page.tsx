@@ -329,7 +329,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   {post.tags.map((tag) => (
                     <Link
                       key={tag}
-                      href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/tools?search=${encodeURIComponent(tag)}`}
                       className="px-4 py-2 bg-white/15 backdrop-blur-sm text-white text-sm font-medium rounded-full hover:bg-white/25 transition-all duration-200 border border-white/20 hover:scale-105"
                     >
                       #{tag}
@@ -338,61 +338,60 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
               </div>
 
-              {/* 右侧特色区域 - 全新设计 */}
+              {/* 右侧特色区域 - 紧凑设计 */}
               <div className="lg:col-span-2">
-                <div className="sticky top-8 space-y-6">
-                  {/* 主要特色图片/卡片 */}
-                  <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl">
+                <div className="sticky top-8 space-y-4">
+                  {/* 主要特色图片/卡片 - 紧凑版 */}
+                  <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-xl">
                     <div className="text-center">
-                      <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg">
-                        <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                        <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-3">AI Tools Directory</h3>
-                      <p className="text-blue-100 text-sm mb-6 leading-relaxed">
+                      <h3 className="text-lg font-bold text-white mb-2">AI Tools Directory</h3>
+                      <p className="text-blue-100 text-xs mb-4 leading-relaxed">
                         Discover 500+ curated AI tools for developers, creators, and businesses
                       </p>
                       <Link 
                         href="/tools"
-                        className="inline-flex items-center gap-2 bg-white text-blue-900 px-6 py-3 rounded-full font-bold hover:bg-blue-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
+                        className="inline-flex items-center gap-2 bg-white text-blue-900 px-4 py-2 rounded-full text-sm font-bold hover:bg-blue-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
                       >
                         Explore Tools
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </Link>
                     </div>
                   </div>
 
-                  {/* 快速导航卡片 */}
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                    <h4 className="text-lg font-bold text-white mb-4">Quick Navigation</h4>
-                    <div className="space-y-3">
-                      <Link href="#pricing" className="flex items-center gap-3 text-blue-100 hover:text-white transition-colors">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                        <span className="text-sm font-medium">Pricing & Plans</span>
-                      </Link>
-                      <Link href="#features" className="flex items-center gap-3 text-blue-100 hover:text-white transition-colors">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                        <span className="text-sm font-medium">Key Features</span>
-                      </Link>
-                      <Link href="#alternatives" className="flex items-center gap-3 text-blue-100 hover:text-white transition-colors">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                        <span className="text-sm font-medium">Alternatives</span>
-                      </Link>
+                  {/* 统计卡片 - 简化版本，包含导航 */}
+                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="text-center">
+                        <div className="text-xl font-bold text-white">{post.viewCount.toLocaleString()}</div>
+                        <div className="text-xs text-blue-200">Views</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-xl font-bold text-white">{post.shareCount}</div>
+                        <div className="text-xs text-blue-200">Shares</div>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* 统计卡片 */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center">
-                      <div className="text-2xl font-bold text-white">{post.viewCount.toLocaleString()}</div>
-                      <div className="text-xs text-blue-200">Views</div>
-                    </div>
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center">
-                      <div className="text-2xl font-bold text-white">{post.shareCount}</div>
-                      <div className="text-xs text-blue-200">Shares</div>
+                    
+                    {/* 内联导航 */}
+                    <div className="pt-4 border-t border-white/20">
+                      <h4 className="text-sm font-bold text-white mb-2">Quick Actions</h4>
+                      <div className="flex flex-wrap gap-2">
+                        <a href="#content" className="px-3 py-1 bg-white/10 text-blue-100 hover:text-white text-xs rounded-full hover:bg-white/20 transition-colors">
+                          Read Article
+                        </a>
+                        <a href="#related-tools" className="px-3 py-1 bg-white/10 text-blue-100 hover:text-white text-xs rounded-full hover:bg-white/20 transition-colors">
+                          Tools
+                        </a>
+                        <a href="#author" className="px-3 py-1 bg-white/10 text-blue-100 hover:text-white text-xs rounded-full hover:bg-white/20 transition-colors">
+                          Author
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -466,7 +465,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
 
                 {/* Article Content - 优化排版 */}
-                <div className="px-8 py-12">
+                <div id="content" className="px-8 py-12">
                   <div 
                     className="prose prose-xl prose-blue max-w-none 
                     prose-headings:font-bold prose-headings:text-gray-900 prose-headings:tracking-tight
@@ -491,7 +490,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                 {/* Tools Mentioned in This Article */}
                 {post.relatedTools && post.relatedTools.length > 0 && (
-                  <div className="mx-8 mb-8 p-8 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl border border-purple-200">
+                  <div id="related-tools" className="mx-8 mb-8 p-8 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl border border-purple-200">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
                         <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -539,7 +538,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 )}
 
                 {/* Author Bio - 重新设计 */}
-                <div className="mx-8 mb-8 p-8 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl border border-gray-200">
+                <div id="author" className="mx-8 mb-8 p-8 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl border border-gray-200">
                   <div className="flex flex-col sm:flex-row items-start gap-6">
                     <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
                       <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
