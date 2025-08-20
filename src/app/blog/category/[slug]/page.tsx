@@ -200,7 +200,7 @@ export default async function BlogCategoryPage({ params }: BlogCategoryPageProps
                       No articles yet
                     </h2>
                     <p className="text-gray-600 mb-8">
-                      We're working on creating amazing content for the {category.name} category. 
+                      We&apos;re working on creating amazing content for the {category.name} category. 
                       Check back soon for new articles!
                     </p>
                     <a 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import BlogGrid from './BlogGrid';
 import { BlogPost, BlogCategory } from '@/types/blog';
@@ -16,15 +16,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const category = searchParams.get('category');
-    if (category && category !== selectedCategory) {
-      setSelectedCategory(category);
-      filterPosts(category);
-    }
-  }, [searchParams, selectedCategory]);
-
-  const filterPosts = (categorySlug: string) => {
+  const filterPosts = useCallback((categorySlug: string) => {
     setLoading(true);
     
     if (categorySlug === 'all') {
@@ -37,7 +29,15 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
     }
     
     setLoading(false);
-  };
+  }, [initialPosts]);
+
+  useEffect(() => {
+    const category = searchParams.get('category');
+    if (category && category !== selectedCategory) {
+      setSelectedCategory(category);
+      filterPosts(category);
+    }
+  }, [searchParams, selectedCategory, filterPosts]);
 
   const handleCategoryChange = (categorySlug: string) => {
     setSelectedCategory(categorySlug);
@@ -162,7 +162,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
             No articles in this category yet
           </h3>
           <p className="text-gray-600 mb-8">
-            We're working on creating amazing content for this category. 
+            We&apos;re working on creating amazing content for this category. 
             Check back soon for new articles!
           </p>
           <button

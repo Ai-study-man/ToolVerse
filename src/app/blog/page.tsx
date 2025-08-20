@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import Header from '@/components/Header';
 import BlogHero from '@/components/blog/BlogHero';
 import FeaturedPost from '@/components/blog/FeaturedPost';
@@ -165,7 +166,14 @@ export default async function BlogPage() {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
             {/* Blog Posts */}
             <div className="lg:col-span-3">
-              <BlogContent initialPosts={recentPosts} categories={categories} />
+              <Suspense fallback={
+                <div className="flex items-center justify-center py-12">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                  <span className="ml-3 text-gray-600">Loading articles...</span>
+                </div>
+              }>
+                <BlogContent initialPosts={recentPosts} categories={categories} />
+              </Suspense>
               
               {/* Load More Button */}
               {allPosts.length > 9 && (
