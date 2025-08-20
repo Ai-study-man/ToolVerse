@@ -221,44 +221,42 @@ export default async function ToolDetailPage({ params }: PageProps) {
         }} 
       />
       
-      {/* 面包屑导航 */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      {/* 面包屑导航 - 紧凑版 */}
+      <div className="bg-gray-50/50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           <nav className="flex" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-4">
+            <ol className="flex items-center space-x-2 text-xs">
               <li>
-                <div>
-                  <a href="/" className="text-gray-400 hover:text-gray-500 transition-colors">
-                    Home
+                <a href="/" className="text-gray-400 hover:text-gray-600 transition-colors">
+                  Home
+                </a>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <svg className="w-3 h-3 text-gray-300 mx-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <a href="/tools" className="text-gray-400 hover:text-gray-600 transition-colors">
+                    Tools
                   </a>
                 </div>
               </li>
               <li>
                 <div className="flex items-center">
-                  <svg className="w-4 h-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-3 h-3 text-gray-300 mx-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                   </svg>
-                  <a href="/tools" className="text-gray-400 hover:text-gray-500 transition-colors">
-                    AI Tools
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-4 h-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <a href={`/tools?category=${encodeURIComponent(tool.category)}`} className="text-gray-400 hover:text-gray-500 transition-colors">
+                  <a href={`/tools?category=${encodeURIComponent(tool.category)}`} className="text-gray-400 hover:text-gray-600 transition-colors truncate max-w-24">
                     {tool.category}
                   </a>
                 </div>
               </li>
               <li>
                 <div className="flex items-center">
-                  <svg className="w-4 h-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-3 h-3 text-gray-300 mx-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-600 font-medium">
+                  <span className="text-gray-600 font-medium truncate max-w-32">
                     {tool.name}
                   </span>
                 </div>
@@ -325,7 +323,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
 
             {/* 功能特性 */}
             {tool.features && tool.features.length > 0 && (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+              <div id="features" className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                   <svg className="w-6 h-6 mr-3 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -401,20 +399,26 @@ export default async function ToolDetailPage({ params }: PageProps) {
             <UseCaseSection tool={tool} />
 
             {/* 价格信息和方案对比 */}
-            <PricingDisplay tool={tool} className="mt-8" />
+            <div id="pricing">
+              <PricingDisplay tool={tool} className="mt-8" />
+            </div>
 
             {/* 同类工具对比 */}
-            <ToolComparison 
-              currentTool={tool} 
-              relatedTools={relatedTools}
-            />
+            <div id="alternatives">
+              <ToolComparison 
+                currentTool={tool} 
+                relatedTools={relatedTools}
+              />
+            </div>
 
             {/* 用户评论和评分系统 */}
-            <ReviewSection 
-              toolId={tool.id} 
-              toolName={tool.name}
-              className="mt-8"
-            />
+            <div id="reviews">
+              <ReviewSection 
+                toolId={tool.id} 
+                toolName={tool.name}
+                className="mt-8"
+              />
+            </div>
           </div>
 
           {/* 右侧边栏 */}
@@ -471,6 +475,30 @@ export default async function ToolDetailPage({ params }: PageProps) {
                   </div>
                 )}
               </dl>
+            </div>
+
+            {/* 快速导航 - 移到侧边栏 */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+              <h3 className="text-base font-semibold text-blue-900 mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Quick Navigation
+              </h3>
+              <div className="space-y-2 text-sm">
+                <a href="#pricing" className="block text-blue-700 hover:text-blue-900 py-1 hover:bg-blue-100 px-2 rounded transition-colors">
+                  • Pricing & Plans
+                </a>
+                <a href="#features" className="block text-blue-700 hover:text-blue-900 py-1 hover:bg-blue-100 px-2 rounded transition-colors">
+                  • Key Features
+                </a>
+                <a href="#reviews" className="block text-blue-700 hover:text-blue-900 py-1 hover:bg-blue-100 px-2 rounded transition-colors">
+                  • User Reviews
+                </a>
+                <a href="#alternatives" className="block text-blue-700 hover:text-blue-900 py-1 hover:bg-blue-100 px-2 rounded transition-colors">
+                  • Alternatives
+                </a>
+              </div>
             </div>
 
             {/* 相关工具 */}
