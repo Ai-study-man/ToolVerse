@@ -54,6 +54,10 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Imagen 3': 'https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg',
   'Playground AI': 'https://playgroundai.com/favicon.ico',
   'Looka': 'https://cdn.looka.com/favicon.ico',
+  // 新添加的工具
+  'Fal AI': '/logos/fal AI.jpeg',
+  'LetsEnhance': '/logos/letsenhance.jpeg',
+  'IMGCreator AI': '/logos/IMGCreator ai.jpeg',
   
   // Business & Productivity
   'Notion AI': 'https://www.notion.so/images/favicon.ico',
@@ -176,6 +180,10 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Imagen 3': '📸',
   'Playground AI': '🎮',
   'Looka': '👁️',
+  // 新添加的工具 - 使用本地logo
+  'Fal AI': '/logos/fal AI.jpeg',
+  'LetsEnhance': '/logos/letsenhance.jpeg',
+  'IMGCreator AI': '/logos/IMGCreator ai.jpeg',
   'Notion AI': '📝',
   'Grammarly': '/logos/grammarly.svg',
   'Jasper AI': '/logos/jasper-ai.png',

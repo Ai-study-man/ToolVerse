@@ -362,7 +362,11 @@ function getToolLogo(toolName: string, notionLogoUrl: string): string {
     'Krisp': '/logos/OpenAI_Icon_0.jpeg',
     'Windsurf Editor': '/logos/codium-ai.png',
     'CodeT5+': '/logos/codium-ai.png',
-    'Sourcegraph Cody': '/logos/codium-ai.png'
+    'Sourcegraph Cody': '/logos/codium-ai.png',
+    // 新添加的工具映射
+    'Fal AI': '/logos/fal AI.jpeg',
+    'LetsEnhance': '/logos/letsenhance.jpeg',
+    'IMGCreator AI': '/logos/IMGCreator ai.jpeg'
   };
   
   if (tempMappings[toolName]) {
