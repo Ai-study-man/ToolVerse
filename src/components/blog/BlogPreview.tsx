@@ -172,28 +172,43 @@ export default function BlogPreview() {
           </Link>
         </div>
 
-        {/* Newsletter CTA */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center">
-          <div className="max-w-2xl mx-auto">
+        {/* Newsletter CTA - Coming Soon */}
+        <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center relative overflow-hidden">
+          <div className="max-w-2xl mx-auto relative z-10">
             <h3 className="text-2xl font-bold mb-4">
               Never Miss an AI Breakthrough
             </h3>
             <p className="text-blue-100 mb-6">
               Subscribe to our newsletter for the latest AI tools reviews, tutorials, and industry insights delivered to your inbox.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4 opacity-60 pointer-events-none">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className="flex-1 px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-blue-200"
+                disabled
               />
-              <Link
-                href="/blog"
-                className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              <button
+                className="px-6 py-3 bg-white/50 text-blue-600 font-semibold rounded-lg cursor-not-allowed"
+                disabled
               >
                 Subscribe
-              </Link>
+              </button>
             </div>
+            
+            {/* Coming Soon Badge */}
+            <div className="inline-flex items-center gap-2 bg-orange-500/20 backdrop-blur-sm border border-orange-400/30 rounded-full px-4 py-2 text-orange-200">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm font-medium">Coming Soon</span>
+            </div>
+          </div>
+          
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-2 -right-2 w-16 h-16 bg-white/10 rounded-full animate-pulse"></div>
+            <div className="absolute bottom-4 -left-4 w-12 h-12 bg-white/10 rounded-full animate-bounce"></div>
           </div>
         </div>
       </div>
