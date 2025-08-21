@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUserBehavior } from '../hooks/useUserBehavior';
+import ToolImage from './ToolImage';
 
 interface ToolCardWithTrackingProps {
   tool: {
@@ -112,9 +113,10 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
     >
       {/* 工具基本信息 */}
       <div className="flex items-start space-x-4 mb-4">
-        <img 
-          src={tool.logo} 
+        <ToolImage
+          src={tool.logo}
           alt={`${tool.name} logo`}
+          name={tool.name}
           className="w-12 h-12 rounded-lg flex-shrink-0"
         />
         <div className="flex-1 min-w-0">

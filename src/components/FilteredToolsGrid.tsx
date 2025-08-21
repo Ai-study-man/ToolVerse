@@ -1,4 +1,5 @@
 import React from 'react';
+import ToolImage from './ToolImage';
 import { Tool } from '../types';
 
 interface FilteredToolsGridProps {
@@ -132,14 +133,11 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
     <div className="bg-white rounded-lg border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all duration-200 p-6">
       {/* Tool Header */}
       <div className="flex items-center gap-3 mb-4">
-        <img 
-          src={tool.logo} 
+        <ToolImage
+          src={tool.logo}
           alt={`${tool.name} logo`}
-          className="w-12 h-12 rounded-lg object-cover"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = '/logos/placeholder-logo.svg';
-          }}
+          name={tool.name}
+          className="w-12 h-12 rounded-lg object-contain"
         />
         <div className="flex-1">
           <h3 className="font-semibold text-gray-900 text-lg">{tool.name}</h3>

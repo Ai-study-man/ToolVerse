@@ -163,6 +163,78 @@ export const temporaryTools: Tool[] = [
     features: ['高精度转录', '多语言支持', '实时处理', '开源可用', 'API接口'],
     useCases: ['音频转录', '字幕生成', '会议记录', '语言学习'],
     createdAt: '2024-01-15'
+  },
+  {
+    id: 'bigjpg-temp',
+    name: 'Bigjpg',
+    description: 'AI-powered image upscaling tool that uses deep learning to enlarge images while preserving quality and reducing noise. Perfect for photographers and designers.',
+    shortDescription: 'AI image upscaling with noise reduction',
+    logo: '/logos/bigjpg.svg',
+    website: 'https://bigjpg.com/',
+    category: 'Design & Art',
+    subcategory: 'Image Enhancement',
+    pricingModel: 'freemium',
+    pricing: 'Free / $5-10/month',
+    rating: 4.5,
+    reviewCount: 1234,
+    tags: ['Image Upscaling', 'AI Enhancement', 'Noise Reduction', 'Photography'],
+    features: [
+      'AI-powered image upscaling',
+      'Noise reduction technology',
+      'Support for various formats',
+      'Batch processing',
+      'API integration available'
+    ],
+    useCases: ['Photo enhancement', 'Print preparation', 'Digital art upscaling', 'Image restoration'],
+    createdAt: '2024-01-15'
+  },
+  {
+    id: 'topaz-gigapixel-temp',
+    name: 'Topaz Gigapixel',
+    description: 'Professional AI image upscaling software that increases image resolution up to 600% while maintaining exceptional quality. Industry standard for photographers.',
+    shortDescription: 'Professional AI image upscaling software',
+    logo: '/logos/topaz-gigapixel.jpeg',
+    website: 'https://www.topazlabs.com/gigapixel?srsltid=AfmBOopPNRvoElG3HgUgvXR7aAYnaC7Nn6B_kFhWMspxrvL9xzV_yRXk',
+    category: 'Design & Art',
+    subcategory: 'Image Enhancement',
+    pricingModel: 'paid',
+    pricing: '$99.99 one-time',
+    rating: 4.8,
+    reviewCount: 2156,
+    tags: ['Image Upscaling', 'Professional', 'Photography', 'High Quality'],
+    features: [
+      'Up to 600% image enlargement',
+      'Professional-grade quality',
+      'Batch processing',
+      'RAW file support',
+      'Desktop application'
+    ],
+    useCases: ['Professional photography', 'Print production', 'Commercial imaging', 'Art reproduction'],
+    createdAt: '2024-01-15'
+  },
+  {
+    id: 'remini-temp',
+    name: 'Remini',
+    description: 'AI-powered photo enhancer that transforms old, blurry, or low-quality photos into sharp, clear images. Specializes in face enhancement and restoration.',
+    shortDescription: 'AI photo enhancer and restoration tool',
+    logo: '/logos/Remini.jpeg',
+    website: 'https://remini.ai/',
+    category: 'Design & Art',
+    subcategory: 'Photo Enhancement',
+    pricingModel: 'freemium',
+    pricing: 'Free / $4.99-9.99/month',
+    rating: 4.6,
+    reviewCount: 5432,
+    tags: ['Photo Enhancement', 'Face Restoration', 'AI Upscaling', 'Mobile App'],
+    features: [
+      'AI face enhancement',
+      'Photo restoration',
+      'Background enhancement',
+      'Mobile and web app',
+      'Quick processing'
+    ],
+    useCases: ['Family photo restoration', 'Social media enhancement', 'Old photo revival', 'Portrait improvement'],
+    createdAt: '2024-01-15'
   }
 ];
 

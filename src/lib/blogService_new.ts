@@ -107,13 +107,13 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
       seoKeywords: ['AI tool reviews', 'AI software analysis', 'best AI tools', 'AI tool comparison']
     },
     tags: ['Fal AI', 'Image Generation', 'AI Tools', 'Real-time', 'Speed'],
-    publishedAt: new Date('2025-08-21'),
-    updatedAt: new Date('2025-08-21'),
+    publishedAt: new Date('2025-01-14'),
+    updatedAt: new Date('2025-01-14'),
     readingTime: 5,
     featured: true,
     seoTitle: 'Fal AI Review 2025: Complete Guide to Real-Time AI Image Generation',
     seoDescription: 'Comprehensive review of Fal AI, the fastest AI image generation platform. Features, pricing, and real-world performance analysis.',
-    coverImage: '/pictures/Fal AI.png',
+    coverImage: '/pictures/fal-ai-review.jpg',
     status: 'published',
     relatedTools: ['fal-ai', 'midjourney', 'dall-e-3', 'stable-diffusion'],
     viewCount: 15230, // 15.2k views - highest view count
@@ -278,194 +278,18 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
       seoKeywords: ['AI tutorial', 'how to use AI', 'AI guide', 'artificial intelligence tutorial']
     },
     tags: ['Let\'s Enhance', 'Image Enhancement', 'AI Upscaling', 'Photo Editing', 'Review'],
-    publishedAt: new Date('2025-08-21'),
-    updatedAt: new Date('2025-08-21'),
+    publishedAt: new Date('2025-01-15'),
+    updatedAt: new Date('2025-01-15'),
     readingTime: 6,
     featured: false,
     seoTitle: 'Let\'s Enhance Review 2025: AI Image Upscaling Made Simple',
     seoDescription: 'Complete Let\'s Enhance review covering AI image upscaling, enhancement features, pricing, and real-world performance tests.',
-    coverImage: '/pictures/letsenhance.jpeg',
+    coverImage: '/pictures/lets-enhance-review.jpg',
     status: 'published',
     relatedTools: ['lets-enhance', 'upscale-ai', 'waifu2x', 'real-esrgan'],
     viewCount: 11456, // 11.4k views - second highest view count
     shareCount: 634,
     keywords: ['Let\'s Enhance review', 'AI image upscaling', 'photo enhancement AI', 'image quality improvement', 'AI photo editor']
-  },
-  {
-    id: '3',
-    title: 'ImgCreator AI Review (2025): Free Plan, Features, Pricing & Best Alternatives',
-    slug: 'imgcreator-ai-review-2025-free-plan-features-pricing-alternatives',
-    excerpt: 'Complete 2025 review of ImgCreator AI – features, free plan, pricing, pros & cons, and the best alternatives for AI image generation.',
-    content: `<div class="prose max-w-none">
-<h1>ImgCreator AI Review (2025) – Everything You Need to Know</h1>
-
-<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
-  <p class="text-blue-700">👉 <strong>Want to discover more?</strong> Check out our <a href="/tools?category=Design%20%26%20Art" class="text-blue-600 hover:text-blue-800 underline">AI Image Generator Tools Page</a></p>
-</div>
-
-<p>ImgCreator AI (also known as ImgCreator.ai or simply Img Creator) is a fast-growing AI image generation tool that allows users to create stunning visuals from text prompts. Whether you're a designer, marketer, or casual user, ImgCreator helps you turn ideas into images within seconds.</p>
-
-<p>In this article, we'll explore its features, free plan, pricing, advantages, disadvantages, and the top ImgCreator AI alternatives in 2025.</p>
-
-<h2>What is ImgCreator AI?</h2>
-
-<p>ImgCreator AI is an AI-powered text-to-image generator. Users simply type in a description, and the tool generates realistic or artistic visuals in different styles.</p>
-
-<p><strong>It is widely used for:</strong></p>
-
-<ul class="list-disc pl-6 space-y-2">
-  <li>Social media content creation</li>
-  <li>Marketing campaigns</li>
-  <li>Game design and concept art</li>
-  <li>E-commerce product images</li>
-</ul>
-
-<div class="bg-green-50 border-l-4 border-green-500 p-4 my-6">
-  <p class="text-green-700">👉 <strong>Explore more</strong> <a href="/tools?category=Design%20%26%20Art" class="text-green-600 hover:text-green-800 underline">AI Art Generator Tools</a></p>
-</div>
-
-<h2>Key Features of ImgCreator.ai</h2>
-
-<ul class="list-disc pl-6 space-y-3">
-  <li><strong>🎨 Text-to-Image AI</strong> – Generate images from simple descriptions.</li>
-  <li><strong>🎭 Multiple Styles</strong> – From realistic photos to anime, 3D, or artistic renders.</li>
-  <li><strong>⚡ Fast Generation</strong> – Images are created in seconds.</li>
-  <li><strong>🌐 User-Friendly Platform</strong> – Works directly in your browser.</li>
-  <li><strong>📸 High-Resolution Exports</strong> – Download images for professional use.</li>
-</ul>
-
-<h2>ImgCreator AI Free Plan</h2>
-
-<p>Many users search for "ImgCreator AI free", and yes – the platform offers a free tier.</p>
-
-<ul class="list-disc pl-6 space-y-2">
-  <li>Free users get limited daily credits</li>
-  <li>Great for testing image styles and features</li>
-  <li>Paid upgrades are available for higher resolution and faster processing</li>
-</ul>
-
-<div class="bg-purple-50 border-l-4 border-purple-500 p-4 my-6">
-  <p class="text-purple-700">👉 <strong>Looking for more no-cost AI apps?</strong> Visit our <a href="/tools?category=Design%20%26%20Art" class="text-purple-600 hover:text-purple-800 underline">Best Free AI Tools Page</a></p>
-</div>
-
-<h2>ImgCreator AI Pricing (2025)</h2>
-
-<div class="overflow-x-auto">
-  <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-    <thead class="bg-gray-50">
-      <tr>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Plan</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Price</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Features</th>
-      </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-      <tr>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Free Plan</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$0</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Limited credits, watermarked images</td>
-      </tr>
-      <tr>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Basic Plan</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">~$9.99/month</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">More credits, higher resolution</td>
-      </tr>
-      <tr>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Pro Plan</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">~$19.99/month</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unlimited or bulk credits, priority servers</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<h2>Pros & Cons of ImgCreator AI</h2>
-
-<div class="grid md:grid-cols-2 gap-6">
-  <div class="bg-green-50 p-4 rounded-lg">
-    <h3 class="text-green-800 font-semibold mb-2">✅ Pros</h3>
-    <ul class="text-green-700 space-y-1">
-      <li>Free plan available for beginners</li>
-      <li>Wide variety of styles (realistic, anime, 3D, art)</li>
-      <li>Easy to use, no technical skills required</li>
-      <li>Fast image generation</li>
-    </ul>
-  </div>
-  <div class="bg-red-50 p-4 rounded-lg">
-    <h3 class="text-red-800 font-semibold mb-2">❌ Cons</h3>
-    <ul class="text-red-700 space-y-1">
-      <li>Free version has restrictions (credits & watermarks)</li>
-      <li>Not as advanced as MidJourney or Stable Diffusion in customization</li>
-      <li>Limited editing features</li>
-    </ul>
-  </div>
-</div>
-
-<h2>Best Alternatives to ImgCreator AI</h2>
-
-<p>If ImgCreator.ai doesn't fully meet your needs, here are some top alternatives in 2025:</p>
-
-<ul class="list-disc pl-6 space-y-2">
-  <li><strong>MidJourney</strong> – Best for artistic, creative images</li>
-  <li><strong>Stable Diffusion</strong> – Open-source and customizable</li>
-  <li><strong>DALL·E 3 (OpenAI)</strong> – Easy to use, integrates with ChatGPT</li>
-  <li><strong>Fotor AI</strong> – Simple and beginner-friendly editor</li>
-</ul>
-
-<div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 my-6">
-  <p class="text-indigo-700">👉 <strong>Compare more options</strong> on our <a href="/tools?category=Design%20%26%20Art" class="text-indigo-600 hover:text-indigo-800 underline">AI Image Generator Alternatives Page</a></p>
-</div>
-
-<h2>How to Get Started with ImgCreator.ai</h2>
-
-<ol class="list-decimal pl-6 space-y-2">
-  <li>Visit the official <a href="https://www.zmo.ai/imgcreator" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">ImgCreator.ai website</a></li>
-  <li>Create a free account</li>
-  <li>Try generating your first image with free credits</li>
-  <li>Upgrade to a paid plan for faster results and higher resolution</li>
-</ol>
-
-<h2>Final Verdict</h2>
-
-<p>ImgCreator AI is a great entry-level AI image generator for anyone who wants fast and easy visuals. While it has limitations compared to advanced platforms, its free plan and simple UI make it worth trying in 2025.</p>
-
-<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
-  <p class="text-blue-700">👉 <strong>Looking for more tools?</strong> Explore our full <a href="/" class="text-blue-600 hover:text-blue-800 underline">AI Tools Directory Homepage</a></p>
-</div>
-
-</div>`,
-    author: {
-      name: 'AI Expert',
-      avatar: '/avatars/ai-expert.jpg',
-      bio: 'Expert in AI tools and technologies with 5+ years of experience in reviewing and testing AI platforms.',
-      social: {
-        twitter: '@aiexpert',
-        linkedin: 'ai-expert'
-      }
-    },
-    category: {
-      id: '2',
-      name: 'AI Tutorials',
-      slug: 'ai-tutorials',
-      description: 'Step-by-step guides for using AI tools',
-      color: '#7c3aed',
-      icon: '📚',
-      postCount: 1,
-      seoKeywords: ['AI tutorial', 'how to use AI', 'AI guide', 'artificial intelligence tutorial']
-    },
-    tags: ['ImgCreator AI', 'AI Image Generation', 'Text-to-Image', 'Free AI Tools', 'Review'],
-    publishedAt: new Date('2025-08-21'),
-    updatedAt: new Date('2025-08-21'),
-    readingTime: 6,
-    featured: false,
-    seoTitle: 'ImgCreator AI Review (2025): Free Plan, Features, Pricing & Best Alternatives',
-    seoDescription: 'Complete 2025 review of ImgCreator AI – features, free plan, pricing, pros & cons, and the best alternatives for AI image generation.',
-    coverImage: '/pictures/IMGCreator AI.png',
-    status: 'published',
-    relatedTools: ['imgcreator-ai', 'midjourney', 'stable-diffusion', 'dalle-3'],
-    viewCount: 876,
-    shareCount: 45,
-    keywords: ['ImgCreator AI review', 'AI image generator', 'text to image AI', 'free AI image tools', 'AI art generator']
   }
 ];
 
@@ -515,11 +339,6 @@ export async function getAllBlogPosts(filters?: BlogFilters): Promise<BlogPost[]
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   const posts = await getAllBlogPosts();
   return posts.find(post => post.slug === slug) || null;
-}
-
-// Alias for backward compatibility  
-export async function getBlogPost(slug: string): Promise<BlogPost | null> {
-  return getBlogPostBySlug(slug);
 }
 
 export async function getBlogPostById(id: string): Promise<BlogPost | null> {
@@ -619,9 +438,4 @@ export async function getRelatedBlogPosts(postId: string, limit: number = 3): Pr
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map(item => item.post);
-}
-
-// Alias for backward compatibility  
-export async function getRelatedPosts(postId: string, limit: number = 3): Promise<BlogPost[]> {
-  return getRelatedBlogPosts(postId, limit);
 }

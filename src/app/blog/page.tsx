@@ -143,7 +143,7 @@ export default async function BlogPage() {
           {featuredPosts.length > 0 && (
             <section className="mb-16">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-3xl font-bold text-gray-900">Featured Articles</h2>
+                <h2 className="text-3xl font-bold text-gray-900">Today's Featured Articles</h2>
                 <div className="text-sm text-gray-500">
                   {featuredPosts.length} featured {featuredPosts.length === 1 ? 'article' : 'articles'}
                 </div>

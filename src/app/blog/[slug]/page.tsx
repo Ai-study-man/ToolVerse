@@ -262,17 +262,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </p>
               </div>
 
-              {/* Featured Image - 添加Fal AI图片 */}
+              {/* Featured Image - 动态使用文章封面图片 */}
               <div className="lg:col-span-2 flex justify-center lg:justify-end">
                 <div className="relative w-full max-w-md">
                   <div className="relative aspect-square">
                     <SafeImage
-                      src="/pictures/Fal AI.png"
-                      alt="Fal AI Review - AI Image Generation Tool"
+                      src={post.coverImage || '/pictures/Fal AI.png'}
+                      alt={`${post.title} - AI Tool Review`}
                       fill
-                      className="object-contain rounded-2xl shadow-2xl bg-white p-4"
+                      className="object-contain rounded-2xl shadow-2xl bg-white/10 backdrop-blur-sm p-4"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/10 to-transparent rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/10 to-transparent rounded-2xl pointer-events-none"></div>
                   </div>
                   {/* Decorative elements */}
                   <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-400/20 rounded-full blur-xl"></div>
@@ -668,7 +668,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         src={relatedPost.coverImage || '/blog/default-cover.svg'}
                         alt={relatedPost.title}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="object-contain group-hover:scale-110 transition-transform duration-500 bg-white p-2"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                       

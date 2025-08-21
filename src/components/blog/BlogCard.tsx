@@ -28,10 +28,10 @@ export default function BlogCard({ post, layout = 'compact' }: BlogCardProps) {
       <article className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
         <div className="relative aspect-video">
           <SafeImage
-            src={post.coverImage || '/blog/default-cover.jpg'}
+            src={post.coverImage || '/blog/default-cover.svg'}
             alt={post.title}
             fill
-            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gray-50"
+            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 p-4"
           />
           <div className="absolute top-4 left-4">
             <span 
@@ -97,10 +97,10 @@ export default function BlogCard({ post, layout = 'compact' }: BlogCardProps) {
         {/* Large Image */}
         <div className="lg:w-1/2 relative aspect-[16/10] lg:aspect-auto">
           <SafeImage
-            src={post.coverImage || '/blog/default-cover.jpg'}
+            src={post.coverImage || '/blog/default-cover.svg'}
             alt={post.title}
             fill
-            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gray-50"
+            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 p-4"
           />
           <div className="absolute top-4 left-4">
             <span 
@@ -184,10 +184,10 @@ export default function BlogCard({ post, layout = 'compact' }: BlogCardProps) {
       {/* Compact Image */}
       <div className="w-1/3 relative aspect-square">
         <SafeImage
-          src={post.coverImage || '/blog/default-cover.jpg'}
+          src={post.coverImage || '/blog/default-cover.svg'}
           alt={post.title}
           fill
-          className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gray-50"
+          className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 p-2"
         />
         {post.featured && (
           <div className="absolute top-2 right-2">
@@ -232,10 +232,21 @@ export default function BlogCard({ post, layout = 'compact' }: BlogCardProps) {
             <span className="text-sm text-gray-700">{post.author.name}</span>
           </div>
           
-          <div className="flex items-center gap-4 text-sm text-gray-500">
-            <span>{formatDate(post.publishedAt)}</span>
-            <span>{post.viewCount.toLocaleString()} views</span>
-          </div>
+          <Link 
+            href={`/blog/${post.slug}`}
+            className="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          >
+            Read Article
+            <svg className="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </div>
+        
+        <div className="flex items-center gap-4 text-sm text-gray-500 mt-2">
+          <span>{formatDate(post.publishedAt)}</span>
+          <span>•</span>
+          <span>{post.viewCount.toLocaleString()} views</span>
         </div>
       </div>
     </article>

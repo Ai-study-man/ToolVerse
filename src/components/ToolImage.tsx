@@ -57,6 +57,12 @@ export default function ToolImage({ src, alt, className = '', name }: ToolImageP
       'Papago': 'papago.jpeg',
       'Whisper by OpenAI': 'whisper by openai.jpeg',
       
+      // 图像处理和增强工具
+      'Bigjpg': 'bigjpg.svg',
+      'Topaz Gigapixel': 'topaz-gigapixel.jpeg',
+      'Topaz Gigapixel AI': 'topaz-gigapixel.jpeg',
+      'Remini': 'Remini.jpeg',
+      
       // 其他可能的工具名称变体
       'Claude': 'claude.svg',
       'Claude 3': 'claude.svg',
@@ -123,7 +129,12 @@ export default function ToolImage({ src, alt, className = '', name }: ToolImageP
       'reverso': 'reverso.jpeg',
       'microsoft translator': 'microsoft translator.jpeg',
       'papago': 'papago.jpeg',
-      'whisper by openai': 'whisper by openai.jpeg'
+      'whisper by openai': 'whisper by openai.jpeg',
+      // 图像处理工具的小写映射
+      'bigjpg': 'bigjpg.svg',
+      'topaz gigapixel': 'topaz-gigapixel.jpeg',
+      'topaz gigapixel ai': 'topaz-gigapixel.jpeg',
+      'remini': 'Remini.jpeg'
     };
     
     return lowerMapping[lowerName] || null;

@@ -28,10 +28,10 @@ export default function FeaturedPost({ post, layout = 'hero' }: FeaturedPostProp
       <article className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
         <div className="relative aspect-[4/3]">
           <SafeImage
-            src={post.coverImage || '/blog/default-cover.jpg'}
+            src={post.coverImage || '/blog/default-cover.svg'}
             alt={post.title}
             fill
-            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-lg"
+            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 p-4"
           />
           <div className="absolute top-4 left-4">
             <span 
@@ -100,10 +100,10 @@ export default function FeaturedPost({ post, layout = 'hero' }: FeaturedPostProp
       {/* Large Image */}
       <div className="lg:w-3/5 relative aspect-[16/10] lg:aspect-auto">
         <SafeImage
-          src={post.coverImage || '/blog/default-cover.jpg'}
+          src={post.coverImage || '/blog/default-cover.svg'}
           alt={post.title}
           fill
-          className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gray-50"
+          className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 p-4"
         />
         <div className="absolute top-6 left-6">
           <span 

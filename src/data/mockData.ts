@@ -15,7 +15,7 @@ export const categories: Category[] = [
     slug: 'design-art',
     description: 'AI-powered design tools, image generation, and creative assistance',
     icon: '🎨',
-    toolCount: 8
+    toolCount: 11
   },
   {
     id: '3',
