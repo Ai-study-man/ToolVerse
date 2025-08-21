@@ -559,6 +559,11 @@ export async function getBlogCategories(): Promise<BlogCategory[]> {
   return Array.from(categoryMap.values());
 }
 
+export async function getBlogCategory(slug: string): Promise<BlogCategory | null> {
+  const categories = await getBlogCategories();
+  return categories.find(category => category.slug === slug) || null;
+}
+
 export async function getPopularPosts(limit: number = 5): Promise<BlogPost[]> {
   const posts = await getAllBlogPosts();
   return posts
