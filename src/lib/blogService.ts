@@ -113,7 +113,7 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
     featured: true,
     seoTitle: 'Fal AI Review 2025: Complete Guide to Real-Time AI Image Generation',
     seoDescription: 'Comprehensive review of Fal AI, the fastest AI image generation platform. Features, pricing, and real-world performance analysis.',
-    coverImage: '/pictures/Fal AI.png',
+    coverImage: '/pictures/fal-ai.png',
     status: 'published',
     relatedTools: ['fal-ai', 'midjourney', 'dall-e-3', 'stable-diffusion'],
     viewCount: 15230, // 15.2k views - highest view count
@@ -284,7 +284,7 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
     featured: false,
     seoTitle: 'Let\'s Enhance Review 2025: AI Image Upscaling Made Simple',
     seoDescription: 'Complete Let\'s Enhance review covering AI image upscaling, enhancement features, pricing, and real-world performance tests.',
-    coverImage: '/pictures/letsenhance.jpeg',
+    coverImage: '/pictures/Let\'s Enhance.jpeg',
     status: 'published',
     relatedTools: ['lets-enhance', 'upscale-ai', 'waifu2x', 'real-esrgan'],
     viewCount: 11456, // 11.4k views - second highest view count
@@ -460,7 +460,7 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
     featured: false,
     seoTitle: 'ImgCreator AI Review (2025): Free Plan, Features, Pricing & Best Alternatives',
     seoDescription: 'Complete 2025 review of ImgCreator AI – features, free plan, pricing, pros & cons, and the best alternatives for AI image generation.',
-    coverImage: '/pictures/IMGCreator AI.png',
+    coverImage: '/pictures/IMGCreator.ai.png',
     status: 'published',
     relatedTools: ['imgcreator-ai', 'midjourney', 'stable-diffusion', 'dalle-3'],
     viewCount: 876,
