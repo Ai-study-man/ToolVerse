@@ -8,6 +8,9 @@ import ToolComparison from '../../../components/ToolComparison';
 import PricingDisplay from '../../../components/PricingDisplay';
 import { SidebarBanner, ContentBanner } from '../../../components/AdBanner';
 import StructuredData from '../../../components/StructuredData';
+import Breadcrumbs from '../../../components/Breadcrumbs';
+import RelatedTools from '../../../components/RelatedTools';
+import GlobalLayout from '../../../components/GlobalLayout';
 import { generateToolMetadata } from '../../../lib/seoConfig';
 import { Tool } from '../../../types';
 import { Metadata } from 'next';
@@ -202,69 +205,37 @@ export default async function ToolDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      {/* SEO结构化数据 */}
-      <StructuredData 
-        type="tool" 
-        data={{
-          name: tool.name,
-          description: tool.description,
-          category: tool.category,
-          pricing: tool.pricing,
-          rating: tool.rating,
-          tags: tool.tags,
-          logo: tool.logo,
-          website: tool.website,
-          pricingModel: tool.pricingModel
-        }} 
-      />
-      
-      {/* 面包屑导航 - 紧凑版 */}
-      <div className="bg-gray-50/50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-          <nav className="flex" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-2 text-xs">
-              <li>
-                <a href="/" className="text-gray-400 hover:text-gray-600 transition-colors">
-                  Home
-                </a>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-300 mx-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <a href="/tools" className="text-gray-400 hover:text-gray-600 transition-colors">
-                    Tools
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-300 mx-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <a href={`/tools?category=${encodeURIComponent(tool.category)}`} className="text-gray-400 hover:text-gray-600 transition-colors truncate max-w-24">
-                    {tool.category}
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-300 mx-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-600 font-medium truncate max-w-32">
-                    {tool.name}
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
+    <GlobalLayout>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        
+        {/* SEO结构化数据 */}
+        <StructuredData 
+          type="tool" 
+          data={{
+            name: tool.name,
+            description: tool.description,
+            category: tool.category,
+            pricing: tool.pricing,
+            rating: tool.rating,
+            tags: tool.tags,
+            logo: tool.logo,
+            website: tool.website,
+            pricingModel: tool.pricingModel
+          }} 
+        />
+        
+        {/* 面包屑导航 */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Breadcrumbs items={[
+              { label: 'Home', href: '/' },
+              { label: 'Tools', href: '/tools' },
+              { label: tool.category, href: `/tools?category=${encodeURIComponent(tool.category)}` },
+              { label: tool.name }
+            ]} />
+          </div>
         </div>
-      </div>
 
       {/* 主要内容区域 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -573,6 +544,15 @@ export default async function ToolDetailPage({ params }: PageProps) {
               </div>
               <ContentBanner />
             </div>
+            
+            {/* Related Tools Section */}
+            <div className="my-8">
+              <RelatedTools 
+                currentTool={tool}
+                maxItems={6}
+                title="Related AI Tools"
+              />
+            </div>
           </div>
         </div>
 
@@ -584,6 +564,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
           <SidebarBanner />
         </div>
       </div>
-    </div>
+      </div>
+    </GlobalLayout>
   );
 }

@@ -3,12 +3,13 @@ import './globals.css'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.toolsverse.tools'),
   title: {
     default: 'ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews',
     template: '%s | ToolVerse - AI Tools Directory'
   },
   description: 'Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects.',
-  keywords: 'AI tools, artificial intelligence tools, ChatGPT, Midjourney, AI art generator, AI writing tools, AI coding assistant, best AI tools 2024, free AI tools, AI productivity tools, machine learning tools, AI software directory, AI platforms, AI applications, conversational AI, text to image AI, AI chatbots, AI image generation, AI code completion, natural language processing, computer vision AI, AI automation tools',
+  keywords: 'AI tools, artificial intelligence tools, ChatGPT, Midjourney, AI art generator, AI writing tools, AI coding assistant, best AI tools 2025, free AI tools, AI productivity tools, machine learning tools, AI software directory, AI platforms, AI applications, conversational AI, text to image AI, AI chatbots, AI image generation, AI code completion, natural language processing, computer vision AI, AI automation tools',
   authors: [{ name: 'ToolVerse Team' }],
   creator: 'ToolVerse',
   publisher: 'ToolVerse',
@@ -156,7 +157,7 @@ export default function RootLayout({
                 width: 200,
                 height: 60
               },
-              foundingDate: '2024',
+              foundingDate: '2025',
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'customer service',

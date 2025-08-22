@@ -152,7 +152,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
             'https://github.com/toolverse',
             'https://linkedin.com/company/toolverse',
           ],
-          foundingDate: '2024',
+          foundingDate: '2025',
           address: {
             '@type': 'PostalAddress',
             addressCountry: 'US',

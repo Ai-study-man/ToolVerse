@@ -626,6 +626,31 @@ export async function getRelatedBlogPosts(postId: string, limit: number = 3): Pr
     .map(item => item.post);
 }
 
+// Get all unique tags from all blog posts
+export async function getAllBlogTags(): Promise<string[]> {
+  const posts = await getAllBlogPosts();
+  const allTags = posts.flatMap(post => post.tags);
+  const uniqueTags = Array.from(new Set(allTags));
+  return uniqueTags.sort();
+}
+
+// Get popular tags with counts
+export async function getPopularBlogTags(limit: number = 20): Promise<Array<{ tag: string; count: number }>> {
+  const posts = await getAllBlogPosts();
+  const tagCounts: Record<string, number> = {};
+  
+  posts.forEach(post => {
+    post.tags.forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+  
+  return Object.entries(tagCounts)
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
+}
+
 // Alias for backward compatibility  
 export async function getRelatedPosts(postId: string, limit: number = 3): Promise<BlogPost[]> {
   return getRelatedBlogPosts(postId, limit);

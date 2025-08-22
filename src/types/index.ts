@@ -38,6 +38,12 @@ export interface Tool {
   useCases?: string[];  // 使用场景
   modelUsed?: string;   // 使用的 AI 模型
   createdAt: string;
+  // Phase 3 新增字段
+  likes?: number;       // 点赞数
+  views?: number;       // 查看次数
+  developer?: string;   // 开发者/公司名称
+  reviews?: any[];      // 用户评论
+  lastUpdated?: string; // 最后更新时间
 }
 
 export interface Category {

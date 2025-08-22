@@ -1,14 +1,17 @@
 import { MetadataRoute } from 'next'
 import DataSyncService from '../lib/dataSyncService'
+import { getAllBlogPosts, getBlogCategories } from '../lib/blogService'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.toolsverse.tools'
   
   try {
-    // 获取所有工具和分类数据
-    const [tools, categories] = await Promise.all([
+    // 获取所有工具、分类、博客数据
+    const [tools, categories, blogPosts, blogCategories] = await Promise.all([
       DataSyncService.getTools(),
-      DataSyncService.getCategories()
+      DataSyncService.getCategories(),
+      getAllBlogPosts(),
+      getBlogCategories()
     ])
 
     // 基础页面
@@ -30,6 +33,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/blog`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/featured`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
       },
       {
         url: `${baseUrl}/submit`,
@@ -60,6 +75,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'yearly' as const,
         priority: 0.3,
+      },
+      // FAQ页面
+      {
+        url: `${baseUrl}/faq`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      },
+      // 比较页面
+      {
+        url: `${baseUrl}/compare`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/compare/chatgpt-vs-claude`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/compare/midjourney-vs-dalle`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
       },
     ]
 
@@ -93,12 +134,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     }))
 
+    // 博客文章页面
+    const blogPages = blogPosts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.updatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }))
+
+    // 博客分类页面
+    const blogCategoryPages = blogCategories.map((category) => ({
+      url: `${baseUrl}/blog/category/${category.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }))
+
     // 组合所有页面
     return [
       ...staticPages,
       ...toolPages,
       ...categoryPages,
       ...tagPages,
+      ...blogPages,
+      ...blogCategoryPages,
     ]
   } catch (error) {
     console.error('Error generating sitemap:', error)

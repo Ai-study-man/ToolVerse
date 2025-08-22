@@ -16,7 +16,7 @@ export const seoConfig = {
     'AI art generator',
     'AI writing tools',
     'AI coding assistant',
-    'best AI tools 2024',
+    'best AI tools 2025',
     'free AI tools',
     'AI productivity tools'
   ],
@@ -31,7 +31,7 @@ export const seoConfig = {
     'text to image AI tools',
     'AI writing assistants for bloggers',
     'enterprise AI software solutions',
-    'AI tools comparison 2024',
+    'AI tools comparison 2025',
     'beginner friendly AI tools'
   ],
 
@@ -56,7 +56,7 @@ export const seoConfig = {
     'AI Scout alternatives',
     'Tool Finder AI',
     'AI Tools Hub',
-    'Best AI Software 2024'
+    'Best AI Software 2025'
   ],
 
   // 默认关键词
@@ -102,7 +102,7 @@ export const seoConfig = {
       keywords: [
         'AI tools',
         'artificial intelligence tools',
-        'best AI tools 2024',
+        'best AI tools 2025',
         'ChatGPT',
         'Midjourney',
         'AI tools directory',
@@ -121,7 +121,7 @@ export const seoConfig = {
         'AI software catalog',
         'ChatGPT alternatives',
         'Midjourney alternatives',
-        'best AI tools 2024',
+        'best AI tools 2025',
         'free AI tools',
         'AI tools reviews',
         'AI tools comparison',
@@ -191,7 +191,7 @@ export const seoConfig = {
         width: 200,
         height: 60,
       },
-      foundingDate: '2024',
+      foundingDate: '2025',
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: '+1-555-AI-TOOLS',
@@ -312,7 +312,7 @@ export function generateToolMetadata(tool: {
     `${tool.category} software`,
     'artificial intelligence',
     'AI software review',
-    'best AI tools 2024'
+    'best AI tools 2025'
   ];
 
   const title = `${tool.name} Review - ${tool.shortDescription || tool.category + ' AI Tool'} | ToolVerse`;

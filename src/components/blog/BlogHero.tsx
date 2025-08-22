@@ -30,9 +30,12 @@ export default function BlogHero({ categories }: BlogHeroProps) {
           </nav>
 
           {/* Hero Content */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
-            AI Tools Blog
-          </h1>
+          <div className="px-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100 leading-relaxed pb-2">
+              <span className="block sm:inline whitespace-nowrap">AI Tools</span>
+              <span className="block sm:inline sm:ml-4 whitespace-nowrap">Blog</span>
+            </h1>
+          </div>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-blue-100 leading-relaxed">
             Expert reviews, tutorials, and insights on the latest AI tools. 
             Stay ahead with ChatGPT, Midjourney, GitHub Copilot, and emerging AI technologies.

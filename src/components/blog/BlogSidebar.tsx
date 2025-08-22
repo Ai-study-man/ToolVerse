@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { BlogPost, BlogCategory } from '@/types/blog';
 import { getBlogCategories, getPopularPosts } from '@/lib/blogService';
 
@@ -14,6 +15,8 @@ export default function BlogSidebar({ currentPost }: BlogSidebarProps) {
   const [popularPosts, setPopularPosts] = useState<BlogPost[]>([]);
   const [totalPostsCount, setTotalPostsCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,16 +77,33 @@ export default function BlogSidebar({ currentPost }: BlogSidebarProps) {
     return count.toString();
   };
 
+  // Handle search functionality
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/blog?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch(e as any);
+    }
+  };
+
   return (
     <aside className="space-y-8">
       {/* Search Widget */}
       <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
         <h3 className="text-lg font-bold text-gray-900 mb-4">Search Articles</h3>
-        <div className="relative">
+        <form onSubmit={handleSearch} className="relative">
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="Search for articles..."
-            className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 pl-10 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <svg 
             className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -93,7 +113,15 @@ export default function BlogSidebar({ currentPost }: BlogSidebarProps) {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-        </div>
+          <button
+            type="submit"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </form>
       </div>
 
       {/* Categories */}
@@ -208,28 +236,7 @@ export default function BlogSidebar({ currentPost }: BlogSidebarProps) {
         </div>
       </div>
 
-      {/* Tags Cloud */}
-      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-        <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
-          <span className="mr-2">🏷️</span>
-          Popular Tags
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {[
-            'ChatGPT', 'AI Tools', 'Midjourney', 'GitHub Copilot', 'Claude',
-            'AI Art', 'Coding', 'Productivity', 'Tutorial', 'Review',
-            'Comparison', 'Business AI', 'Machine Learning'
-          ].map((tag) => (
-            <Link
-              key={tag}
-              href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-              className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200"
-            >
-              #{tag}
-            </Link>
-          ))}
-        </div>
-      </div>
+
 
       {/* Newsletter Signup */}
       <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl p-6 text-white">
@@ -244,14 +251,26 @@ export default function BlogSidebar({ currentPost }: BlogSidebarProps) {
           <input
             type="email"
             placeholder="Your email address"
-            className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 opacity-60"
+            disabled
           />
-          <button className="w-full bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+          <button className="w-full bg-white/60 text-blue-600 font-semibold py-2 px-4 rounded-lg cursor-not-allowed" disabled>
             Subscribe Free
           </button>
         </div>
-        <p className="text-xs text-blue-200 mt-2">
-          No spam. Unsubscribe at any time.
+        
+        {/* Coming Soon Badge */}
+        <div className="flex justify-center mt-3">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-3 py-1 text-blue-100">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-xs font-medium">Coming Soon</span>
+          </div>
+        </div>
+        
+        <p className="text-xs text-blue-200 mt-2 text-center">
+          Newsletter feature coming soon!
         </p>
       </div>
 

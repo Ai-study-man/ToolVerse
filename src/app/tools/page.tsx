@@ -5,8 +5,13 @@ import { useSearchParams } from 'next/navigation';
 import Header from '../../components/Header';
 import AdvancedSearch from '../../components/AdvancedSearch';
 import ToolCard from '../../components/ToolCard';
+import OptimizedToolCard from '../../components/OptimizedToolCard';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import GlobalLayout from '../../components/GlobalLayout';
+import SmartToolGrid from '../../components/SmartToolGrid';
 import { ContentBanner } from '../../components/AdBanner';
 import StructuredData from '../../components/StructuredData';
+import InternalLinks from '../../components/InternalLinks';
 import DataSyncService from '../../lib/dataSyncService';
 import { Tool, Category } from '../../types';
 
@@ -129,8 +134,9 @@ function ToolsContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <GlobalLayout>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
       
       {/* SEO结构化数据 */}
       <StructuredData 
@@ -144,68 +150,43 @@ function ToolsContent() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb Navigation */}
-        {searchParams.get('category') && (
+        {(searchParams.get('category') || searchParams.get('search')) && (
           <div className="mb-6">
-            <nav className="flex" aria-label="Breadcrumb">
-              <ol className="flex items-center space-x-4">
-                <li>
-                  <div>
-                    <a href="/" className="text-gray-400 hover:text-gray-500 transition-colors">
-                      Home
-                    </a>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <svg className="w-4 h-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <a href="/tools" className="text-gray-400 hover:text-gray-500 transition-colors">
-                      AI Tools Directory
-                    </a>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <svg className="w-4 h-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-gray-600 font-medium">
-                      {searchParams.get('category')}
-                    </span>
-                  </div>
-                </li>
-              </ol>
-            </nav>
+            <Breadcrumbs items={[
+              { label: 'Home', href: '/' },
+              { label: 'AI Tools Directory', href: '/tools' },
+              ...(searchParams.get('category') ? [{ label: searchParams.get('category') || '' }] : []),
+              ...(searchParams.get('search') ? [{ label: `Search: ${searchParams.get('search')}` }] : [])
+            ]} />
           </div>
         )}
         
         {/* 页面标题 */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             {(() => {
               const category = searchParams.get('category');
               const search = searchParams.get('search');
               
               if (category) {
-                return `${category} - AI Tools`;
+                return `Best ${category} AI Tools 2025 - Compare Features & Pricing`;
               } else if (search) {
-                return `Search Results: ${search}`;
+                return `AI Tools Search Results for "${search}" - Find Perfect Solutions`;
               }
-              return 'AI Tools Directory';
+              return 'Complete AI Tools Directory 2025 - 500+ Tools Reviewed';
             })()}
           </h1>
-          <p className="text-lg text-gray-600 mb-6">
+          <p className="text-lg text-gray-600 mb-6 max-w-4xl">
             {(() => {
               const category = searchParams.get('category');
               const search = searchParams.get('search');
               
               if (category) {
-                return `Discover ${filteredTools.length} ${category} AI tools`;
+                return `Discover ${filteredTools.length} verified ${category} AI tools with detailed reviews, pricing comparisons, and user ratings. Find the best AI solution for your needs.`;
               } else if (search) {
-                return `Found ${filteredTools.length} relevant tools`;
+                return `Found ${filteredTools.length} AI tools matching "${search}". Compare features, pricing, and reviews to choose the right tool for your workflow.`;
               }
-              return `Explore and discover ${tools.length}+ curated AI tools for various use cases and needs`;
+              return `Explore and discover ${tools.length}+ curated AI tools for various use cases and needs. Compare features, pricing, reviews, and alternatives to find your perfect AI solution.`;
             })()}
           </p>
         </div>
@@ -305,33 +286,16 @@ function ToolsContent() {
               ))}
             </div>
           ) : filteredTools.length > 0 ? (
-            // 工具网格
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredTools.slice(0, 6).map((tool) => (
-                  <ToolCard key={tool.id} tool={tool} />
-                ))}
-              </div>
-              
-              {/* 工具列表中间广告 */}
-              {filteredTools.length > 6 && (
-                <div className="my-8">
-                  <div className="text-center mb-4">
-                    <span className="text-xs text-gray-400 uppercase tracking-wide">Advertisement</span>
-                  </div>
-                  <ContentBanner />
-                </div>
-              )}
-              
-              {/* 剩余工具 */}
-              {filteredTools.length > 6 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredTools.slice(6).map((tool) => (
-                    <ToolCard key={tool.id} tool={tool} />
-                  ))}
-                </div>
-              )}
-            </>
+            // 智能工具网格
+            <SmartToolGrid
+              tools={filteredTools}
+              title=""
+              itemsPerPage={12}
+              showPagination={true}
+              priority={false}
+              className=""
+              emptyStateText="No tools match your search criteria"
+            />
           ) : (
             // 无结果状态
             <div className="text-center py-16">
@@ -404,8 +368,15 @@ function ToolsContent() {
             </div>
           </div>
         )}
+        
+        {/* Internal Links for SEO */}
+        <InternalLinks 
+          currentPage="tools" 
+          category={searchParams.get('category') || undefined} 
+        />
       </div>
-    </div>
+      </div>
+    </GlobalLayout>
   );
 }
 

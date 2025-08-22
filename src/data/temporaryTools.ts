@@ -1,4 +1,4 @@
-// 临时工具数据 - 用于缺失的9个新工具
+// 临时工具数据 - 用于缺失的新工具
 import { Tool } from '../types';
 
 export const temporaryTools: Tool[] = [
@@ -18,7 +18,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/Lovable.jpeg',
     features: ['AI代码生成', '全栈应用构建', 'React组件生成', '数据库集成', '自动部署'],
     useCases: ['快速原型开发', '全栈应用开发', '代码学习', '创业项目'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'bolt-new-temp', 
@@ -36,7 +36,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/bolt.new.svg',
     features: ['AI代码生成', '在线开发环境', '即时预览', '自动部署', '多框架支持'],
     useCases: ['快速原型开发', '在线编程', '教学演示', '项目构建'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'windsurf-temp',
@@ -54,7 +54,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/windsurf.jpeg',
     features: ['智能代码补全', '上下文理解', '代码重构', '多语言支持', '集成调试'],
     useCases: ['日常编程', '代码重构', '学习编程', '团队协作'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'v0-by-vercel-temp',
@@ -69,10 +69,10 @@ export const temporaryTools: Tool[] = [
     pricing: 'Free credits available, usage-based pricing',
     rating: 4.8,
     reviewCount: 250,
-    logo: '/placeholder-logo.svg',
+    logo: '/logos/v0-by-vercel.svg',
     features: ['AI界面生成', 'React组件', 'Tailwind CSS', '响应式设计', '代码导出'],
     useCases: ['UI原型设计', 'React开发', '界面快速构建', '设计转代码'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'cursor-temp',
@@ -90,7 +90,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/cursor.jpeg',
     features: ['AI代码补全', '智能重构', '自然语言编程', '代码解释', '多语言支持'],
     useCases: ['日常编程', 'AI辅助开发', '代码学习', '快速原型'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'reverso-temp',
@@ -108,7 +108,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/reverso.jpeg',
     features: ['上下文翻译', '语法检查', '动词变位', '例句搜索', '发音指南'],
     useCases: ['文档翻译', '语言学习', '写作辅助', '商务沟通'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'microsoft-translator-temp',
@@ -126,7 +126,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/microsoft translator.jpeg',
     features: ['实时翻译', '语音翻译', '图像翻译', 'API集成', '离线翻译'],
     useCases: ['商务翻译', '旅游助手', '学习辅助', 'API集成'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'papago-temp',
@@ -144,7 +144,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/papago.jpeg',
     features: ['亚洲语言专长', '自然表达', '语音翻译', '图像翻译', '网页翻译'],
     useCases: ['韩语翻译', '日语翻译', '中文翻译', '学习辅助'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'whisper-by-openai-temp',
@@ -162,7 +162,7 @@ export const temporaryTools: Tool[] = [
     logo: '/logos/whisper by openai.jpeg',
     features: ['高精度转录', '多语言支持', '实时处理', '开源可用', 'API接口'],
     useCases: ['音频转录', '字幕生成', '会议记录', '语言学习'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'bigjpg-temp',
@@ -186,7 +186,7 @@ export const temporaryTools: Tool[] = [
       'API integration available'
     ],
     useCases: ['Photo enhancement', 'Print preparation', 'Digital art upscaling', 'Image restoration'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'topaz-gigapixel-temp',
@@ -210,7 +210,7 @@ export const temporaryTools: Tool[] = [
       'Desktop application'
     ],
     useCases: ['Professional photography', 'Print production', 'Commercial imaging', 'Art reproduction'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   },
   {
     id: 'remini-temp',
@@ -234,7 +234,7 @@ export const temporaryTools: Tool[] = [
       'Quick processing'
     ],
     useCases: ['Family photo restoration', 'Social media enhancement', 'Old photo revival', 'Portrait improvement'],
-    createdAt: '2024-01-15'
+    createdAt: '2025-01-15'
   }
 ];
 

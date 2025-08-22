@@ -6,12 +6,18 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
+import AdvancedSearchBar from '../components/AdvancedSearchBar';
 import ToolCard from '../components/ToolCard';
+import OptimizedToolCard from '../components/OptimizedToolCard';
 import CategoryCard from '../components/CategoryCard';
 import { LoadingSkeleton } from '../components/LoadingSkeleton';
+import InternalLinks from '../components/InternalLinks';
 import { ContentBanner, FooterBanner } from '../components/AdBanner';
 import StructuredData from '../components/StructuredData';
 import BlogPreview from '../components/blog/BlogPreview';
+import GlobalLayout from '../components/GlobalLayout';
+import SuperSearchBar from '../components/SuperSearchBar';
+import SmartToolGrid from '../components/SmartToolGrid';
 import DataSyncService from '../lib/dataSyncService';
 import { navigateToUrl } from '../lib/navigation';
 import { Tool, Category } from '../types';
@@ -102,7 +108,7 @@ export default function Home() {
   const getCategoryIcon = useMemo(() => {
     const iconMap: { [key: string]: string } = {
       'Conversational AI': '🤖',
-      'Image Generation': '🎨', 
+      'Image Generation': '🖼️', 
       'Code Development': '💻',
       'Design & Art': '🎨',
       'Development': '⚙️',
@@ -139,12 +145,12 @@ export default function Home() {
   }, [featuredTools]);
 
   return (
-    <>
+    <GlobalLayout>
       {/* SEO结构化数据 */}
       <Head>
         <title>ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews</title>
         <meta name="description" content="Discover and use the best AI tools! ToolVerse provides 500+ detailed AI tool reviews and guides. Find ChatGPT, Midjourney, GitHub Copilot alternatives and more AI solutions for your business and creative projects." />
-        <meta name="keywords" content="AI tools, artificial intelligence tools, ChatGPT, Midjourney, AI art generator, AI writing tools, AI coding assistant, best AI tools 2024, free AI tools, AI productivity tools" />
+        <meta name="keywords" content="AI tools, artificial intelligence tools, ChatGPT, Midjourney, AI art generator, AI writing tools, AI coding assistant, best AI tools 2025, free AI tools, AI productivity tools" />
         <link rel="canonical" href="https://www.toolsverse.tools/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="ToolVerse - Discover Best AI Tools | AI Tools Directory & Reviews" />
@@ -194,16 +200,15 @@ export default function Home() {
       <section className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Discover the Best <span className="text-accent-300">AI Tools</span> for Your Business
+            Best AI Tools Directory 2025 - Find Top <span className="text-accent-300">AI Solutions</span> for Your Business
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto">
-            Find the perfect AI tools for productivity, creativity, and business growth. 
-            Explore 500+ curated AI software including ChatGPT alternatives, AI image generators, 
-            coding assistants, and automation tools. All reviewed by experts.
+            Discover 500+ AI tools for productivity, creativity, and business growth. 
+            Compare ChatGPT alternatives, AI image generators, coding assistants, and automation tools. 
+            All reviewed by AI experts with detailed comparisons, pricing, and user ratings.
           </p>
           <div className="max-w-2xl mx-auto mb-8">
-            <SearchBar 
-              onSearch={handleSearch}
+            <SuperSearchBar 
               placeholder="Search ChatGPT, Midjourney, coding tools..."
               className="w-full"
             />
@@ -234,9 +239,14 @@ export default function Home() {
       {/* Categories Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Browse by Category
-          </h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Browse AI Tools by Category
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Explore AI tools organized by use case and industry. From chatbots to image generation, find the right AI solution for your specific needs.
+            </p>
+          </div>
           {loading ? (
             <LoadingSkeleton variant="category" count={6} />
           ) : (
@@ -269,27 +279,24 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Featured AI Tools
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Featured AI Tools - Editor's Choice
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover the most popular and highly-rated AI tools chosen by our community
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Discover the most popular and highly-rated AI tools chosen by our community. These tools are tested and verified by our experts for quality and performance.
             </p>
           </div>
           {loading ? (
             <LoadingSkeleton variant="featured" count={6} />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {memoizedFeaturedTools.length === 0 ? (
-                <div className="col-span-full text-center py-8">
-                  <p className="text-gray-500">No tools available</p>
-                </div>
-              ) : (
-                memoizedFeaturedTools.map((tool: Tool) => (
-                  <ToolCard key={tool.id} tool={tool} />
-                ))
-              )}
-            </div>
+            <SmartToolGrid
+              tools={memoizedFeaturedTools}
+              title=""
+              itemsPerPage={6}
+              showPagination={false}
+              priority={true}
+              className=""
+            />
           )}
           <div className="text-center mt-12">
             <a 
@@ -302,30 +309,55 @@ export default function Home() {
         </div>
       </section>
 
+
+
       {/* Newsletter Section */}
       <section className="py-16 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Stay Updated with Latest AI Tools
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Stay Updated with Latest AI Tools & News
           </h2>
-          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-            Get weekly updates on new AI tools, reviews, and industry insights delivered to your inbox.
+          <p className="text-lg md:text-xl opacity-90 mb-8 max-w-3xl mx-auto">
+            Get weekly updates on new AI tools, detailed reviews, pricing comparisons, and industry insights delivered to your inbox. Join 50,000+ professionals staying ahead in AI.
           </p>
-          <div className="max-w-md mx-auto flex gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900"
-            />
-            <button className="bg-accent-600 text-white px-6 py-3 rounded-lg hover:bg-accent-700 transition-colors font-medium">
-              Subscribe
-            </button>
+          
+          {/* Coming Soon Newsletter */}
+          <div className="max-w-md mx-auto">
+            <div className="flex gap-4 opacity-60 pointer-events-none mb-4">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 rounded-lg text-gray-900"
+                disabled
+              />
+              <button 
+                className="bg-accent-600/50 text-white px-6 py-3 rounded-lg font-medium cursor-not-allowed"
+                disabled
+              >
+                Subscribe
+              </button>
+            </div>
+            
+            {/* Coming Soon Badge */}
+            <div className="inline-flex items-center gap-2 bg-orange-500/20 backdrop-blur-sm border border-orange-400/30 rounded-full px-4 py-2 text-orange-200">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm font-medium">Coming Soon</span>
+            </div>
+            
+            <p className="text-xs text-gray-400 mt-3">
+              We're working hard to bring you an amazing newsletter experience!
+            </p>
           </div>
         </div>
       </section>
 
       {/* Blog Preview Section */}
       <BlogPreview />
+
+      {/* Internal Links for SEO */}
+      <InternalLinks currentPage="home" />
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-12">
@@ -381,12 +413,12 @@ export default function Home() {
               <FooterBanner />
             </div>
             <div className="text-center text-gray-400">
-              <p>&copy; 2024 ToolVerse. All rights reserved.</p>
+              <p>&copy; 2025 ToolVerse. All rights reserved.</p>
             </div>
           </div>
         </div>
       </footer>
     </div>
-    </>
+    </GlobalLayout>
   );
 }

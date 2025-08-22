@@ -10,7 +10,8 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Bolt.new': '/logos/bolt.new.svg',
   'Windsurf': '/logos/windsurf.jpeg',
   'Windsurf Editor': '/logos/windsurf.jpeg',
-  'v0 by Vercel': '/logos/placeholder-logo.svg',
+  // v0 官方文件已添加
+  'v0 by Vercel': '/logos/v0-by-vercel.svg',
   'Cursor': '/logos/cursor.jpeg',
   'Reverso': '/logos/reverso.jpeg',
   'Microsoft Translator': '/logos/microsoft translator.jpeg',
@@ -22,7 +23,8 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Claude': '/logos/claude.svg',
   'Google Gemini': '/logos/google-gemini.png',
   'Character.AI': '/logos/character-ai.png',
-  'Perplexity AI': 'https://pplx.ai/favicon.ico',
+  // 使用本地官方文件（替代外链，避免加载失败）
+  'Perplexity AI': '/logos/perplexity-ai.svg',
   'DeepSeek': '/logos/deepseek.png',
   
   // Code Development - using GitHub and official CDNs
@@ -37,13 +39,15 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Blackbox AI': '/logos/Blackbox.png',
   'Aider': '/logos/aider.png',
   'Codium AI': '/logos/codium-ai.png',
-  'Sourcegraph Cody': 'https://about.sourcegraph.com/favicon.ico',
+  'Sourcegraph Cody': '/logos/sourcegraph-cody.svg',
   
   // Image Generation & Design - using official logo APIs
-  'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg', // using OpenAI official logo
-  'DALL-E': '/logos/OpenAI_Icon_0.jpeg', // 使用OpenAI官方logo
-  'Midjourney': '/logos/midjourney.png',
-  'Stable Diffusion': 'https://stability.ai/favicon.ico',
+  'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg', // 使用 OpenAI 官方 logo
+  'DALL-E': '/logos/OpenAI_Icon_0.jpeg', // 使用 OpenAI 官方 logo
+  // 注意大小写：public/logos 中文件为 "Midjourney.png"
+  'Midjourney': '/logos/Midjourney.png',
+  // 使用本地稳定扩散 logo
+  'Stable Diffusion': '/logos/stable-diffusion.png',
   'Leonardo AI': 'https://app.leonardo.ai/favicon.ico',
   'Adobe Firefly': 'https://www.adobe.com/favicon.ico',
   'Canva AI': '/logos/Canva_Logo_0.svg',
@@ -52,15 +56,16 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Flux AI': '/logos/flux-ai.png',
   'Ideogram': '/logos/ideogram.png',
   'Imagen 3': 'https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg',
-  'Playground AI': 'https://playgroundai.com/favicon.ico',
-  'Looka': 'https://cdn.looka.com/favicon.ico',
+  'Playground AI': '/logos/playground-ai.svg',
+  'Looka': '/logos/looka.svg',
   // 新添加的工具
   'Fal AI': '/logos/fal AI.jpeg',
   'LetsEnhance': '/logos/letsenhance.jpeg',
+  // 目录中同时存在 PNG/JPEG，这里优先已有的 JPEG
   'IMGCreator AI': '/logos/IMGCreator ai.jpeg',
   
   // Business & Productivity
-  'Notion AI': 'https://www.notion.so/images/favicon.ico',
+  'Notion AI': '/logos/notion-ai.svg',
   'Grammarly': '/logos/grammarly.svg',
   'Jasper AI': '/logos/jasper-ai.png',
   'Copy.ai': '/logos/Copy.ai_idhj7Th-aL_0.svg',
@@ -83,9 +88,13 @@ const SIMPLE_LOGOS: Record<string, string> = {
   // Writing & Content
   'Writesonic': '/logos/Writesonic.jpeg',
   'Rytr': '/logos/Rytr.jpeg',
+  // 若外链可能被阻止，建议后续放置本地 quillbot.* 并替换为本地路径
   'QuillBot': 'https://quillbot.com/favicon.ico',
   'Wordtune': 'https://www.wordtune.com/favicon.svg',
   'ContentBot': '/logos/ContentBot.jpeg',
+
+  // 翻译与数据相关（优先本地）
+  'Dataiku': '/logos/dataiku.svg',
   
   // Language & Translation
   'DeepL': 'https://static.deepl.com/img/favicon/favicon_96.png',
@@ -106,11 +115,12 @@ const SIMPLE_LOGOS: Record<string, string> = {
   // Marketing & SEO
   'Alli AI': '/logos/Alli AI.jpeg',
   'BrightEdge': 'https://www.brightedge.com/favicon.ico',
-  'Clearscope': '/logos/clearscope.jpeg',
-  'ContentKing': 'https://www.contentkingapp.com/favicon.ico',
+  // 注意大小写：实际文件名为大写 C
+  'Clearscope': '/logos/Clearscope.jpeg',
+  'ContentKing': '/logos/contentking.svg',
   'Frase': '/logos/Frase.png',
   'MarketMuse': 'https://www.marketmuse.com/favicon.ico',
-  'Semrush AI': 'https://www.semrush.com/favicon.ico',
+  'Semrush AI': '/logos/semrush-ai.svg',
   'Surfer SEO': '/logos/Surfer.jpeg'
 };
 
@@ -141,7 +151,7 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Bolt.new': '/logos/bolt.new.svg',
   'Windsurf': '/logos/windsurf.jpeg',
   'Windsurf Editor': '/logos/windsurf.jpeg',
-  'v0 by Vercel': '/logos/placeholder-logo.svg',
+  'v0 by Vercel': '/logos/v0-by-vercel.svg',
   'Cursor': '/logos/cursor.jpeg',
   'Reverso': '/logos/reverso.jpeg',
   'Microsoft Translator': '/logos/microsoft translator.jpeg',
@@ -152,7 +162,7 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Claude': '/logos/claude.svg',
   'Google Gemini': '/logos/google-gemini.png',
   'Character.AI': '/logos/character-ai.png',
-  'Perplexity AI': '🔍',
+  'Perplexity AI': '/logos/perplexity-ai.svg',
   'DeepSeek': '/logos/deepseek.png',
   'GitHub Copilot': '👨‍💻',
   'Tabnine': '📝',
@@ -168,8 +178,8 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Sourcegraph Cody': '📊',
   'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg',
   'DALL-E': '/logos/OpenAI_Icon_0.jpeg',
-  'Midjourney': '/logos/midjourney.png',
-  'Stable Diffusion': '🎯',
+  'Midjourney': '/logos/Midjourney.png',
+  'Stable Diffusion': '/logos/stable-diffusion.png',
   'Leonardo AI': '🖌️',
   'Adobe Firefly': '🔥',
   'Canva AI': '/logos/Canva_Logo_0.svg',
@@ -178,8 +188,8 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Flux AI': '/logos/flux-ai.png',
   'Ideogram': '/logos/ideogram.png',
   'Imagen 3': '📸',
-  'Playground AI': '🎮',
-  'Looka': '👁️',
+  'Playground AI': '/logos/playground-ai.svg',
+  'Looka': '/logos/looka.svg',
   // 新添加的工具 - 使用本地logo
   'Fal AI': '/logos/fal AI.jpeg',
   'LetsEnhance': '/logos/letsenhance.jpeg',
@@ -213,18 +223,18 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Tableau AI': '📊',
   'H2O.ai': '💧',
   'Crystal': '/logos/crystal.png',
-  'Dataiku': '📈',
+  'Dataiku': '/logos/dataiku.svg',
   'MonkeyLearn': '🐵',
   'Qlik Sense AI': '/logos/Qlik.jpeg',
   'Sisense AI': '📋',
   'Medallia': '/logos/Medallia.jpeg',
   'Alli AI': '/logos/Alli AI.jpeg',
   'BrightEdge': '⭐',
-  'Clearscope': '/logos/clearscope.jpeg',
-  'ContentKing': '👑',
+  'Clearscope': '/logos/Clearscope.jpeg',
+  'ContentKing': '/logos/contentking.svg',
   'Frase': '/logos/Frase.png',
   'MarketMuse': '🎯',
-  'Semrush AI': '📈',
+  'Semrush AI': '/logos/semrush-ai.svg',
   'Surfer SEO': '/logos/Surfer.jpeg'
 };
 

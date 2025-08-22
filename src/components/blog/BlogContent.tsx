@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import BlogGrid from './BlogGrid';
 import { BlogPost, BlogCategory } from '@/types/blog';
+import { searchBlogPosts } from '@/lib/blogService';
 
 interface BlogContentProps {
   initialPosts: BlogPost[];
@@ -13,35 +14,54 @@ interface BlogContentProps {
 export default function BlogContent({ initialPosts, categories }: BlogContentProps) {
   const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
 
-  const filterPosts = useCallback((categorySlug: string) => {
+  const filterPosts = useCallback(async (categorySlug: string, search?: string) => {
     setLoading(true);
     
-    if (categorySlug === 'all') {
-      setPosts(initialPosts);
-    } else {
-      const filtered = initialPosts.filter(post => 
-        post.category.slug === categorySlug
-      );
-      setPosts(filtered);
+    let filteredPosts = initialPosts;
+    
+    // Apply search filter first if search query exists
+    if (search && search.trim()) {
+      try {
+        filteredPosts = await searchBlogPosts(search.trim());
+      } catch (error) {
+        console.error('Search error:', error);
+        filteredPosts = initialPosts.filter(post => 
+          post.title.toLowerCase().includes(search.toLowerCase()) ||
+          post.excerpt.toLowerCase().includes(search.toLowerCase()) ||
+          post.tags.some(tag => tag.toLowerCase().includes(search.toLowerCase()))
+        );
+      }
     }
     
+    // Then apply category filter
+    if (categorySlug !== 'all') {
+      filteredPosts = filteredPosts.filter(post => 
+        post.category.slug === categorySlug
+      );
+    }
+    
+    setPosts(filteredPosts);
     setLoading(false);
   }, [initialPosts]);
 
   useEffect(() => {
-    const category = searchParams.get('category');
-    if (category && category !== selectedCategory) {
+    const category = searchParams.get('category') || 'all';
+    const search = searchParams.get('search') || '';
+    
+    if (category !== selectedCategory || search !== searchQuery) {
       setSelectedCategory(category);
-      filterPosts(category);
+      setSearchQuery(search);
+      filterPosts(category, search);
     }
-  }, [searchParams, selectedCategory, filterPosts]);
+  }, [searchParams, selectedCategory, searchQuery, filterPosts]);
 
   const handleCategoryChange = (categorySlug: string) => {
     setSelectedCategory(categorySlug);
-    filterPosts(categorySlug);
+    filterPosts(categorySlug, searchQuery);
     
     // Update URL without page reload
     const url = new URL(window.location.href);
@@ -50,6 +70,12 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
     } else {
       url.searchParams.set('category', categorySlug);
     }
+    
+    // Keep search query if it exists
+    if (searchQuery) {
+      url.searchParams.set('search', searchQuery);
+    }
+    
     window.history.pushState({}, '', url.toString());
   };
 
@@ -103,9 +129,21 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
         })}
       </div>
 
-      {/* Posts Count */}
+      {/* Search Results Info & Posts Count */}
       <div className="flex items-center justify-between">
         <div className="text-sm text-gray-500">
+          {searchQuery && (
+            <div className="mb-2">
+              <span className="text-gray-700 font-medium">
+                Search results for "{searchQuery}"
+              </span>
+              {selectedCategory !== 'all' && (
+                <span className="text-gray-500">
+                  {' '}in {categories.find(c => c.slug === selectedCategory)?.name}
+                </span>
+              )}
+            </div>
+          )}
           {loading ? (
             'Loading...'
           ) : (
@@ -119,13 +157,21 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
             </>
           )}
         </div>
-        
-        {selectedCategory !== 'all' && (
+
+        {(selectedCategory !== 'all' || searchQuery) && (
           <button
-            onClick={() => handleCategoryChange('all')}
+            onClick={() => {
+              setSelectedCategory('all');
+              setSearchQuery('');
+              filterPosts('all', '');
+              const url = new URL(window.location.href);
+              url.searchParams.delete('category');
+              url.searchParams.delete('search');
+              window.history.pushState({}, '', url.toString());
+            }}
             className="text-sm text-blue-600 hover:text-blue-700 font-medium"
           >
-            Clear filter
+            Clear filters
           </button>
         )}
       </div>
@@ -152,21 +198,31 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
         <BlogGrid posts={posts} />
       )}
 
-      {/* Empty State */}
-      {!loading && posts.length === 0 && selectedCategory !== 'all' && (
+      {/* Empty State for search/category */}
+      {!loading && posts.length === 0 && (searchQuery || selectedCategory !== 'all') && (
         <div className="text-center py-16">
           <div className="w-16 h-16 mx-auto mb-4 text-4xl">
-            {categories.find(c => c.slug === selectedCategory)?.icon || '📝'}
+            {searchQuery ? '🔍' : (categories.find(c => c.slug === selectedCategory)?.icon || '📝')}
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-4">
-            No articles in this category yet
+            {searchQuery ? 'No search results found' : 'No articles in this category yet'}
           </h3>
           <p className="text-gray-600 mb-8">
-            We&apos;re working on creating amazing content for this category. 
-            Check back soon for new articles!
+            {searchQuery 
+              ? `No articles match your search for "${searchQuery}". Try different keywords or browse all articles.`
+              : 'We\'re working on creating amazing content for this category. Check back soon for new articles!'
+            }
           </p>
           <button
-            onClick={() => handleCategoryChange('all')}
+            onClick={() => {
+              setSelectedCategory('all');
+              setSearchQuery('');
+              filterPosts('all', '');
+              const url = new URL(window.location.href);
+              url.searchParams.delete('category');
+              url.searchParams.delete('search');
+              window.history.pushState({}, '', url.toString());
+            }}
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
           >
             View All Articles

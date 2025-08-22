@@ -6,6 +6,8 @@ import CategoryCard from '../../components/CategoryCard';
 import CategoryFilter from '../../components/CategoryFilter';
 import FilteredToolsGrid from '../../components/FilteredToolsGrid';
 import StructuredData from '../../components/StructuredData';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import GlobalLayout from '../../components/GlobalLayout';
 import { LoadingSkeleton } from '../../components/LoadingSkeleton';
 import DataSyncService from '../../lib/dataSyncService';
 import { Category, Tool } from '../../types';
@@ -59,27 +61,38 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      {/* SEO结构化数据 */}
-      <StructuredData 
-        type="website" 
-        data={{
-          name: "AI工具分类",
-          description: "按分类浏览AI工具：对话AI、图像生成、代码开发等",
-          url: "https://toolverse.com/categories"
-        }} 
-      />
+    <GlobalLayout>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        
+        {/* SEO结构化数据 */}
+        <StructuredData 
+          type="website" 
+          data={{
+            name: "AI工具分类",
+            description: "按分类浏览AI工具：对话AI、图像生成、代码开发等",
+            url: "https://toolverse.com/categories"
+          }} 
+        />
+        
+        {/* Breadcrumbs */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Breadcrumbs items={[
+              { label: 'Home', href: '/' },
+              { label: 'Categories' }
+            ]} />
+          </div>
+        </div>
       
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Explore AI Tool Categories
+            AI Tools Categories 2025 - Browse by Use Case
           </h1>
-          <p className="text-xl opacity-90 max-w-3xl mx-auto mb-8">
-            Discover AI tools organized by category. Find the perfect tools for your specific needs and use cases.
+          <p className="text-xl opacity-90 max-w-4xl mx-auto mb-8">
+            Discover AI tools organized by category and use case. Find the perfect AI solutions for your specific needs across 20+ categories including chatbots, image generation, coding tools, and more.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center text-lg">
             <div className="flex items-center justify-center space-x-2">
@@ -234,7 +247,7 @@ export default function CategoriesPage() {
       {!searchQuery && !loading && (
         <section className="py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Most Popular Categories</h2>
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Popular AI Tool Categories</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {categories
                 .sort((a, b) => b.toolCount - a.toolCount)
@@ -255,6 +268,7 @@ export default function CategoriesPage() {
           </div>
         </section>
       )}
-    </div>
+      </div>
+    </GlobalLayout>
   );
 }
