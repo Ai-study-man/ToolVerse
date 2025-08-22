@@ -135,7 +135,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
           {searchQuery && (
             <div className="mb-2">
               <span className="text-gray-700 font-medium">
-                Search results for "{searchQuery}"
+                Search results for &quot;{searchQuery}&quot;
               </span>
               {selectedCategory !== 'all' && (
                 <span className="text-gray-500">

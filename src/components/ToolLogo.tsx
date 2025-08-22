@@ -106,7 +106,6 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Tableau AI': 'https://www.tableau.com/favicon.ico',
   'H2O.ai': 'https://h2o.ai/favicon.ico',
   'Crystal': '/logos/crystal.png',
-  'Dataiku': 'https://www.dataiku.com/favicon.ico',
   'MonkeyLearn': 'https://monkeylearn.com/favicon.ico',
   'Qlik Sense AI': '/logos/Qlik.jpeg',
   'Sisense AI': 'https://www.sisense.com/favicon.ico',

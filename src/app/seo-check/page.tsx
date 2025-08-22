@@ -20,9 +20,9 @@ export default function SEOCheckPage() {
               <div className="border rounded-lg p-4 bg-green-50">
                 <h3 className="font-semibold text-gray-900 mb-2">H1-H6标签结构优化</h3>
                 <ul className="text-sm text-gray-700 space-y-1">
-                  <li>✅ 首页H1: "Best AI Tools Directory 2025 - Find Top AI Solutions for Your Business"</li>
+                  <li>✅ 首页H1: &quot;Best AI Tools Directory 2025 - Find Top AI Solutions for Your Business&quot;</li>
                   <li>✅ 工具页面H1: 动态生成包含关键词的标题</li>
-                  <li>✅ 分类页面H1: "AI Tools Categories 2025 - Browse by Use Case"</li>
+                  <li>✅ 分类页面H1: &quot;AI Tools Categories 2025 - Browse by Use Case&quot;</li>
                   <li>✅ 所有H2-H6标签优化为更具描述性和关键词丰富</li>
                 </ul>
               </div>

@@ -284,7 +284,7 @@ export default function ComparePage() {
         <section className="py-16 bg-primary-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold mb-4">
-              Can't Find the Comparison You Need?
+              Can&apos;t Find the Comparison You Need?
             </h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
               Request a custom AI tool comparison and our experts will create a detailed analysis for you.

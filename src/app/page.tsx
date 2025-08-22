@@ -280,7 +280,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured AI Tools - Editor's Choice
+              Featured AI Tools - Editor&apos;s Choice
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Discover the most popular and highly-rated AI tools chosen by our community. These tools are tested and verified by our experts for quality and performance.
@@ -347,7 +347,7 @@ export default function Home() {
             </div>
             
             <p className="text-xs text-gray-400 mt-3">
-              We're working hard to bring you an amazing newsletter experience!
+              We&apos;re working hard to bring you an amazing newsletter experience!
             </p>
           </div>
         </div>

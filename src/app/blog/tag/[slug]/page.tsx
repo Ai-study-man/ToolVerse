@@ -122,7 +122,7 @@ export default async function TagPage({ params }: TagPageProps) {
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  Articles tagged with "#{capitalizedTag}"
+                  Articles tagged with &quot;#{capitalizedTag}&quot;
                 </h1>
                 <p className="text-gray-600 mt-1">
                   {posts.length} {posts.length === 1 ? 'article' : 'articles'} found
@@ -160,7 +160,7 @@ export default async function TagPage({ params }: TagPageProps) {
                     No articles found
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    There are no articles tagged with "{capitalizedTag}" yet.
+                    There are no articles tagged with &quot;{capitalizedTag}&quot; yet.
                   </p>
                   <a
                     href="/blog"

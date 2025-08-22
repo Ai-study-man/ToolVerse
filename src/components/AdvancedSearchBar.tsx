@@ -265,7 +265,7 @@ export default function AdvancedSearchBar({
                   <div className="flex items-center">
                     <MagnifyingGlassIcon className="h-4 w-4 text-primary-600 mr-3" />
                     <span className="text-sm text-primary-600 font-medium">
-                      Search for "{query}" in all tools
+                      Search for &quot;{query}&quot; in all tools
                     </span>
                   </div>
                 </button>

@@ -379,7 +379,7 @@ export default function MidjourneyVsDallePage() {
               <div className="bg-gradient-to-r from-purple-50 to-green-50 rounded-xl p-8 mb-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">The Bottom Line</h3>
                 <p className="text-lg text-gray-700 mb-6">
-                  Both tools excel in different areas. Midjourney is the artist's choice for creative, high-quality imagery, while DALL-E 3 offers better accessibility and text integration.
+                  Both tools excel in different areas. Midjourney is the artist&apos;s choice for creative, high-quality imagery, while DALL-E 3 offers better accessibility and text integration.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -388,7 +388,7 @@ export default function MidjourneyVsDallePage() {
                     <ul className="text-gray-700 space-y-1 text-sm">
                       <li>• Want the highest artistic quality</li>
                       <li>• Create artwork, illustrations, concept art</li>
-                      <li>• Don't mind learning Discord commands</li>
+                      <li>• Don&apos;t mind learning Discord commands</li>
                       <li>• Want consistent, professional results</li>
                     </ul>
                   </div>

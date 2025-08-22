@@ -433,7 +433,7 @@ export default function ChatGPTvsClaudePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <a href="/compare/chatgpt-vs-gemini" className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">ChatGPT vs Gemini</h3>
-                <p className="text-gray-600 text-sm">Compare OpenAI ChatGPT with Google's Gemini AI assistant</p>
+                <p className="text-gray-600 text-sm">Compare OpenAI ChatGPT with Google&apos;s Gemini AI assistant</p>
               </a>
               
               <a href="/compare/claude-vs-perplexity" className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
