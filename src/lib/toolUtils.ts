@@ -6,15 +6,24 @@ import DataSyncService from '@/lib/dataSyncService';
  */
 export async function getToolByIdOrName(identifier: string): Promise<Tool | null> {
   try {
-    // 直接从数据同步服务获取工具
-    const tool = await DataSyncService.getToolById(identifier);
-    if (tool) return tool;
-
-    // 如果通过ID没找到，尝试通过名称搜索
+    // 优先从所有工具中搜索，避免单独的Notion查询
     const allTools = await DataSyncService.getTools();
     
-    // 找到最佳匹配（名称完全匹配或最相似的）
-    const exactMatch = allTools.find((tool: Tool) => 
+    // 首先通过ID精确匹配
+    let exactMatch = allTools.find((tool: Tool) => tool.id === identifier);
+    if (exactMatch) return exactMatch;
+    
+    // 尝试使用名称映射
+    const mappedName = TOOL_NAME_MAPPING[identifier.toLowerCase()];
+    if (mappedName) {
+      exactMatch = allTools.find((tool: Tool) => 
+        tool.name.toLowerCase() === mappedName.toLowerCase()
+      );
+      if (exactMatch) return exactMatch;
+    }
+    
+    // 通过名称完全匹配
+    exactMatch = allTools.find((tool: Tool) => 
       tool.name.toLowerCase() === identifier.toLowerCase()
     );
     if (exactMatch) return exactMatch;
@@ -25,6 +34,10 @@ export async function getToolByIdOrName(identifier: string): Promise<Tool | null
       identifier.toLowerCase().includes(tool.name.toLowerCase())
     );
     if (partialMatch) return partialMatch;
+
+    // 最后尝试单独的Notion查询（作为备用）
+    const tool = await DataSyncService.getToolById(identifier);
+    if (tool) return tool;
 
     return null;
   } catch (error) {
@@ -54,6 +67,10 @@ export const TOOL_NAME_MAPPING: Record<string, string> = {
   'dall-e-3': 'DALL-E 3',
   'dalle-3': 'DALL-E 3',
   'imgcreator-ai': 'ImgCreator.ai',
+  'lets-enhance': 'Let\'s Enhance',
+  'upscale-ai': 'Upscale.ai',
+  'waifu2x': 'Waifu2x',
+  'real-esrgan': 'Real-ESRGAN',
   'claude': 'Claude',
   'gemini': 'Gemini',
   'copilot': 'GitHub Copilot',

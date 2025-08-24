@@ -446,6 +446,102 @@ export const temporaryTools: Tool[] = [
     ],
     useCases: ['Social media content', 'Marketing materials', 'Digital art', 'Concept design'],
     createdAt: '2025-01-15'
+  },
+  {
+    id: 'lets-enhance',
+    name: 'Let\'s Enhance',
+    description: 'AI-powered image upscaling and enhancement tool that improves image resolution and quality using advanced machine learning algorithms.',
+    shortDescription: 'AI image upscaling and enhancement platform',
+    logo: '/logos/letsenhance.jpeg',
+    website: 'https://letsenhance.io',
+    category: 'Design & Art',
+    subcategory: 'Image Enhancement',
+    pricingModel: 'freemium',
+    pricing: 'Free / $9-39/month',
+    rating: 4.6,
+    reviewCount: 2341,
+    tags: ['Image Enhancement', 'Upscaling', 'AI Enhancement', 'Photo Quality'],
+    features: [
+      'AI image upscaling',
+      'Noise reduction',
+      'Color enhancement',
+      'Batch processing',
+      'API access'
+    ],
+    useCases: ['Photo enhancement', 'Print preparation', 'E-commerce images', 'Social media'],
+    createdAt: '2025-01-15'
+  },
+  {
+    id: 'upscale-ai',
+    name: 'Upscale.ai',
+    description: 'Professional AI image upscaling service that enhances image resolution while preserving details and reducing artifacts.',
+    shortDescription: 'Professional AI image upscaling service',
+    logo: '/logos/placeholder-logo.svg',
+    website: 'https://upscale.media',
+    category: 'Design & Art',
+    subcategory: 'Image Enhancement',
+    pricingModel: 'freemium',
+    pricing: 'Free / $10-30/month',
+    rating: 4.4,
+    reviewCount: 1567,
+    tags: ['Image Upscaling', 'AI Enhancement', 'Professional', 'High Quality'],
+    features: [
+      'AI-powered upscaling',
+      'Multiple enhancement modes',
+      'Batch processing',
+      'High-resolution output',
+      'Format support'
+    ],
+    useCases: ['Professional photography', 'Digital art', 'Print media', 'Web optimization'],
+    createdAt: '2025-01-15'
+  },
+  {
+    id: 'waifu2x',
+    name: 'Waifu2x',
+    description: 'Free online AI image upscaler specifically designed for anime-style artwork and illustrations, using deep convolutional neural networks.',
+    shortDescription: 'AI upscaler for anime and artwork',
+    logo: '/logos/placeholder-logo.svg',
+    website: 'https://waifu2x.udp.jp',
+    category: 'Design & Art',
+    subcategory: 'Image Enhancement',
+    pricingModel: 'free',
+    pricing: 'Free',
+    rating: 4.5,
+    reviewCount: 3421,
+    tags: ['Anime', 'Artwork', 'Free', 'Upscaling', 'Illustrations'],
+    features: [
+      'Anime-optimized upscaling',
+      'Noise reduction',
+      'Free to use',
+      'Web interface',
+      'Open source'
+    ],
+    useCases: ['Anime artwork', 'Digital illustrations', 'Manga enhancement', 'Fan art'],
+    createdAt: '2025-01-15'
+  },
+  {
+    id: 'real-esrgan',
+    name: 'Real-ESRGAN',
+    description: 'Advanced AI super-resolution model for real-world image restoration and enhancement, capable of handling complex degradations.',
+    shortDescription: 'Advanced AI super-resolution model',
+    logo: '/logos/placeholder-logo.svg',
+    website: 'https://github.com/xinntao/Real-ESRGAN',
+    category: 'Design & Art',
+    subcategory: 'Image Enhancement',
+    pricingModel: 'free',
+    pricing: 'Free (Open Source)',
+    rating: 4.7,
+    reviewCount: 1876,
+    tags: ['Super Resolution', 'Open Source', 'Image Restoration', 'AI Enhancement'],
+    features: [
+      'Real-world image enhancement',
+      'Multiple model variants',
+      'Open source',
+      'Command line interface',
+      'Python integration'
+    ],
+    useCases: ['Image restoration', 'Photo enhancement', 'Research projects', 'Batch processing'],
+    createdAt: '2025-01-15'
   }
 ];
 
