@@ -46,11 +46,14 @@ export async function getMultipleTools(identifiers: string[]): Promise<(Tool | n
  * 用于处理常见的工具引用
  */
 export const TOOL_NAME_MAPPING: Record<string, string> = {
-  'fal-ai': 'Fal AI',
+  'fal-ai': 'Fal.ai',
   'chatgpt': 'ChatGPT',
   'midjourney': 'Midjourney',
   'stable-diffusion': 'Stable Diffusion',
-  'dall-e': 'DALL-E',
+  'dall-e': 'DALL-E 3',
+  'dall-e-3': 'DALL-E 3',
+  'dalle-3': 'DALL-E 3',
+  'imgcreator-ai': 'ImgCreator.ai',
   'claude': 'Claude',
   'gemini': 'Gemini',
   'copilot': 'GitHub Copilot',

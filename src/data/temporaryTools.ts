@@ -350,6 +350,102 @@ export const temporaryTools: Tool[] = [
     ],
     useCases: ['Family photo restoration', 'Social media enhancement', 'Old photo revival', 'Portrait improvement'],
     createdAt: '2025-01-15'
+  },
+  {
+    id: 'fal-ai',
+    name: 'Fal.ai',
+    description: 'Fast and reliable AI model inference platform that provides APIs for various AI models including image generation, text processing, and more.',
+    shortDescription: 'Fast AI model inference platform',
+    logo: '/logos/fal AI.jpeg',
+    website: 'https://fal.ai',
+    category: 'AI Platform',
+    subcategory: 'Model Inference',
+    pricingModel: 'paid',
+    pricing: 'Pay per API call',
+    rating: 4.7,
+    reviewCount: 892,
+    tags: ['AI Platform', 'API', 'Model Inference', 'Image Generation'],
+    features: [
+      'Fast model inference',
+      'Multiple AI models',
+      'API integration',
+      'Scalable infrastructure',
+      'Real-time processing'
+    ],
+    useCases: ['AI application development', 'Image generation', 'Text processing', 'Model deployment'],
+    createdAt: '2025-01-15'
+  },
+  {
+    id: 'dall-e-3',
+    name: 'DALL-E 3',
+    description: 'OpenAI\'s latest image generation model that creates highly detailed and accurate images from text descriptions with improved understanding and safety.',
+    shortDescription: 'OpenAI\'s advanced image generation model',
+    logo: '/logos/OpenAI_Icon_0.jpeg',
+    website: 'https://openai.com/dall-e-3',
+    category: 'Design & Art',
+    subcategory: 'AI Image Generation',
+    pricingModel: 'paid',
+    pricing: '$0.040-0.120 per image',
+    rating: 4.8,
+    reviewCount: 3421,
+    tags: ['Image Generation', 'AI Art', 'OpenAI', 'Text-to-Image'],
+    features: [
+      'High-quality image generation',
+      'Detailed prompt understanding',
+      'Improved safety measures',
+      'Integration with ChatGPT',
+      'Multiple aspect ratios'
+    ],
+    useCases: ['Creative design', 'Marketing materials', 'Art creation', 'Content illustration'],
+    createdAt: '2025-01-15'
+  },
+  {
+    id: 'stable-diffusion',
+    name: 'Stable Diffusion',
+    description: 'Open-source text-to-image AI model that generates high-quality images from text prompts. Free to use and highly customizable.',
+    shortDescription: 'Open-source text-to-image AI model',
+    logo: '/logos/stable-diffusion.png',
+    website: 'https://stability.ai/stable-diffusion',
+    category: 'Design & Art',
+    subcategory: 'AI Image Generation',
+    pricingModel: 'free',
+    pricing: 'Free (open source)',
+    rating: 4.6,
+    reviewCount: 2876,
+    tags: ['Image Generation', 'Open Source', 'Text-to-Image', 'AI Art'],
+    features: [
+      'Open-source model',
+      'High-quality generation',
+      'Customizable parameters',
+      'Local deployment option',
+      'Community extensions'
+    ],
+    useCases: ['AI art creation', 'Concept design', 'Digital art', 'Creative projects'],
+    createdAt: '2025-01-15'
+  },
+  {
+    id: 'imgcreator-ai',
+    name: 'ImgCreator.ai',
+    description: 'AI-powered image generation and editing tool that transforms text descriptions into high-quality images and artwork.',
+    shortDescription: 'AI image generation and editing platform',
+    logo: '/logos/IMGCreator AI.png',
+    website: 'https://imgcreator.ai',
+    category: 'Design & Art',
+    subcategory: 'AI Image Generation',
+    pricingModel: 'freemium',
+    pricing: 'Free / $10-20/month',
+    rating: 4.5,
+    reviewCount: 1876,
+    tags: ['Image Generation', 'AI Art', 'Text-to-Image', 'Photo Editing'],
+    features: [
+      'Text-to-image generation',
+      'Image editing capabilities',
+      'Multiple art styles',
+      'Batch processing',
+      'Commercial license'
+    ],
+    useCases: ['Social media content', 'Marketing materials', 'Digital art', 'Concept design'],
+    createdAt: '2025-01-15'
   }
 ];
 
