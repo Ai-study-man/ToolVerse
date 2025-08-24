@@ -134,7 +134,7 @@ export const featuredTools: Tool[] = [
     name: 'ChatGPT',
     description: 'ChatGPT is an AI chatbot developed by OpenAI that can engage in conversational dialogue and assist with a wide variety of tasks including writing, analysis, math, coding, and creative projects.',
     shortDescription: 'Advanced AI chatbot for conversations and task assistance',
-    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI4IiBmaWxsPSIjMTBiOTgxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+R1A8L3RleHQ+PC9zdmc+',
+    logo: '/logos/chatgpt.svg',
     website: 'https://chat.openai.com',
     category: 'Writing & Content',
     subcategory: 'AI Assistant',
@@ -408,5 +408,51 @@ export const allTools: Tool[] = [
       'Team collaboration'
     ],
     createdAt: '2023-01-25'
+  },
+  {
+    id: '13',
+    name: 'Gemini',
+    description: 'Google Gemini is a powerful AI assistant that can help with complex reasoning, code generation, creative writing, and multimodal understanding.',
+    shortDescription: 'Google\'s advanced AI assistant with multimodal capabilities',
+    logo: '/logos/google-gemini.png',
+    website: 'https://gemini.google.com',
+    category: 'Writing & Content',
+    subcategory: 'AI Assistant',
+    pricingModel: 'freemium',
+    pricing: 'Free / $20/month',
+    rating: 4.7,
+    reviewCount: 1543,
+    tags: ['AI Assistant', 'Writing', 'Coding', 'Multimodal', 'Reasoning'],
+    features: [
+      'Advanced reasoning capabilities',
+      'Code generation and debugging',
+      'Image and text understanding',
+      'Long context conversations',
+      'Google Workspace integration'
+    ],
+    createdAt: '2023-12-01'
+  },
+  {
+    id: '14',
+    name: 'DeepSeek',
+    description: 'DeepSeek is an advanced AI coding assistant that excels at code generation, debugging, and software development across multiple programming languages.',
+    shortDescription: 'Advanced AI coding assistant for developers',
+    logo: '/logos/deepseek.png',
+    website: 'https://deepseek.com',
+    category: 'Development',
+    subcategory: 'Code Assistant',
+    pricingModel: 'freemium',
+    pricing: 'Free / $10/month',
+    rating: 4.6,
+    reviewCount: 892,
+    tags: ['Coding', 'Development', 'AI Assistant', 'Programming', 'Debugging'],
+    features: [
+      'Advanced code generation',
+      'Multi-language support',
+      'Code optimization',
+      'Bug detection and fixing',
+      'API integration'
+    ],
+    createdAt: '2024-01-15'
   }
 ];

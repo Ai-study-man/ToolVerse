@@ -64,6 +64,7 @@ export const toolLogoMapping: Record<string, string> = {
   'chatsimple': '/logos/chatsimple.png',
   'perplexity-ai': '/logos/perplexity-ai.svg',
   'google-gemini': '/logos/google-gemini.png',
+  'gemini': '/logos/google-gemini.png',
   
   // AI 翻译工具
   'microsoft-translator': '/logos/microsoft translator.jpeg',

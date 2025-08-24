@@ -67,14 +67,44 @@ export class DataSyncService {
       const tempToolNames = temporaryTools.map(t => t.name);
       console.log(`Temporary tool names:`, tempToolNames);
       
-      // 去重（基于name或id）
+      // 去重（基于name，但优先保留特定ID的工具）
       const duplicates: string[] = [];
+      const priorityIds = ['1', '12', '13', '14']; // 优先保留这些ID的工具
+      
       const uniqueTools = tools.filter((tool, index, self) => {
-        const isDuplicate = index !== self.findIndex(t => t.name === tool.name || t.id === tool.id);
-        if (isDuplicate) {
-          duplicates.push(`"${tool.name}" (ID: ${tool.id})`);
+        const nameMatches = self.filter(t => t.name === tool.name);
+        
+        if (nameMatches.length === 1) {
+          // 没有重复的名称，保留
+          return true;
         }
-        return !isDuplicate;
+        
+        // 有重复名称的情况
+        const hasPriorityId = priorityIds.includes(tool.id);
+        const firstMatchIndex = self.findIndex(t => t.name === tool.name);
+        
+        if (hasPriorityId) {
+          // 如果当前工具有优先ID，保留它
+          if (index !== firstMatchIndex) {
+            duplicates.push(`"${self[firstMatchIndex].name}" (ID: ${self[firstMatchIndex].id}) - replaced by priority ID: ${tool.id}`);
+          }
+          return true;
+        } else {
+          // 检查是否已经有优先ID的同名工具
+          const hasPriorityVersion = nameMatches.some(t => priorityIds.includes(t.id));
+          if (hasPriorityVersion) {
+            // 已经有优先版本，移除当前工具
+            duplicates.push(`"${tool.name}" (ID: ${tool.id})`);
+            return false;
+          }
+          
+          // 没有优先版本，保留第一个
+          const isFirst = index === firstMatchIndex;
+          if (!isFirst) {
+            duplicates.push(`"${tool.name}" (ID: ${tool.id})`);
+          }
+          return isFirst;
+        }
       });
       
       if (duplicates.length > 0) {
@@ -85,7 +115,7 @@ export class DataSyncService {
       console.log(`After deduplication: ${tools.length} total tools`);
       
       // 如果工具数量太少，使用mockData作为补充
-      if (tools.length < 10) {
+      if (tools.length < 50) {
         console.log(`Only ${tools.length} tools, using mockData as backup`);
         tools = [...tools, ...mockTools];
         

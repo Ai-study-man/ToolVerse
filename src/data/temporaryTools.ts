@@ -3,6 +3,121 @@ import { Tool } from '../types';
 
 export const temporaryTools: Tool[] = [
   {
+    id: '1',
+    name: 'ChatGPT',
+    description: 'ChatGPT is an AI chatbot developed by OpenAI that can engage in conversational dialogue and assist with a wide variety of tasks including writing, analysis, math, coding, and creative projects.',
+    shortDescription: 'Advanced AI chatbot for conversations and task assistance',
+    logo: '/logos/chatgpt.svg',
+    website: 'https://chat.openai.com',
+    category: 'Writing & Content',
+    subcategory: 'AI Assistant',
+    pricingModel: 'freemium',
+    pricing: 'Free / $20/month',
+    rating: 4.8,
+    reviewCount: 2547,
+    tags: ['Chatbot', 'Writing', 'Analysis', 'Coding'],
+    features: [
+      'Natural conversation abilities',
+      'Code generation and debugging',
+      'Writing and editing assistance',
+      'Math and analysis support',
+      'Creative project help'
+    ],
+    createdAt: '2023-01-01'
+  },
+  {
+    id: '12',
+    name: 'Canva',
+    description: 'Canva is a user-friendly graphic design platform that uses AI to help users create professional designs, presentations, social media posts, and marketing materials.',
+    shortDescription: 'AI-powered graphic design platform for everyone',
+    logo: '/logos/Canva_Logo_0.svg',
+    website: 'https://canva.com',
+    category: 'Design & Art',
+    subcategory: 'Graphic Design',
+    pricingModel: 'freemium',
+    pricing: 'Free / $15/month',
+    rating: 4.7,
+    reviewCount: 3421,
+    tags: ['Design', 'Graphics', 'Templates', 'AI Assistant', 'Social Media'],
+    features: [
+      'AI-powered design suggestions',
+      'Thousands of templates',
+      'Collaboration tools',
+      'Brand kit management',
+      'Social media scheduling'
+    ],
+    createdAt: '2023-01-01'
+  },
+  {
+    id: '13',
+    name: 'Gemini',
+    description: 'Google Gemini is a powerful AI assistant that can help with complex reasoning, code generation, creative writing, and multimodal understanding.',
+    shortDescription: 'Google\'s advanced AI assistant with multimodal capabilities',
+    logo: '/logos/google-gemini.png',
+    website: 'https://gemini.google.com',
+    category: 'Writing & Content',
+    subcategory: 'AI Assistant',
+    pricingModel: 'freemium',
+    pricing: 'Free / $20/month',
+    rating: 4.7,
+    reviewCount: 1543,
+    tags: ['AI Assistant', 'Writing', 'Coding', 'Multimodal', 'Reasoning'],
+    features: [
+      'Advanced reasoning capabilities',
+      'Code generation and debugging',
+      'Image and text understanding',
+      'Long context conversations',
+      'Google Workspace integration'
+    ],
+    createdAt: '2023-12-01'
+  },
+  {
+    id: '13',
+    name: 'Gemini',
+    description: 'Google Gemini is a powerful AI assistant that can help with complex reasoning, code generation, creative writing, and multimodal understanding.',
+    shortDescription: 'Google\'s advanced AI assistant with multimodal capabilities',
+    logo: '/logos/google-gemini.png',
+    website: 'https://gemini.google.com',
+    category: 'Writing & Content',
+    subcategory: 'AI Assistant',
+    pricingModel: 'freemium',
+    pricing: 'Free / $20/month',
+    rating: 4.7,
+    reviewCount: 1543,
+    tags: ['AI Assistant', 'Writing', 'Coding', 'Multimodal', 'Reasoning'],
+    features: [
+      'Advanced reasoning capabilities',
+      'Code generation and debugging',
+      'Image and text understanding',
+      'Long context conversations',
+      'Google Workspace integration'
+    ],
+    createdAt: '2023-12-01'
+  },
+  {
+    id: '14',
+    name: 'DeepSeek',
+    description: 'DeepSeek is an advanced AI coding assistant that excels at code generation, debugging, and software development across multiple programming languages.',
+    shortDescription: 'Advanced AI coding assistant for developers',
+    logo: '/logos/deepseek.png',
+    website: 'https://deepseek.com',
+    category: 'Development',
+    subcategory: 'Code Assistant',
+    pricingModel: 'freemium',
+    pricing: 'Free / $10/month',
+    rating: 4.6,
+    reviewCount: 892,
+    tags: ['Coding', 'Development', 'AI Assistant', 'Programming', 'Debugging'],
+    features: [
+      'Advanced code generation',
+      'Multi-language support',
+      'Code optimization',
+      'Bug detection and fixing',
+      'API integration'
+    ],
+    createdAt: '2024-01-15'
+  },
+  {
     id: 'lovable-temp',
     name: 'Lovable',
     description: 'AI-powered full-stack web application builder that generates complete React applications with backend integration.',

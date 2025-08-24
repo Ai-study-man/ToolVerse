@@ -1,35 +1,30 @@
 import { Tool } from '@/types';
+import DataSyncService from '@/lib/dataSyncService';
 
 /**
- * 根据工具ID或名称获取工具信息（服务器端版本）
+ * 根据工具ID获取工具信息（服务器端版本）
  */
 export async function getToolByIdOrName(identifier: string): Promise<Tool | null> {
   try {
-    // 首先尝试通过名称搜索（更可能匹配）
-    const searchResponse = await fetch(`http://localhost:3001/api/tools?search=${encodeURIComponent(identifier)}`, {
-      cache: 'force-cache',
-    });
+    // 直接从数据同步服务获取工具
+    const tool = await DataSyncService.getToolById(identifier);
+    if (tool) return tool;
+
+    // 如果通过ID没找到，尝试通过名称搜索
+    const allTools = await DataSyncService.getTools();
     
-    if (searchResponse.ok) {
-      const { tools } = await searchResponse.json();
-      if (tools && tools.length > 0) {
-        // 找到最佳匹配（名称完全匹配或最相似的）
-        const exactMatch = tools.find((tool: Tool) => 
-          tool.name.toLowerCase() === identifier.toLowerCase()
-        );
-        if (exactMatch) return exactMatch;
-        
-        // 如果没有完全匹配，查找包含该名称的工具
-        const partialMatch = tools.find((tool: Tool) => 
-          tool.name.toLowerCase().includes(identifier.toLowerCase()) ||
-          identifier.toLowerCase().includes(tool.name.toLowerCase())
-        );
-        if (partialMatch) return partialMatch;
-        
-        // 返回第一个结果
-        return tools[0];
-      }
-    }
+    // 找到最佳匹配（名称完全匹配或最相似的）
+    const exactMatch = allTools.find((tool: Tool) => 
+      tool.name.toLowerCase() === identifier.toLowerCase()
+    );
+    if (exactMatch) return exactMatch;
+    
+    // 如果没有完全匹配，查找包含该名称的工具
+    const partialMatch = allTools.find((tool: Tool) => 
+      tool.name.toLowerCase().includes(identifier.toLowerCase()) ||
+      identifier.toLowerCase().includes(tool.name.toLowerCase())
+    );
+    if (partialMatch) return partialMatch;
 
     return null;
   } catch (error) {

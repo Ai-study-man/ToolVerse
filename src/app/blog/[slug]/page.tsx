@@ -9,8 +9,8 @@ import ShareButton from '@/components/blog/ShareButton';
 import ToolLogo from '@/components/blog/ToolLogo';
 import { getBlogPost, getRelatedPosts } from '@/lib/blogService';
 import { getToolLogo } from '@/lib/toolLogoMapping';
-// import { getMultipleTools } from '@/lib/toolUtils';
-// import { Tool } from '@/types';
+import { getMultipleTools } from '@/lib/toolUtils';
+import { Tool } from '@/types';
 
 interface BlogPostPageProps {
   params: {
@@ -74,10 +74,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = await getRelatedPosts(post.id);
   
   // 获取文章中提到的工具信息
-  // let relatedToolsData: (Tool | null)[] = [];
-  // if (post.relatedTools && post.relatedTools.length > 0) {
-  //   relatedToolsData = await getMultipleTools(post.relatedTools);
-  // }
+  let relatedToolsData: (Tool | null)[] = [];
+  if (post.relatedTools && post.relatedTools.length > 0) {
+    relatedToolsData = await getMultipleTools(post.relatedTools);
+  }
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', { 
@@ -531,39 +531,55 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       Tools Mentioned in This Article
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {post.relatedTools.map((toolId) => {
-                        // const toolData = relatedToolsData.find(tool => tool?.id === toolId);
-                        // const toolName = toolData?.name || toolId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                        const toolName = toolId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                        const toolLogo = getToolLogo(toolId);
-                        
-                        return (
+                      {relatedToolsData.map((tool, index) => (
+                        tool ? (
                           <Link
-                            key={toolId}
-                            href={`/tools?search=${encodeURIComponent(toolId)}`}
+                            key={tool.id}
+                            href={`/tools/${tool.id}`}
                             className="group flex items-center gap-4 p-6 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
                           >
                             <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow overflow-hidden">
                               <ToolLogo
-                                src={toolLogo}
-                                alt={`${toolName} logo`}
-                                toolName={toolName}
+                                src={tool.logo}
+                                alt={`${tool.name} logo`}
+                                toolName={tool.name}
+                                className="w-full h-full object-contain"
                               />
                             </div>
                             <div className="flex-1">
-                              <h4 className="font-bold text-gray-900 text-lg group-hover:text-purple-700 transition-colors">
-                                {toolName}
+                              <h4 className="text-lg font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                                {tool.name}
                               </h4>
-                              <p className="text-sm text-gray-600 group-hover:text-purple-600 transition-colors flex items-center">
-                                Explore this AI tool 
-                                <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                </svg>
+                              <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+                                {tool.description}
                               </p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">
+                                  {tool.category}
+                                </span>
+                                {tool.pricing && (
+                                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                                    {tool.pricing}
+                                  </span>
+                                )}
+                              </div>
                             </div>
+                            <svg className="w-5 h-5 text-purple-400 group-hover:text-purple-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                            </svg>
                           </Link>
-                        );
-                      })}
+                        ) : (
+                          <div key={post.relatedTools?.[index] || index} className="flex items-center gap-4 p-6 bg-gray-100 rounded-xl border-2 border-gray-200">
+                            <div className="w-16 h-16 bg-gray-300 rounded-xl flex items-center justify-center">
+                              <span className="text-gray-600 text-lg font-bold">?</span>
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="text-lg font-medium text-gray-600">工具未找到</h4>
+                              <p className="text-gray-500 text-sm">工具 ID: {post.relatedTools?.[index] || 'Unknown'}</p>
+                            </div>
+                          </div>
+                        )
+                      ))}
                     </div>
                   </div>
                 )}
