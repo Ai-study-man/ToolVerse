@@ -88,12 +88,11 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
 
 </div>`,
     author: {
-      name: 'AI Tools Expert',
-      avatar: '/avatars/ai-expert.jpg',
-      bio: 'Specialized in AI tools analysis and reviews',
+      name: 'AI工具专家',
+      avatar: '/pictures/头像.jpg',
+      bio: '专注于 AI 工具分析和评测，拥有 5 年以上经验',
       social: {
-        twitter: '@aitoolsexpert',
-        linkedin: 'ai-tools-expert'
+        twitter: 'lijiyun155431'
       }
     },
     category: {
@@ -259,12 +258,11 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
 
 </div>`,
     author: {
-      name: 'AI Tools Expert',
-      avatar: '/avatars/ai-expert.jpg',
-      bio: 'Specialized in AI tools analysis and reviews',
+      name: 'AI工具专家',
+      avatar: '/pictures/头像.jpg',
+      bio: '专注于 AI 工具分析和评测，拥有 5 年以上经验',
       social: {
-        twitter: '@aitoolsexpert',
-        linkedin: 'ai-tools-expert'
+        twitter: 'lijiyun155431'
       }
     },
     category: {
@@ -435,12 +433,11 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
 
 </div>`,
     author: {
-      name: 'AI Expert',
-      avatar: '/avatars/ai-expert.jpg',
-      bio: 'Expert in AI tools and technologies with 5+ years of experience in reviewing and testing AI platforms.',
+      name: 'AI工具专家',
+      avatar: '/pictures/头像.jpg',
+      bio: '专注于 AI 工具分析和评测，拥有 5 年以上经验',
       social: {
-        twitter: '@aiexpert',
-        linkedin: 'ai-expert'
+        twitter: 'lijiyun155431'
       }
     },
     category: {
@@ -1016,12 +1013,11 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
 
 </div>`,
     author: {
-      name: 'AI Tools Expert',
-      avatar: '/avatars/ai-expert.jpg',
-      bio: 'Specialized in AI tools analysis and reviews with 5+ years of experience',
+      name: 'AI工具专家',
+      avatar: '/pictures/头像.jpg',
+      bio: '专注于 AI 工具分析和评测，拥有 5 年以上经验',
       social: {
-        twitter: '@aitoolsexpert',
-        linkedin: 'ai-tools-expert'
+        twitter: 'lijiyun155431'
       }
     },
     category: {
