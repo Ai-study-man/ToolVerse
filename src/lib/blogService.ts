@@ -1319,6 +1319,31 @@ export async function getFeaturedBlogPosts(): Promise<BlogPost[]> {
   return posts.filter(post => post.featured);
 }
 
+export async function getTodaysFeaturedBlogPosts(): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // 设置为今天的开始时间
+  
+  // 首先尝试获取今天发布的文章
+  const todaysPosts = posts.filter(post => {
+    const publishDate = new Date(post.publishedAt);
+    publishDate.setHours(0, 0, 0, 0);
+    return publishDate.getTime() === today.getTime();
+  });
+  
+  // 如果今天有发布的文章，返回今天的文章（最多3篇）
+  if (todaysPosts.length > 0) {
+    return todaysPosts
+      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+      .slice(0, 3);
+  }
+  
+  // 如果今天没有发布文章，返回最近的文章（最多3篇）
+  return posts
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 3);
+}
+
 export async function getRecentBlogPosts(limit: number = 5): Promise<BlogPost[]> {
   const posts = await getAllBlogPosts();
   return posts

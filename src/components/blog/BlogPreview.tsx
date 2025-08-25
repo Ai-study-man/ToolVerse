@@ -4,17 +4,29 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { BlogPost } from '@/types/blog';
-import { getFeaturedBlogPosts } from '@/lib/blogService';
+import { getFeaturedBlogPosts, getTodaysFeaturedBlogPosts } from '@/lib/blogService';
 
 export default function BlogPreview() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isToday, setIsToday] = useState(false);
 
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const featuredPosts = await getFeaturedBlogPosts();
-        setPosts(featuredPosts.slice(0, 3));
+        const todaysPosts = await getTodaysFeaturedBlogPosts();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        // 检查是否有今天发布的文章
+        const hasTodayPosts = todaysPosts.some(post => {
+          const publishDate = new Date(post.publishedAt);
+          publishDate.setHours(0, 0, 0, 0);
+          return publishDate.getTime() === today.getTime();
+        });
+        
+        setIsToday(hasTodayPosts);
+        setPosts(todaysPosts);
       } catch (error) {
         console.error('Failed to load blog posts:', error);
       } finally {
@@ -72,11 +84,19 @@ export default function BlogPreview() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Latest from Our Blog
-          </h2>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900">
+              {isToday ? "Today's Featured Articles" : "Latest from Our Blog"}
+            </h2>
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span>{posts.length} featured articles</span>
+            </div>
+          </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Expert insights, tutorials, and reviews to help you master AI tools and stay ahead of the curve
+            {isToday 
+              ? "Fresh insights and reviews published today to keep you updated with the latest AI tools and trends"
+              : "Expert insights, tutorials, and reviews to help you master AI tools and stay ahead of the curve"
+            }
           </p>
         </div>
 
