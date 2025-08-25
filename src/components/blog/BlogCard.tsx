@@ -25,7 +25,7 @@ export default function BlogCard({ post, layout = 'compact' }: BlogCardProps) {
 
   if (layout === 'card') {
     return (
-      <article className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+      <article className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col">
         <div className="relative aspect-video">
           <SafeImage
             src={post.coverImage || '/blog/default-cover.svg'}
@@ -50,24 +50,24 @@ export default function BlogCard({ post, layout = 'compact' }: BlogCardProps) {
           )}
         </div>
         
-        <div className="p-6">
+        <div className="p-6 flex-1 flex flex-col">
           <div className="flex items-center gap-3 mb-3 text-sm text-gray-500">
             <span>{formatDate(post.publishedAt)}</span>
             <span>•</span>
             <span>{post.readingTime} min read</span>
           </div>
           
-          <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-3 line-clamp-2">
+          <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-3 line-clamp-2 flex-none">
             <Link href={`/blog/${post.slug}`}>
               {post.title}
             </Link>
           </h3>
           
-          <p className="text-gray-600 mb-4 line-clamp-3">
+          <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
             {post.excerpt}
           </p>
           
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-auto">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">

@@ -34,13 +34,9 @@ export default function BlogGrid({ posts, layout = 'list' }: BlogGridProps) {
   }
 
   return (
-    <div className="space-y-8">
-      {posts.map((post, index) => (
-        <BlogCard 
-          key={post.id} 
-          post={post} 
-          layout={index === 0 ? 'large' : 'compact'}
-        />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map((post) => (
+        <BlogCard key={post.id} post={post} layout="card" />
       ))}
     </div>
   );

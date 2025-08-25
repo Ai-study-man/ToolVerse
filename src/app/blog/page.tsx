@@ -44,7 +44,17 @@ export default async function BlogPage() {
   const allPosts = await getAllBlogPosts();
   const featuredPosts = await getFeaturedBlogPosts();
   const categories = await getBlogCategories();
-  const recentPosts = allPosts.slice(0, 9);
+  
+  // 确保所有文章按日期排序（从新到旧）
+  const sortedAllPosts = [...allPosts].sort((a, b) => 
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+  const recentPosts = sortedAllPosts.slice(0, 9);
+
+  // 确保featured文章最多显示3个，按日期排序
+  const limitedFeaturedPosts = featuredPosts
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 3);
 
   // Generate structured data for the blog
   const blogStructuredData = {
@@ -65,7 +75,7 @@ export default async function BlogPage() {
       '@type': 'WebPage',
       '@id': 'https://www.toolsverse.tools/blog'
     },
-    blogPost: featuredPosts.map(post => ({
+    blogPost: limitedFeaturedPosts.map(post => ({
       '@type': 'BlogPosting',
       headline: post.title,
       description: post.excerpt,
@@ -140,22 +150,17 @@ export default async function BlogPage() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Featured Posts Section */}
-          {featuredPosts.length > 0 && (
+          {limitedFeaturedPosts.length > 0 && (
             <section className="mb-16">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-3xl font-bold text-gray-900">Today&apos;s Featured Articles</h2>
                 <div className="text-sm text-gray-500">
-                  {featuredPosts.length} featured {featuredPosts.length === 1 ? 'article' : 'articles'}
+                  {limitedFeaturedPosts.length} featured {limitedFeaturedPosts.length === 1 ? 'article' : 'articles'}
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {featuredPosts[0] && (
-                  <div className="lg:col-span-2">
-                    <FeaturedPost post={featuredPosts[0]} layout="hero" />
-                  </div>
-                )}
-                {featuredPosts.slice(1).map((post) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {limitedFeaturedPosts.map((post) => (
                   <FeaturedPost key={post.id} post={post} layout="compact" />
                 ))}
               </div>
@@ -176,7 +181,7 @@ export default async function BlogPage() {
               </Suspense>
               
               {/* Load More Button */}
-              {allPosts.length > 9 && (
+              {sortedAllPosts.length > 9 && (
                 <div className="text-center mt-12">
                   <button className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200">
                     Load More Articles

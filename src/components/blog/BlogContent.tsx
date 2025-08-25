@@ -12,7 +12,12 @@ interface BlogContentProps {
 }
 
 export default function BlogContent({ initialPosts, categories }: BlogContentProps) {
-  const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
+  // 确保初始文章按发布日期从新到旧排序
+  const sortedInitialPosts = [...initialPosts].sort((a, b) => 
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+  
+  const [posts, setPosts] = useState<BlogPost[]>(sortedInitialPosts);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -21,7 +26,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
   const filterPosts = useCallback(async (categorySlug: string, search?: string) => {
     setLoading(true);
     
-    let filteredPosts = initialPosts;
+    let filteredPosts = sortedInitialPosts;
     
     // Apply search filter first if search query exists
     if (search && search.trim()) {
@@ -29,7 +34,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
         filteredPosts = await searchBlogPosts(search.trim());
       } catch (error) {
         console.error('Search error:', error);
-        filteredPosts = initialPosts.filter(post => 
+        filteredPosts = sortedInitialPosts.filter(post => 
           post.title.toLowerCase().includes(search.toLowerCase()) ||
           post.excerpt.toLowerCase().includes(search.toLowerCase()) ||
           post.tags.some(tag => tag.toLowerCase().includes(search.toLowerCase()))
@@ -44,9 +49,14 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
       );
     }
     
-    setPosts(filteredPosts);
+    // 确保过滤后的文章也按日期排序
+    const sortedFilteredPosts = [...filteredPosts].sort((a, b) => 
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+    
+    setPosts(sortedFilteredPosts);
     setLoading(false);
-  }, [initialPosts]);
+  }, [sortedInitialPosts]);
 
   useEffect(() => {
     const category = searchParams.get('category') || 'all';
@@ -93,12 +103,12 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
         >
           ⭐ All Articles
           <span className="ml-1 text-xs opacity-75">
-            ({initialPosts.length})
+            ({sortedInitialPosts.length})
           </span>
         </button>
         
         {categories.map((category) => {
-          const categoryPostCount = initialPosts.filter(post => 
+          const categoryPostCount = sortedInitialPosts.filter(post => 
             post.category.slug === category.slug
           ).length;
           
