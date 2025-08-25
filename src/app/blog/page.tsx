@@ -6,7 +6,7 @@ import FeaturedPost from '@/components/blog/FeaturedPost';
 import BlogContent from '@/components/blog/BlogContent';
 import BlogSidebar from '@/components/blog/BlogSidebar';
 import NewsletterSignup from '@/components/blog/NewsletterSignup';
-import { getAllBlogPosts, getFeaturedBlogPosts, getBlogCategories } from '@/lib/blogService';
+import { getAllBlogPosts, getTodaysFeaturedBlogPosts, getBlogCategories } from '@/lib/blogService';
 
 export const metadata: Metadata = {
   title: 'AI Tools Blog - Latest Reviews, Tutorials & Industry News | ToolVerse',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   const allPosts = await getAllBlogPosts();
-  const featuredPosts = await getFeaturedBlogPosts();
+  const featuredPosts = await getTodaysFeaturedBlogPosts();
   const categories = await getBlogCategories();
   
   // 确保所有文章按日期排序（从新到旧）
@@ -51,10 +51,18 @@ export default async function BlogPage() {
   );
   const recentPosts = sortedAllPosts.slice(0, 9);
 
-  // 确保featured文章最多显示3个，按日期排序
-  const limitedFeaturedPosts = featuredPosts
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-    .slice(0, 3);
+  // getTodaysFeaturedBlogPosts 已经处理了今日文章逻辑，无需额外处理
+  const limitedFeaturedPosts = featuredPosts;
+
+  // 检查是否有今日文章来设置正确的标题
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const hasTodayPosts = limitedFeaturedPosts.some(post => {
+    const publishDate = new Date(post.publishedAt);
+    publishDate.setHours(0, 0, 0, 0);
+    return publishDate.getTime() === today.getTime();
+  });
+  const sectionTitle = hasTodayPosts ? "Today's Featured Articles" : "Latest from Our Blog";
 
   // Generate structured data for the blog
   const blogStructuredData = {
@@ -153,9 +161,9 @@ export default async function BlogPage() {
           {limitedFeaturedPosts.length > 0 && (
             <section className="mb-16">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-3xl font-bold text-gray-900">Today&apos;s Featured Articles</h2>
+                <h2 className="text-3xl font-bold text-gray-900">{sectionTitle}</h2>
                 <div className="text-sm text-gray-500">
-                  {limitedFeaturedPosts.length} featured {limitedFeaturedPosts.length === 1 ? 'article' : 'articles'}
+                  {limitedFeaturedPosts.length} {hasTodayPosts ? 'featured' : 'recent'} {limitedFeaturedPosts.length === 1 ? 'article' : 'articles'}
                 </div>
               </div>
               

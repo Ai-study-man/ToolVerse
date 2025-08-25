@@ -1347,11 +1347,11 @@ export async function getTodaysFeaturedBlogPosts(): Promise<BlogPost[]> {
     return result;
   }
   
-  // 如果今天没有发布文章，只返回最近的一篇文章
-  console.log('🔄 [getTodaysFeaturedBlogPosts] No posts today, returning most recent 1 post');
+  // 如果今天没有发布文章，返回最近的3篇文章
+  console.log('🔄 [getTodaysFeaturedBlogPosts] No posts today, returning most recent 3 posts');
   const result = posts
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-    .slice(0, 1);
+    .slice(0, 3);
   console.log('📊 [getTodaysFeaturedBlogPosts] Final result count:', result.length);
   return result;
 }
