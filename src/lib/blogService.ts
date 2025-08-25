@@ -1331,17 +1331,16 @@ export async function getTodaysFeaturedBlogPosts(): Promise<BlogPost[]> {
     return publishDate.getTime() === today.getTime();
   });
   
-  // 如果今天有发布的文章，返回今天的文章（最多3篇）
+  // 如果今天有发布的文章，只返回今天的文章
   if (todaysPosts.length > 0) {
     return todaysPosts
-      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-      .slice(0, 3);
+      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
   }
   
-  // 如果今天没有发布文章，返回最近的文章（最多3篇）
+  // 如果今天没有发布文章，只返回最近的一篇文章
   return posts
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-    .slice(0, 3);
+    .slice(0, 1);
 }
 
 export async function getRecentBlogPosts(limit: number = 5): Promise<BlogPost[]> {

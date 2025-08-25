@@ -86,10 +86,10 @@ export default function BlogPreview() {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
             <h2 className="text-3xl font-bold text-gray-900">
-              {isToday ? "Today's Featured Articles" : "Latest from Our Blog"}
+              {isToday ? "Today's Featured Article" : "Latest from Our Blog"}
             </h2>
             <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span>{posts.length} featured articles</span>
+              <span>{posts.length} {posts.length === 1 ? 'article' : 'articles'}</span>
             </div>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
