@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdSense 浏览器检查工具</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4372695356377122" crossorigin="anonymous"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .check-item { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .ad-container { border: 2px dashed #ccc; padding: 20px; margin: 20px 0; text-align: center; min-height: 200px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 AdSense 浏览器检查工具</h1>
+        
+        <div id="results"></div>
+        
+        <h2>📝 测试广告位</h2>
+        <div class="ad-container">
+            <p>广告应该显示在这里 ↓</p>
+            <!-- 测试广告 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4372695356377122"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <button onclick="runChecks()">🔄 重新检查</button>
+            <button onclick="clearResults()">🗑️ 清除结果</button>
+            <button onclick="testAdLoad()">🎯 测试广告加载</button>
+        </div>
+        
+        <h3>📊 实时控制台日志</h3>
+        <pre id="console-log"></pre>
+    </div>
+
+    <script>
+        let logContainer = document.getElementById('console-log');
+        let originalLog = console.log;
+        let originalError = console.error;
+        let originalWarn = console.warn;
+        
+        // 劫持控制台输出
+        function interceptConsole() {
+            console.log = function(...args) {
+                logContainer.textContent += `[LOG] ${args.join(' ')}\n`;
+                logContainer.scrollTop = logContainer.scrollHeight;
+                originalLog.apply(console, args);
+            };
+            
+            console.error = function(...args) {
+                logContainer.textContent += `[ERROR] ${args.join(' ')}\n`;
+                logContainer.scrollTop = logContainer.scrollHeight;
+                originalError.apply(console, args);
+            };
+            
+            console.warn = function(...args) {
+                logContainer.textContent += `[WARN] ${args.join(' ')}\n`;
+                logContainer.scrollTop = logContainer.scrollHeight;
+                originalWarn.apply(console, args);
+            };
+        }
+        
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `check-item ${type}`;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+            logContainer.textContent = '';
+        }
+        
+        function runChecks() {
+            clearResults();
+            console.log('🚀 开始 AdSense 检查...');
+            
+            // 1. 检查浏览器环境
+            addResult(`🌐 浏览器: ${navigator.userAgent}`, 'success');
+            addResult(`🍪 Cookie启用: ${navigator.cookieEnabled ? '是' : '否'}`, navigator.cookieEnabled ? 'success' : 'error');
+            addResult(`📡 网络状态: ${navigator.onLine ? '在线' : '离线'}`, navigator.onLine ? 'success' : 'error');
+            
+            // 2. 检查AdSense脚本
+            const adsenseScript = document.querySelector('script[src*="googlesyndication.com"]');
+            if (adsenseScript) {
+                addResult('✅ AdSense脚本已加载', 'success');
+                console.log('AdSense脚本URL:', adsenseScript.src);
+            } else {
+                addResult('❌ AdSense脚本未找到', 'error');
+            }
+            
+            // 3. 检查adsbygoogle对象
+            setTimeout(() => {
+                if (window.adsbygoogle) {
+                    addResult(`✅ adsbygoogle对象存在 (长度: ${window.adsbygoogle.length})`, 'success');
+                    console.log('adsbygoogle数组:', window.adsbygoogle);
+                } else {
+                    addResult('❌ adsbygoogle对象不存在', 'error');
+                }
+            }, 1000);
+            
+            // 4. 检查广告容器
+            const adContainers = document.querySelectorAll('.adsbygoogle');
+            addResult(`📦 找到 ${adContainers.length} 个广告容器`, adContainers.length > 0 ? 'success' : 'warning');
+            
+            adContainers.forEach((container, index) => {
+                const client = container.getAttribute('data-ad-client');
+                const slot = container.getAttribute('data-ad-slot');
+                addResult(`广告位 ${index + 1}: 客户端=${client}, 位置=${slot}`, slot === '1234567890' ? 'warning' : 'success');
+            });
+            
+            // 5. 检查网络连接
+            fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { method: 'HEAD', mode: 'no-cors' })
+                .then(() => addResult('✅ AdSense服务器连接正常', 'success'))
+                .catch(err => {
+                    addResult('❌ AdSense服务器连接失败: ' + err.message, 'error');
+                    console.error('网络错误:', err);
+                });
+            
+            // 6. 检查广告拦截器
+            const testDiv = document.createElement('div');
+            testDiv.innerHTML = '&nbsp;';
+            testDiv.className = 'adsbox';
+            testDiv.style.position = 'absolute';
+            testDiv.style.left = '-9999px';
+            document.body.appendChild(testDiv);
+            
+            setTimeout(() => {
+                if (testDiv.offsetHeight === 0) {
+                    addResult('❌ 检测到广告拦截器', 'error');
+                } else {
+                    addResult('✅ 未检测到广告拦截器', 'success');
+                }
+                document.body.removeChild(testDiv);
+            }, 500);
+        }
+        
+        function testAdLoad() {
+            console.log('🎯 测试广告加载...');
+            if (window.adsbygoogle) {
+                try {
+                    window.adsbygoogle.push({});
+                    addResult('🎯 广告加载请求已发送', 'success');
+                    console.log('广告推送完成');
+                } catch (error) {
+                    addResult('❌ 广告加载失败: ' + error.message, 'error');
+                    console.error('广告加载错误:', error);
+                }
+            } else {
+                addResult('❌ adsbygoogle不可用', 'error');
+            }
+        }
+        
+        // 初始化
+        interceptConsole();
+        
+        // 页面加载完成后自动检查
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', runChecks);
+        } else {
+            runChecks();
+        }
+        
+        // 5秒后尝试加载广告
+        setTimeout(() => {
+            console.log('⏰ 5秒后自动测试广告加载...');
+            testAdLoad();
+        }, 5000);
+    </script>
+</body>
+</html>
