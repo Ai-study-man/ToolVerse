@@ -14,20 +14,31 @@ export default function BlogPreview() {
   useEffect(() => {
     const loadPosts = async () => {
       try {
+        console.log('🔍 [BlogPreview] Starting to load posts...');
         const todaysPosts = await getTodaysFeaturedBlogPosts();
+        console.log('🔍 [BlogPreview] Got posts:', todaysPosts.length);
+        
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+        console.log('🔍 [BlogPreview] Today date:', today.toDateString());
         
         // 检查返回的文章中是否真的有今天发布的文章
         const actualTodayPosts = todaysPosts.filter(post => {
           const publishDate = new Date(post.publishedAt);
           publishDate.setHours(0, 0, 0, 0);
-          return publishDate.getTime() === today.getTime();
+          const isToday = publishDate.getTime() === today.getTime();
+          console.log(`🔍 [BlogPreview] Post: "${post.title.substring(0, 30)}..." Date: ${publishDate.toDateString()} IsToday: ${isToday}`);
+          return isToday;
         });
+        
+        console.log('🔍 [BlogPreview] Actual today posts:', actualTodayPosts.length);
         
         // 只有当真的有今天发布的文章时，isToday才为true
         setIsToday(actualTodayPosts.length > 0);
         setPosts(todaysPosts); // getTodaysFeaturedBlogPosts已经处理了逻辑
+        
+        console.log('🔍 [BlogPreview] Final isToday:', actualTodayPosts.length > 0);
+        console.log('🔍 [BlogPreview] Final posts count:', todaysPosts.length);
       } catch (error) {
         console.error('Failed to load blog posts:', error);
       } finally {
