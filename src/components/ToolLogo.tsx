@@ -318,32 +318,30 @@ export default function ToolLogo({ name, logo, size = 'md', className = '' }: To
   const finalLogo = getSimpleToolLogo(name, logo);
   const isLocalLogo = finalLogo.startsWith('/logos/');
   const isDataUrl = finalLogo.startsWith('data:image/svg+xml');
-  const showPlaceholder = imageError || isDataUrl;
+  const showPlaceholder = imageError;
 
   return (
     <div className={`${sizeClasses[size]} rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center relative ${className}`}>
       {/* 加载指示器 */}
-      {isLoading && !isDataUrl && (
+      {isLoading && !isDataUrl && !showPlaceholder && (
         <div className="absolute inset-0 bg-gray-200 animate-pulse" />
       )}
       
-      {showPlaceholder ? (
-        // 使用SVG作为背景或显示默认占位符
-        isDataUrl ? (
-          <img
-            src={finalLogo}
-            alt={`${name} logo`}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        ) : (
-          // 默认占位符：显示工具名称的首字母
-          <div className="w-full h-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
-            <span className={`text-white font-bold ${fontSizes[size]}`}>
-              {name.charAt(0).toUpperCase()}
-            </span>
-          </div>
-        )
+      {isDataUrl ? (
+        // 直接使用img标签显示Data URL SVG，避免Next.js Image组件处理
+        <img
+          src={finalLogo}
+          alt={`${name} logo`}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      ) : showPlaceholder ? (
+        // 默认占位符：显示工具名称的首字母
+        <div className="w-full h-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+          <span className={`text-white font-bold ${fontSizes[size]}`}>
+            {name.charAt(0).toUpperCase()}
+          </span>
+        </div>
       ) : (
         // 使用Next.js Image组件优化加载
         isLocalLogo ? (

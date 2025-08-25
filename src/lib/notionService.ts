@@ -306,11 +306,49 @@ const logoMappings: { [key: string]: string } = {
   'Zapier AI': '/logos/zapier-ai.jpeg',
   'Aider': '/logos/aider.png',
   
-  // 需要官方logo的工具 - 使用临时SVG占位符
-  'Worldtune': '/logos/worldtune.svg',
-  'Stable Diffusion': '/logos/stable-diffusion.svg',
+  // 图像增强工具
+  'Remini': '/logos/Remini.jpeg',
+  'BigJPG': '/logos/bigjpg.svg',
+  'Bigjpg': '/logos/bigjpg.svg',
+  'Topaz Gigapixel AI': '/logos/topaz-gigapixel.jpeg',
+  'Topaz Gigapixel': '/logos/topaz-gigapixel.jpeg',
+  
+  // 图像生成工具
+  'DALL-E 2': '/logos/OpenAI_Icon_0.jpeg',
+  'DALL-E 3': '/logos/OpenAI_Icon_0.jpeg',
   'Leonardo AI': '/logos/leonardo-ai.svg',
-  'Looka': '/logos/looka.svg', 
+  'Stable Diffusion': '/logos/stable-diffusion.png',
+  'Fal AI': '/logos/fal AI.jpeg',
+  'Fal.ai': '/logos/fal AI.jpeg',
+  'IMGCreator AI': '/logos/IMGCreator AI.png',
+  'ImgCreator.ai': '/logos/IMGCreator AI.png',
+  
+  // 设计工具
+  'Adobe Firefly': '/logos/OpenAI_Icon_0.jpeg', // 需要添加Adobe Firefly logo
+  'Figma AI': '/logos/OpenAI_Icon_0.jpeg', // 需要添加Figma AI logo
+  'Looka': '/logos/looka.svg',
+  'Canva': '/logos/Canva_Logo_0.svg',
+  
+  // 开发工具
+  'Bolt.new': '/logos/bolt.new.svg',
+  'Bolt': '/logos/bolt.new.svg',
+  'Cursor': '/logos/cursor.jpeg',
+  'Windsurf': '/logos/windsurf.jpeg',
+  'v0 by Vercel': '/logos/v0-by-vercel.svg',
+  'Lovable': '/logos/Lovable.jpeg',
+  
+  // 翻译工具
+  'Reverso': '/logos/reverso.jpeg',
+  'Microsoft Translator': '/logos/microsoft translator.jpeg',
+  'Papago': '/logos/papago.jpeg',
+  'Whisper by OpenAI': '/logos/whisper by openai.jpeg',
+  
+  // 图像放大工具
+  "Let's Enhance": '/logos/letsenhance.jpeg',
+  'LetsEnhance': '/logos/letsenhance.jpeg',
+  
+  // 其他工具 - 使用临时SVG占位符
+  'Worldtune': '/logos/worldtune.svg', 
   'CodeT5': '/logos/codet5.svg',
   'Codeium': '/logos/codeium.svg',
   'Notion AI': '/logos/notion-ai.svg',
@@ -344,12 +382,9 @@ function getToolLogo(toolName: string, notionLogoUrl: string): string {
   // 为缺失官方logo的工具提供临时备选方案
   const tempMappings: { [key: string]: string } = {
     'Worldtune': '/logos/OpenAI_Icon_0.jpeg',
-    'Stable Diffusion': '/logos/dreamstudio.png',
-    'Leonardo AI': '/logos/Midjourney.png',
-    'Looka': '/logos/Canva_Logo_0.svg',
     'CodeT5': '/logos/codium-ai.png',
     'Codeium': '/logos/codium-ai.png',
-    'Notion AI': '/logos/OpenAI_Icon_0.jpeg',
+    'Notion AI': '/logos/notion-ai.svg',
     'MonkeyLearn': '/logos/OpenAI_Icon_0.jpeg',
     'Dataiku': '/logos/OpenAI_Icon_0.jpeg',
     'Semrush AI': '/logos/Surfer.jpeg',

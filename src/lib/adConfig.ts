@@ -23,8 +23,8 @@ export const AD_CONFIG = {
   // 响应式配置
   RESPONSIVE: true,
   
-  // 测试模式（开发环境）
-  TEST_MODE: process.env.NODE_ENV === 'development',
+  // 测试模式（开发环境）- 临时启用以便测试
+  TEST_MODE: false, // 强制关闭测试模式以便调试
 };
 
 // 广告显示策略配置
