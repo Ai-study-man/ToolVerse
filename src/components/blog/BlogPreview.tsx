@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { BlogPost } from '@/types/blog';
-import { getFeaturedBlogPosts, getTodaysFeaturedBlogPosts } from '@/lib/blogService';
+import { getTodaysFeaturedBlogPosts } from '@/lib/blogService';
 
 export default function BlogPreview() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -18,15 +18,16 @@ export default function BlogPreview() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         
-        // 检查是否有今天发布的文章
-        const hasTodayPosts = todaysPosts.some(post => {
+        // 检查返回的文章中是否真的有今天发布的文章
+        const actualTodayPosts = todaysPosts.filter(post => {
           const publishDate = new Date(post.publishedAt);
           publishDate.setHours(0, 0, 0, 0);
           return publishDate.getTime() === today.getTime();
         });
         
-        setIsToday(hasTodayPosts);
-        setPosts(todaysPosts);
+        // 只有当真的有今天发布的文章时，isToday才为true
+        setIsToday(actualTodayPosts.length > 0);
+        setPosts(todaysPosts); // getTodaysFeaturedBlogPosts已经处理了逻辑
       } catch (error) {
         console.error('Failed to load blog posts:', error);
       } finally {

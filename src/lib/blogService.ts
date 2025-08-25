@@ -1324,23 +1324,36 @@ export async function getTodaysFeaturedBlogPosts(): Promise<BlogPost[]> {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // 设置为今天的开始时间
   
+  console.log('🔍 [getTodaysFeaturedBlogPosts] Today date:', today.toDateString());
+  console.log('🔍 [getTodaysFeaturedBlogPosts] Total posts:', posts.length);
+  
   // 首先尝试获取今天发布的文章
   const todaysPosts = posts.filter(post => {
     const publishDate = new Date(post.publishedAt);
     publishDate.setHours(0, 0, 0, 0);
-    return publishDate.getTime() === today.getTime();
+    const isToday = publishDate.getTime() === today.getTime();
+    console.log(`📝 [getTodaysFeaturedBlogPosts] Post: "${post.title.substring(0, 30)}..." Date: ${publishDate.toDateString()} IsToday: ${isToday}`);
+    return isToday;
   });
+  
+  console.log('🎯 [getTodaysFeaturedBlogPosts] Today\'s posts found:', todaysPosts.length);
   
   // 如果今天有发布的文章，只返回今天的文章
   if (todaysPosts.length > 0) {
-    return todaysPosts
+    console.log('✅ [getTodaysFeaturedBlogPosts] Returning today\'s posts only');
+    const result = todaysPosts
       .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    console.log('📊 [getTodaysFeaturedBlogPosts] Final result count:', result.length);
+    return result;
   }
   
   // 如果今天没有发布文章，只返回最近的一篇文章
-  return posts
+  console.log('🔄 [getTodaysFeaturedBlogPosts] No posts today, returning most recent 1 post');
+  const result = posts
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, 1);
+  console.log('📊 [getTodaysFeaturedBlogPosts] Final result count:', result.length);
+  return result;
 }
 
 export async function getRecentBlogPosts(limit: number = 5): Promise<BlogPost[]> {
