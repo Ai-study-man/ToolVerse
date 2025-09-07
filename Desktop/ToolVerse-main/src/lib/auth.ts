@@ -1,4 +1,5 @@
-import NextAuth, { DefaultSession, getServerSession } from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth"
+import { getServerSession } from "next-auth/next"
 import type { NextAuthOptions, User, Account, Session } from "next-auth"
 import type { JWT } from "next-auth/jwt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
