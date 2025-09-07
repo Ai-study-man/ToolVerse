@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahrefs Analytics 安装验证 - ToolVerse</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .status-card {
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .status-success {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        .status-warning {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+        .status-error {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .success { color: #10b981; }
+        .warning { color: #f59e0b; }
+        .error { color: #ef4444; }
+        .info { color: #3b82f6; }
+        
+        .test-button {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .instructions {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .instructions h3 {
+            color: #1d4ed8;
+            margin-top: 0;
+        }
+        
+        .step {
+            display: flex;
+            margin: 10px 0;
+        }
+        .step-number {
+            background: #2563eb;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Ahrefs Analytics 安装验证</h1>
+            <p>检查 ToolVerse 网站的 Ahrefs Analytics 集成状态</p>
+        </div>
+        
+        <div class="content">
+            <div class="status-card">
+                <h3>📊 当前安装状态</h3>
+                <div id="installation-status">
+                    <div class="check-item">
+                        <span class="check-icon info">⏳</span>
+                        <span>正在检查安装状态...</span>
+                    </div>
+                </div>
+                <button class="test-button" onclick="runInstallationCheck()">
+                    🔄 重新检查
+                </button>
+            </div>
+            
+            <div class="status-card">
+                <h3>🎯 已安装的配置</h3>
+                <div class="code-block">
+&lt;script src="https://analytics.ahrefs.com/analytics.js" 
+        data-key="Y3EhGUnu3K8A0krIGV1Rdg" 
+        async&gt;&lt;/script&gt;
+                </div>
+                <p><strong>数据键值:</strong> <code>Y3EhGUnu3K8A0krIGV1Rdg</code></p>
+                <p><strong>安装位置:</strong> <code>src/app/layout.tsx</code> 的 <code>&lt;head&gt;</code> 部分</p>
+            </div>
+            
+            <div class="instructions">
+                <h3>📋 验证步骤</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>在 Ahrefs 控制台验证</strong><br>
+                        登录您的 Ahrefs 账户，点击"重新检查安装"按钮
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>等待数据收集</strong><br>
+                        通常需要 5-10 分钟开始收集数据，24 小时内可看到完整数据
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>检查浏览器控制台</strong><br>
+                        按 F12 打开开发者工具，在控制台运行 <code>checkAhrefs()</code>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <strong>确保有访问量</strong><br>
+                        Analytics 需要真实的网站访问量才能收集数据
+                    </div>
+                </div>
+            </div>
+            
+            <div class="status-card">
+                <h3>🛠️ 故障排除</h3>
+                <div id="troubleshooting">
+                    <div class="check-item">
+                        <span class="check-icon info">💡</span>
+                        <div>
+                            <strong>如果脚本未加载:</strong><br>
+                            检查网络连接和广告拦截器设置
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon info">💡</span>
+                        <div>
+                            <strong>如果数据键值错误:</strong><br>
+                            确认 data-key 属性值为 <code>Y3EhGUnu3K8A0krIGV1Rdg</code>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <span class="check-icon info">💡</span>
+                        <div>
+                            <strong>如果长时间无数据:</strong><br>
+                            联系 Ahrefs 支持或检查域名配置
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="status-card">
+                <h3>📈 预期功能</h3>
+                <ul>
+                    <li>📊 页面浏览量和访问者统计</li>
+                    <li>🔍 搜索引擎流量分析</li>
+                    <li>📱 设备和浏览器数据</li>
+                    <li>🌍 地理位置分析</li>
+                    <li>📄 页面性能指标</li>
+                    <li>🔗 引荐来源分析</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 安装检查函数
+        function runInstallationCheck() {
+            const statusDiv = document.getElementById('installation-status');
+            statusDiv.innerHTML = '<div class="check-item"><span class="check-icon info">⏳</span><span>检查中...</span></div>';
+            
+            setTimeout(() => {
+                const results = [];
+                
+                // 检查脚本是否存在
+                const script = document.querySelector('script[src*="analytics.ahrefs.com"]');
+                if (script) {
+                    results.push({
+                        icon: '✅',
+                        class: 'success',
+                        text: 'Ahrefs Analytics 脚本已找到'
+                    });
+                    
+                    // 检查数据键值
+                    const dataKey = script.getAttribute('data-key');
+                    if (dataKey === 'Y3EhGUnu3K8A0krIGV1Rdg') {
+                        results.push({
+                            icon: '✅',
+                            class: 'success',
+                            text: '数据键值配置正确'
+                        });
+                    } else {
+                        results.push({
+                            icon: '⚠️',
+                            class: 'warning',
+                            text: `数据键值不匹配: ${dataKey}`
+                        });
+                    }
+                    
+                    // 检查async属性
+                    if (script.hasAttribute('async')) {
+                        results.push({
+                            icon: '✅',
+                            class: 'success',
+                            text: 'async 属性已正确设置'
+                        });
+                    }
+                } else {
+                    results.push({
+                        icon: '❌',
+                        class: 'error',
+                        text: '未找到 Ahrefs Analytics 脚本'
+                    });
+                }
+                
+                // 检查网络请求
+                if (window.performance) {
+                    const resources = performance.getEntriesByType('resource');
+                    const ahrefsResources = resources.filter(r => r.name.includes('ahrefs.com'));
+                    if (ahrefsResources.length > 0) {
+                        results.push({
+                            icon: '📡',
+                            class: 'success',
+                            text: `发现 ${ahrefsResources.length} 个相关网络请求`
+                        });
+                    }
+                }
+                
+                // 更新显示
+                statusDiv.innerHTML = results.map(result => `
+                    <div class="check-item">
+                        <span class="check-icon ${result.class}">${result.icon}</span>
+                        <span>${result.text}</span>
+                    </div>
+                `).join('');
+                
+                // 总体状态
+                const allSuccess = results.every(r => r.class === 'success');
+                const statusCard = statusDiv.closest('.status-card');
+                if (allSuccess) {
+                    statusCard.className = 'status-card status-success';
+                } else if (results.some(r => r.class === 'error')) {
+                    statusCard.className = 'status-card status-error';
+                } else {
+                    statusCard.className = 'status-card status-warning';
+                }
+            }, 1000);
+        }
+        
+        // 页面加载时自动检查
+        document.addEventListener('DOMContentLoaded', runInstallationCheck);
+        
+        // 全局检查函数（可在控制台调用）
+        window.checkAhrefsDetailed = runInstallationCheck;
+    </script>
+</body>
+</html>

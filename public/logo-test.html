@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo显示测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
+        .test-item { border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
+        .logo-test { display: flex; align-items: center; gap: 15px; margin: 10px 0; }
+        .logo-img { width: 48px; height: 48px; border-radius: 8px; border: 1px solid #eee; }
+        .status { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Logo显示测试页面</h1>
+        
+        <div class="test-grid">
+            <div class="test-item">
+                <h3>📁 静态文件测试</h3>
+                <div class="logo-test">
+                    <img src="/logos/Remini.jpeg" alt="Remini" class="logo-img" 
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ 加载成功'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ 加载失败'">
+                    <span class="status warning">⏳ 加载中...</span>
+                    <span>Remini.jpeg</span>
+                </div>
+                
+                <div class="logo-test">
+                    <img src="/logos/bigjpg.svg" alt="BigJPG" class="logo-img"
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ 加载成功'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ 加载失败'">
+                    <span class="status warning">⏳ 加载中...</span>
+                    <span>bigjpg.svg</span>
+                </div>
+                
+                <div class="logo-test">
+                    <img src="/logos/Midjourney.png" alt="Midjourney" class="logo-img"
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ 加载成功'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ 加载失败'">
+                    <span class="status warning">⏳ 加载中...</span>
+                    <span>Midjourney.png</span>
+                </div>
+                
+                <div class="logo-test">
+                    <img src="/logos/stable-diffusion.png" alt="Stable Diffusion" class="logo-img"
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ 加载成功'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ 加载失败'">
+                    <span class="status warning">⏳ 加载中...</span>
+                    <span>stable-diffusion.png</span>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <h3>🎨 Data URL测试</h3>
+                <div class="logo-test">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563eb'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Arial' font-size='28' font-weight='bold' fill='white'%3ER%3C/text%3E%3C/svg%3E" 
+                         alt="Remini Fallback" class="logo-img"
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ Data URL正常'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ Data URL失败'">
+                    <span class="status warning">⏳ 测试中...</span>
+                    <span>Remini占位符</span>
+                </div>
+                
+                <div class="logo-test">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f59e0b'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Arial' font-size='28' font-weight='bold' fill='white'%3EB%3C/text%3E%3C/svg%3E" 
+                         alt="BigJPG Fallback" class="logo-img"
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ Data URL正常'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ Data URL失败'">
+                    <span class="status warning">⏳ 测试中...</span>
+                    <span>BigJPG占位符</span>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <h3>🔗 Next.js Image测试</h3>
+                <p>通过 /_next/image API:</p>
+                <div class="logo-test">
+                    <img src="/_next/image?url=%2Flogos%2FRemini.jpeg&w=96&q=75" alt="Remini via Next.js" class="logo-img"
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ Next.js优化正常'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ Next.js优化失败'">
+                    <span class="status warning">⏳ 测试中...</span>
+                    <span>Remini (Next.js)</span>
+                </div>
+                
+                <div class="logo-test">
+                    <img src="/_next/image?url=%2Flogos%2Fbigjpg.svg&w=96&q=75" alt="BigJPG via Next.js" class="logo-img"
+                         onload="this.nextElementSibling.className='status success'; this.nextElementSibling.textContent='✅ Next.js优化正常'"
+                         onerror="this.nextElementSibling.className='status error'; this.nextElementSibling.textContent='❌ Next.js优化失败'">
+                    <span class="status warning">⏳ 测试中...</span>
+                    <span>BigJPG (Next.js)</span>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <h3>🌐 网络诊断</h3>
+                <div id="network-info">
+                    <p><strong>用户代理:</strong> <span id="user-agent"></span></p>
+                    <p><strong>在线状态:</strong> <span id="online-status"></span></p>
+                    <p><strong>Cookie支持:</strong> <span id="cookie-enabled"></span></p>
+                    <p><strong>当前时间:</strong> <span id="current-time"></span></p>
+                </div>
+                
+                <button onclick="testNetworkConnectivity()" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+                    🔍 测试网络连接
+                </button>
+                <div id="network-results" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <h3>📊 测试结果解读</h3>
+            <ul style="line-height: 1.6;">
+                <li><strong>静态文件测试</strong>: 检查logo文件是否能直接访问</li>
+                <li><strong>Data URL测试</strong>: 验证SVG占位符是否能正常显示</li>
+                <li><strong>Next.js Image测试</strong>: 检查图片优化API是否工作正常</li>
+                <li><strong>网络诊断</strong>: 排除网络环境问题</li>
+            </ul>
+            
+            <p><strong>💡 如果看到红色错误，请尝试：</strong></p>
+            <ol>
+                <li>🔄 刷新页面</li>
+                <li>🚫 禁用浏览器扩展</li>
+                <li>🕵️ 使用隐私模式</li>
+                <li>🌐 检查网络连接</li>
+                <li>🖥️ 尝试不同浏览器</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // 更新网络信息
+        document.getElementById('user-agent').textContent = navigator.userAgent.substr(0, 60) + '...';
+        document.getElementById('online-status').textContent = navigator.onLine ? '在线 ✅' : '离线 ❌';
+        document.getElementById('cookie-enabled').textContent = navigator.cookieEnabled ? '启用 ✅' : '禁用 ❌';
+        document.getElementById('current-time').textContent = new Date().toLocaleString('zh-CN');
+        
+        // 测试网络连接
+        function testNetworkConnectivity() {
+            const resultsDiv = document.getElementById('network-results');
+            resultsDiv.innerHTML = '<p>🔍 正在测试网络连接...</p>';
+            
+            const testUrls = [
+                '/logos/Remini.jpeg',
+                '/logos/bigjpg.svg', 
+                '/logos/Midjourney.png'
+            ];
+            
+            Promise.all(testUrls.map(url => 
+                fetch(url, { method: 'HEAD' })
+                    .then(response => ({ url, status: response.status, success: response.ok }))
+                    .catch(error => ({ url, status: 'ERROR', success: false, error: error.message }))
+            )).then(results => {
+                let html = '<h4>🌐 网络连接测试结果:</h4><ul>';
+                results.forEach(result => {
+                    const statusClass = result.success ? 'success' : 'error';
+                    const statusText = result.success ? `${result.status} ✅` : `${result.status} ❌`;
+                    html += `<li><span class="status ${statusClass}">${statusText}</span> ${result.url}</li>`;
+                });
+                html += '</ul>';
+                resultsDiv.innerHTML = html;
+            });
+        }
+        
+        // 页面加载完成后自动测试
+        window.addEventListener('load', () => {
+            setTimeout(testNetworkConnectivity, 2000);
+        });
+    </script>
+</body>
+</html>

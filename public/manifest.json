@@ -1,0 +1,100 @@
+{
+  "name": "ToolVerse - AI工具目录平台",
+  "short_name": "ToolVerse",
+  "description": "发现和使用最好的AI工具！提供500+AI工具详细评测、使用指南。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["productivity", "business", "education", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "ToolVerse主页截图"
+    },
+    {
+      "src": "/screenshot-narrow.png", 
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "ToolVerse移动端截图"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "搜索AI工具",
+      "short_name": "搜索",
+      "description": "快速搜索AI工具",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/search-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "工具分类",
+      "short_name": "分类",
+      "description": "浏览AI工具分类",
+      "url": "/categories",
+      "icons": [
+        {
+          "src": "/category-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "提交工具",
+      "short_name": "提交",
+      "description": "提交新的AI工具",
+      "url": "/submit",
+      "icons": [
+        {
+          "src": "/submit-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

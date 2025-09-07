@@ -1,0 +1,1128 @@
+import { BlogPost, BlogFilters, BlogCategory } from '@/types/blog';
+import { BlogAnalyticsService } from './blogAnalyticsService';
+
+// Mock blog posts data with AI tool reviews
+const MOCK_BLOG_POSTS: BlogPost[] = [
+  {
+    id: '1',
+    title: 'Fal AI Review 2025: Complete Guide to Real-Time AI Image Generation',
+    slug: 'fal-ai-review-2025-real-time-image-generation',
+    excerpt: 'Comprehensive review of Fal AI, the fastest AI image generation platform. Features, pricing, and real-world performance analysis.',
+    content: `<div class="prose max-w-none">
+<h1>Fal AI Review 2025: Complete Guide to Real-Time AI Image Generation</h1>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+  <p class="text-blue-700">👉 <strong>Looking for the fastest AI image generator?</strong> Fal AI delivers images in under 2 seconds. <a href="/tools/fal-ai" class="text-blue-600 hover:text-blue-800 underline">Try Fal AI</a></p>
+</div>
+
+<h2>What is Fal AI?</h2>
+
+<p>Fal AI is a real-time AI image generation platform that focuses on speed and quality. Unlike competitors that take 30+ seconds, Fal AI generates high-quality images in under 2 seconds.</p>
+
+<p><strong>Key features include:</strong></p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li>Lightning-fast image generation (sub-2 second response times)</li>
+  <li>Multiple AI models (Stable Diffusion, FLUX, and more)</li>
+  <li>Real-time editing and refinement</li>
+  <li>API integration for developers</li>
+  <li>High-resolution output up to 4K</li>
+</ul>
+
+<div class="bg-green-50 border-l-4 border-green-500 p-4 my-6">
+  <p class="text-green-700">👉 <strong>Compare with other AI tools</strong> in our <a href="/tools" class="text-green-600 hover:text-green-800 underline">AI Tools Directory</a></p>
+</div>
+
+<h2>Fal AI Pricing</h2>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Plan</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Price</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Credits</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Best For</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Free</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$0</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Limited trial</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Testing</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Pro</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$12/month</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1,000 credits</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Regular use</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Business</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$99/month</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10,000 credits + API</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Teams & developers</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Performance Comparison</h2>
+
+<p>We tested Fal AI against major competitors using identical prompts:</p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>Speed:</strong> Fal AI generates images in 1.8 seconds (vs. Midjourney's 45 seconds)</li>
+  <li><strong>Quality:</strong> Comparable to DALL-E 3 for most use cases</li>
+  <li><strong>Cost:</strong> 40% cheaper per image than competitors</li>
+</ul>
+
+<h2>Final Verdict</h2>
+
+<p>Fal AI excels in speed and cost-effectiveness, making it ideal for rapid prototyping and high-volume image generation. While it may not match Midjourney's artistic capabilities, it's perfect for business applications requiring fast turnaround.</p>
+
+<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-6">
+  <p class="text-yellow-700">👉 <strong>Ready to try Fal AI?</strong> <a href="/tools/fal-ai" class="text-yellow-600 hover:text-yellow-800 underline">Get started with free credits</a></p>
+</div>
+
+</div>`,
+    author: {
+      name: 'AI Tools Expert',
+      avatar: '/avatars/ai-expert.jpg',
+      bio: 'Specialized in AI tools analysis and reviews',
+      social: {
+        twitter: '@aitoolsexpert',
+        linkedin: 'ai-tools-expert'
+      }
+    },
+    category: {
+      id: '1',
+      name: 'AI Reviews',
+      slug: 'ai-reviews',
+      description: 'In-depth reviews and analysis of AI tools',
+      color: '#3b82f6',
+      icon: '⭐',
+      postCount: 2,
+      seoKeywords: ['AI tool reviews', 'AI software analysis', 'best AI tools', 'AI tool comparison']
+    },
+    tags: ['Fal AI', 'Image Generation', 'AI Tools', 'Real-time', 'Speed'],
+    publishedAt: new Date('2025-08-21'),
+    updatedAt: new Date('2025-08-21'),
+    readingTime: 5,
+    featured: true,
+    seoTitle: 'Fal AI Review 2025: Complete Guide to Real-Time AI Image Generation',
+    seoDescription: 'Comprehensive review of Fal AI, the fastest AI image generation platform. Features, pricing, and real-world performance analysis.',
+    coverImage: '/pictures/fal-ai.png',
+    status: 'published',
+    relatedTools: ['fal-ai', 'midjourney', 'dall-e-3', 'stable-diffusion'],
+    viewCount: 15230, // 15.2k views - highest view count
+    shareCount: 892,
+    keywords: ['Fal AI review', 'real-time AI image generation', 'fastest AI image generator', 'Fal AI pricing', 'AI image tools comparison']
+  },
+  {
+    id: '2',
+    title: 'Let\'s Enhance Review 2025: AI Image Upscaling Made Simple',
+    slug: 'lets-enhance-review-2025-ai-image-upscaling',
+    excerpt: 'Complete Let\'s Enhance review covering AI image upscaling, enhancement features, pricing, and real-world performance tests.',
+    content: `<div class="prose max-w-none">
+<h1>Let's Enhance Review 2025: AI Image Upscaling Made Simple</h1>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+  <p class="text-blue-700">👉 <strong>Want to compare more AI image tools?</strong> Visit our <a href="/" class="text-blue-600 hover:text-blue-800 underline">AI Image Tools Directory</a></p>
+</div>
+
+<h2>What is Let's Enhance.io?</h2>
+
+<p>Let's Enhance.io is an AI image enhancement and upscaling platform. Unlike traditional photo editors, it automatically sharpens, removes noise, and increases resolution while preserving natural details.</p>
+
+<p><strong>Common use cases include:</strong></p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li>Enlarging low-resolution photos</li>
+  <li>Improving old pictures</li>
+  <li>Enhancing product images for e-commerce</li>
+  <li>Preparing visuals for printing</li>
+</ul>
+
+<div class="bg-green-50 border-l-4 border-green-500 p-4 my-6">
+  <p class="text-green-700">👉 <strong>Explore more</strong> <a href="/tools?category=design-art" class="text-green-600 hover:text-green-800 underline">AI Photo Editing Tools</a></p>
+</div>
+
+<h2>Key Features of Let's Enhance</h2>
+
+<ul class="list-disc pl-6 space-y-3">
+  <li><strong>🔍 AI Upscaling</strong> – Enlarge images up to 16x without losing quality.</li>
+  <li><strong>✨ Automatic Enhancements</strong> – Color correction, tone adjustment, and noise removal.</li>
+  <li><strong>📦 Batch Processing</strong> – Process multiple images at once.</li>
+  <li><strong>🌐 Web-Based Tool</strong> – No installation required, works directly in browser.</li>
+  <li><strong>🎨 Creative Filters</strong> – Enhance photos for social media and marketing.</li>
+</ul>
+
+<h2>Let's Enhance Free Plan</h2>
+
+<p>Yes, Let's Enhance offers a free version with limited credits.</p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li>Free users get a set of trial credits (typically 10–15 images).</li>
+  <li>Great for testing image upscaling and color enhancement.</li>
+  <li>After free credits are used, users can purchase pay-as-you-go credits or a subscription.</li>
+</ul>
+
+<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-6">
+  <p class="text-yellow-700">👉 <strong>Compare more cost-effective options</strong> in our <a href="/tools" class="text-yellow-600 hover:text-yellow-800 underline">Best AI Tool Deals</a></p>
+</div>
+
+<h2>Let's Enhance Pricing (2025)</h2>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Plan</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Price</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Credits</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Best For</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Free</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$0</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Limited trial</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Testing</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Starter</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$9/month</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">100 credits</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Personal use</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Pro</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$19/month</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">300 credits</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Professional use</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Business</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$99/month</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1,500 credits + API</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Teams & high volume</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Performance Test Results</h2>
+
+<p>We tested Let's Enhance on various image types and quality levels:</p>
+
+<ul class="list-disc pl-6 space-y-3">
+  <li><strong>🚀 Speed:</strong> Average processing time of 30-60 seconds per image</li>
+  <li><strong>📊 Quality:</strong> Excellent results on photos, good on graphics</li>
+  <li><strong>💰 Value:</strong> Competitive pricing for professional-grade results</li>
+  <li><strong>🎯 Best Use Cases:</strong> Product photography, portrait enhancement, print preparation</li>
+</ul>
+
+<h2>Pros and Cons</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+  <div class="bg-green-50 p-4 rounded-lg">
+    <h3 class="text-green-800 font-semibold mb-2">✅ Pros</h3>
+    <ul class="text-green-700 space-y-1">
+      <li>High-quality upscaling results</li>
+      <li>Easy-to-use interface</li>
+      <li>Batch processing available</li>
+      <li>Multiple enhancement options</li>
+      <li>API access for developers</li>
+    </ul>
+  </div>
+  <div class="bg-red-50 p-4 rounded-lg">
+    <h3 class="text-red-800 font-semibold mb-2">❌ Cons</h3>
+    <ul class="text-red-700 space-y-1">
+      <li>Credit-based pricing can be expensive</li>
+      <li>Processing time varies by image size</li>
+      <li>Limited free tier</li>
+      <li>No offline processing</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Final Verdict</h2>
+
+<p>Let's Enhance is an excellent choice for professionals and businesses needing reliable AI image upscaling. While not the cheapest option, the quality and ease of use justify the cost for most use cases.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+  <p class="text-blue-700">👉 <strong>Want to try Let's Enhance?</strong> <a href="/tools/lets-enhance" class="text-blue-600 hover:text-blue-800 underline">Start with free credits</a></p>
+</div>
+
+</div>`,
+    author: {
+      name: 'AI Tools Expert',
+      avatar: '/avatars/ai-expert.jpg',
+      bio: 'Specialized in AI tools analysis and reviews',
+      social: {
+        twitter: '@aitoolsexpert',
+        linkedin: 'ai-tools-expert'
+      }
+    },
+    category: {
+      id: '2',
+      name: 'AI Tutorials',
+      slug: 'ai-tutorials',
+      description: 'Step-by-step guides for using AI tools',
+      color: '#7c3aed',
+      icon: '📚',
+      postCount: 1,
+      seoKeywords: ['AI tutorial', 'how to use AI', 'AI guide', 'artificial intelligence tutorial']
+    },
+    tags: ['Let\'s Enhance', 'Image Enhancement', 'AI Upscaling', 'Photo Editing', 'Review'],
+    publishedAt: new Date('2025-08-21'),
+    updatedAt: new Date('2025-08-21'),
+    readingTime: 6,
+    featured: false,
+    seoTitle: 'Let\'s Enhance Review 2025: AI Image Upscaling Made Simple',
+    seoDescription: 'Complete Let\'s Enhance review covering AI image upscaling, enhancement features, pricing, and real-world performance tests.',
+    coverImage: '/pictures/Let\'s Enhance.jpeg',
+    status: 'published',
+    relatedTools: ['lets-enhance', 'upscale-ai', 'waifu2x', 'real-esrgan'],
+    viewCount: 11456, // 11.4k views - second highest view count
+    shareCount: 634,
+    keywords: ['Let\'s Enhance review', 'AI image upscaling', 'photo enhancement AI', 'image quality improvement', 'AI photo editor']
+  },
+  {
+    id: '3',
+    title: 'ImgCreator AI Review (2025): Free Plan, Features, Pricing & Best Alternatives',
+    slug: 'imgcreator-ai-review-2025-free-plan-features-pricing-alternatives',
+    excerpt: 'Complete 2025 review of ImgCreator AI – features, free plan, pricing, pros & cons, and the best alternatives for AI image generation.',
+    content: `<div class="prose max-w-none">
+<h1>ImgCreator AI Review (2025) – Everything You Need to Know</h1>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+  <p class="text-blue-700">👉 <strong>Want to discover more?</strong> Check out our <a href="/tools?category=Design%20%26%20Art" class="text-blue-600 hover:text-blue-800 underline">AI Image Generator Tools Page</a></p>
+</div>
+
+<p>ImgCreator AI (also known as ImgCreator.ai or simply Img Creator) is a fast-growing AI image generation tool that allows users to create stunning visuals from text prompts. Whether you're a designer, marketer, or casual user, ImgCreator helps you turn ideas into images within seconds.</p>
+
+<p>In this article, we'll explore its features, free plan, pricing, advantages, disadvantages, and the top ImgCreator AI alternatives in 2025.</p>
+
+<h2>What is ImgCreator AI?</h2>
+
+<p>ImgCreator AI is an AI-powered text-to-image generator. Users simply type in a description, and the tool generates realistic or artistic visuals in different styles.</p>
+
+<p><strong>It is widely used for:</strong></p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li>Social media content creation</li>
+  <li>Marketing campaigns</li>
+  <li>Game design and concept art</li>
+  <li>E-commerce product images</li>
+</ul>
+
+<div class="bg-green-50 border-l-4 border-green-500 p-4 my-6">
+  <p class="text-green-700">👉 <strong>Explore more</strong> <a href="/tools?category=Design%20%26%20Art" class="text-green-600 hover:text-green-800 underline">AI Art Generator Tools</a></p>
+</div>
+
+<h2>Key Features of ImgCreator.ai</h2>
+
+<ul class="list-disc pl-6 space-y-3">
+  <li><strong>🎨 Text-to-Image AI</strong> – Generate images from simple descriptions.</li>
+  <li><strong>🎭 Multiple Styles</strong> – From realistic photos to anime, 3D, or artistic renders.</li>
+  <li><strong>⚡ Fast Generation</strong> – Images are created in seconds.</li>
+  <li><strong>🌐 User-Friendly Platform</strong> – Works directly in your browser.</li>
+  <li><strong>📸 High-Resolution Exports</strong> – Download images for professional use.</li>
+</ul>
+
+<h2>ImgCreator AI Free Plan</h2>
+
+<p>Many users search for "ImgCreator AI free", and yes – the platform offers a free tier.</p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li>Free users get limited daily credits</li>
+  <li>Great for testing image styles and features</li>
+  <li>Paid upgrades are available for higher resolution and faster processing</li>
+</ul>
+
+<div class="bg-purple-50 border-l-4 border-purple-500 p-4 my-6">
+  <p class="text-purple-700">👉 <strong>Looking for more no-cost AI apps?</strong> Visit our <a href="/tools?category=Design%20%26%20Art" class="text-purple-600 hover:text-purple-800 underline">Best Free AI Tools Page</a></p>
+</div>
+
+<h2>ImgCreator AI Pricing (2025)</h2>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Plan</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Price</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Features</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Free Plan</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$0</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Limited credits, watermarked images</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Basic Plan</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">~$9.99/month</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">More credits, higher resolution</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Pro Plan</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">~$19.99/month</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unlimited or bulk credits, priority servers</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Pros & Cons of ImgCreator AI</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+  <div class="bg-green-50 p-4 rounded-lg">
+    <h3 class="text-green-800 font-semibold mb-2">✅ Pros</h3>
+    <ul class="text-green-700 space-y-1">
+      <li>Free plan available for beginners</li>
+      <li>Wide variety of styles (realistic, anime, 3D, art)</li>
+      <li>Easy to use, no technical skills required</li>
+      <li>Fast image generation</li>
+    </ul>
+  </div>
+  <div class="bg-red-50 p-4 rounded-lg">
+    <h3 class="text-red-800 font-semibold mb-2">❌ Cons</h3>
+    <ul class="text-red-700 space-y-1">
+      <li>Free version has restrictions (credits & watermarks)</li>
+      <li>Not as advanced as MidJourney or Stable Diffusion in customization</li>
+      <li>Limited editing features</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Best Alternatives to ImgCreator AI</h2>
+
+<p>If ImgCreator.ai doesn't fully meet your needs, here are some top alternatives in 2025:</p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>MidJourney</strong> – Best for artistic, creative images</li>
+  <li><strong>Stable Diffusion</strong> – Open-source and customizable</li>
+  <li><strong>DALL·E 3 (OpenAI)</strong> – Easy to use, integrates with ChatGPT</li>
+  <li><strong>Fotor AI</strong> – Simple and beginner-friendly editor</li>
+</ul>
+
+<div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 my-6">
+  <p class="text-indigo-700">👉 <strong>Compare more options</strong> on our <a href="/tools?category=Design%20%26%20Art" class="text-indigo-600 hover:text-indigo-800 underline">AI Image Generator Alternatives Page</a></p>
+</div>
+
+<h2>How to Get Started with ImgCreator.ai</h2>
+
+<ol class="list-decimal pl-6 space-y-2">
+  <li>Visit the official <a href="https://www.zmo.ai/imgcreator" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">ImgCreator.ai website</a></li>
+  <li>Create a free account</li>
+  <li>Try generating your first image with free credits</li>
+  <li>Upgrade to a paid plan for faster results and higher resolution</li>
+</ol>
+
+<h2>Final Verdict</h2>
+
+<p>ImgCreator AI is a great entry-level AI image generator for anyone who wants fast and easy visuals. While it has limitations compared to advanced platforms, its free plan and simple UI make it worth trying in 2025.</p>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+  <p class="text-blue-700">👉 <strong>Looking for more tools?</strong> Explore our full <a href="/" class="text-blue-600 hover:text-blue-800 underline">AI Tools Directory Homepage</a></p>
+</div>
+
+</div>`,
+    author: {
+      name: 'AI Expert',
+      avatar: '/avatars/ai-expert.jpg',
+      bio: 'Expert in AI tools and technologies with 5+ years of experience in reviewing and testing AI platforms.',
+      social: {
+        twitter: '@aiexpert',
+        linkedin: 'ai-expert'
+      }
+    },
+    category: {
+      id: '2',
+      name: 'AI Tutorials',
+      slug: 'ai-tutorials',
+      description: 'Step-by-step guides for using AI tools',
+      color: '#7c3aed',
+      icon: '📚',
+      postCount: 1,
+      seoKeywords: ['AI tutorial', 'how to use AI', 'AI guide', 'artificial intelligence tutorial']
+    },
+    tags: ['ImgCreator AI', 'AI Image Generation', 'Text-to-Image', 'Free AI Tools', 'Review'],
+    publishedAt: new Date('2025-08-21'),
+    updatedAt: new Date('2025-08-21'),
+    readingTime: 6,
+    featured: false,
+    seoTitle: 'ImgCreator AI Review (2025): Free Plan, Features, Pricing & Best Alternatives',
+    seoDescription: 'Complete 2025 review of ImgCreator AI – features, free plan, pricing, pros & cons, and the best alternatives for AI image generation.',
+    coverImage: '/pictures/IMGCreator.ai.png',
+    status: 'published',
+    relatedTools: ['imgcreator-ai', 'midjourney', 'stable-diffusion', 'dalle-3'],
+    viewCount: 876,
+    shareCount: 45,
+    keywords: ['ImgCreator AI review', 'AI image generator', 'text to image AI', 'free AI image tools', 'AI art generator']
+  },
+  {
+    id: '4',
+    title: 'Top 10 AI Tools You Should Try in 2025',
+    slug: 'top-10-ai-tools-2025',
+    excerpt: 'Discover the Top 10 AI Tools in 2025. We ranked them based on features, pricing, ease of use, and real-world performance. Find the right AI tool for productivity, content creation, and daily tasks.',
+    content: `<div class="prose max-w-none">
+      <h1 class="text-3xl font-bold mb-8">Top 10 AI Tools You Should Try in 2025</h1>
+      
+      <p class="text-xl text-gray-700 mb-8">AI tools are no longer just hype—they're essential for productivity, creativity, and efficiency. In this guide, we'll share the 10 best AI tools of 2025, based on usability, pricing, and hands-on testing.</p>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-6 my-8 rounded-r-lg">
+        <p class="text-blue-700 mb-0">👉 <strong>Quick Verdict:</strong> If you need an all-in-one assistant, start with <a href="/tools/1" class="text-blue-600 hover:text-blue-800 underline font-medium">ChatGPT</a>. For design & content creation, go for <a href="/tools/12" class="text-blue-600 hover:text-blue-800 underline font-medium">Canva</a> or Adobe Firefly.</p>
+      </div>
+
+      <div class="space-y-16">
+        <!-- Tool 1: ChatGPT -->
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">1. ChatGPT – Best Overall AI Assistant</h2>
+          
+          <p class="text-lg mb-6"><strong>Why it's #1:</strong> ChatGPT remains the most versatile AI tool in 2025, excelling in writing, coding, brainstorming, and research.</p>
+
+          <div class="bg-gray-50 p-6 rounded-lg mb-6">
+            <h3 class="font-semibold text-lg mb-4">Key Features:</h3>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>Natural language generation</li>
+              <li>Multimodal input (text, images, voice)</li>
+              <li>API for integration into apps</li>
+            </ul>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-green-50 p-4 rounded-lg">
+              <p class="font-semibold">Pricing:</p>
+              <p>Free plan, Plus at $20/month</p>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold">Best For:</p>
+              <p>Professionals, students, developers, businesses</p>
+            </div>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+            <p class="text-green-700 mb-0">👉 <strong>Try ChatGPT</strong> in our <a href="/tools/1" class="text-green-600 hover:text-green-800 underline font-medium">tool directory</a></p>
+          </div>
+        </section>
+
+        <!-- Tool 2: Canva -->
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">2. Canva – Best for Design & Social Media</h2>
+          
+          <p class="text-lg mb-6"><strong>Why it's #2:</strong> Canva integrates AI-powered design tools like Magic Write and AI image generation.</p>
+
+          <div class="bg-gray-50 p-6 rounded-lg mb-6">
+            <h3 class="font-semibold text-lg mb-4">Key Features:</h3>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>Templates for social media, marketing, presentations</li>
+              <li>AI-generated graphics & copy</li>
+              <li>Real-time collaboration</li>
+            </ul>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-green-50 p-4 rounded-lg">
+              <p class="font-semibold">Pricing:</p>
+              <p>Free plan, Pro starts at $12.99/month</p>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold">Best For:</p>
+              <p>Content creators, marketers, small businesses</p>
+            </div>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+            <p class="text-green-700 mb-0">👉 <strong>Explore Canva</strong> in our <a href="/tools/12" class="text-green-600 hover:text-green-800 underline font-medium">design tools section</a></p>
+          </div>
+        </section>
+
+        <!-- Tool 3-10 Brief Sections -->
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">3. Gemini – Google's AI Rival</h2>
+          <p class="mb-4"><strong>Why it's #3:</strong> Google-powered AI with search integration and Workspace compatibility.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> Teams using Google ecosystem</p>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">4. DeepSeek – Best for Enterprise AI</h2>
+          <p class="mb-4"><strong>Why it's #4:</strong> Enterprise-scale AI models with strong coding capabilities.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> Developers, enterprises needing scalable AI</p>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">5. Adobe Firefly – Best for Creative Workflows</h2>
+          <p class="mb-4"><strong>Why it's #5:</strong> Generative AI integrated into Adobe Creative Suite.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> Designers, agencies, video editors</p>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">6. iLovePDF – Best for Document AI</h2>
+          <p class="mb-4"><strong>Why it's #6:</strong> AI-powered PDF tools with summarization and text extraction.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> Office workers, students, remote teams</p>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">7. Grok AI – Best for Real-Time Insights</h2>
+          <p class="mb-4"><strong>Why it's #7:</strong> Real-time conversational AI with X (Twitter) integration.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> News researchers, X power users</p>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">8. Buzz Mail – Best for Email Marketing</h2>
+          <p class="mb-4"><strong>Why it's #8:</strong> AI-powered email campaigns with smart optimization.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> Marketers, small businesses</p>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">9. AIT Contacts Extractor – Best for Contact Management</h2>
+          <p class="mb-4"><strong>Why it's #9:</strong> Smart Gmail contact extraction and organization.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> Sales teams, recruiters, CRM managers</p>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-6">10. EmailWhiz – Best for Inbox Productivity</h2>
+          <p class="mb-4"><strong>Why it's #10:</strong> AI inbox management with smart categorization.</p>
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <p><strong>Best For:</strong> Busy professionals, freelancers</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Comparison Table -->
+      <section class="my-16">
+        <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-8">Quick Comparison Table</h2>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-4 text-left font-semibold text-gray-900">Tool</th>
+                <th class="px-6 py-4 text-left font-semibold text-gray-900">Category</th>
+                <th class="px-6 py-4 text-left font-semibold text-gray-900">Pricing</th>
+                <th class="px-6 py-4 text-left font-semibold text-gray-900">Rating</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 font-medium">ChatGPT</td>
+                <td class="px-6 py-4">General AI</td>
+                <td class="px-6 py-4">Free / $20/mo</td>
+                <td class="px-6 py-4">⭐⭐⭐⭐⭐</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 font-medium">Canva</td>
+                <td class="px-6 py-4">Design</td>
+                <td class="px-6 py-4">Free / $12.99/mo</td>
+                <td class="px-6 py-4">⭐⭐⭐⭐⭐</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 font-medium">Gemini</td>
+                <td class="px-6 py-4">Search & Productivity</td>
+                <td class="px-6 py-4">Free</td>
+                <td class="px-6 py-4">⭐⭐⭐⭐</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 font-medium">Adobe Firefly</td>
+                <td class="px-6 py-4">Creative Suite</td>
+                <td class="px-6 py-4">$22.99/mo</td>
+                <td class="px-6 py-4">⭐⭐⭐⭐</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="my-16">
+        <h2 class="text-2xl font-bold border-b-2 border-blue-100 pb-4 mb-8">Frequently Asked Questions</h2>
+        
+        <div class="space-y-8">
+          <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-3">Q: Which AI tool is best for beginners?</h3>
+            <p class="text-gray-700">ChatGPT is the most beginner-friendly option with its intuitive interface and broad capabilities. Start with the free plan to explore features before upgrading.</p>
+          </div>
+          
+          <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-3">Q: Are these AI tools worth the cost?</h3>
+            <p class="text-gray-700">Yes, especially if you use them regularly. Most users save 2-5 hours per week, making the cost-per-hour savings significant for professionals and businesses.</p>
+          </div>
+          
+          <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-3">Q: Can I use multiple AI tools together?</h3>
+            <p class="text-gray-700">Absolutely! Many professionals use ChatGPT for writing, Canva for design, and specialized tools for specific tasks. Each tool has unique strengths.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="my-16">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-xl text-center">
+          <h3 class="text-2xl font-bold mb-4">Ready to Explore These AI Tools?</h3>
+          <p class="text-blue-100 mb-6 max-w-2xl mx-auto">Browse our complete AI tools directory to discover more innovative solutions for your workflow.</p>
+          <a href="/tools" class="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+            Explore All AI Tools →
+          </a>
+        </div>
+      </section>
+    </div>`,
+    authorId: 'system',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    readingTime: 12,
+    views: 0,
+    coverImage: '/pictures/August Top10 AI.png',
+    tags: ['AI工具', '人工智能', '生产力', '2025趋势'],
+    categories: ['1'], // AI工具分类
+    featured: true,
+    published: true
+  }
+];
+
+// Get all blog posts
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  // Transform mock data to include category objects
+  return mockBlogPosts.map(post => ({
+    ...post,
+    category: blogCategories.find(cat => cat.id === post.categories[0]) || blogCategories[0]
+  }));
+}
+  <li>AI text recognition & summarization</li>
+  <li>Online collaboration tools</li>
+</ul>
+
+<p><strong>Best For:</strong> Office workers, students, remote teams</p>
+
+<h2>7. Grok AI – Best for Real-Time Insights</h2>
+
+<p><strong>Why it's #7:</strong> Grok AI, developed by xAI, integrates with X (Twitter) for real-time conversational intelligence.</p>
+
+<p><strong>Key Features:</strong></p>
+<ul class="list-disc pl-6 space-y-2">
+  <li>Access to live X data</li>
+  <li>Conversational Q&A</li>
+  <li>Entertainment-focused tone</li>
+</ul>
+
+<p><strong>Best For:</strong> News junkies, researchers, X (Twitter) power users</p>
+
+<h2>8. Buzz Mail – Best for AI Email Marketing</h2>
+
+<p><strong>Why it's #8:</strong> Buzz Mail automates email campaigns with AI copywriting and personalization.</p>
+
+<p><strong>Key Features:</strong></p>
+<ul class="list-disc pl-6 space-y-2">
+  <li>AI subject line optimization</li>
+  <li>Smart audience targeting</li>
+  <li>Analytics dashboard</li>
+</ul>
+
+<p><strong>Best For:</strong> Marketers, small businesses</p>
+
+<h2>9. AIT Contacts Extractor for Gmail™ – Best for Contact Management</h2>
+
+<p><strong>Why it's #9:</strong> This Gmail add-on helps extract, organize, and export contact data with AI.</p>
+
+<p><strong>Key Features:</strong></p>
+<ul class="list-disc pl-6 space-y-2">
+  <li>Smart contact parsing</li>
+  <li>Bulk export into CSV/Excel</li>
+  <li>Gmail-native integration</li>
+</ul>
+
+<p><strong>Best For:</strong> Sales teams, recruiters, CRM managers</p>
+
+<h2>10. EmailWhiz for Gmail™ – Best for Inbox Productivity</h2>
+
+<p><strong>Why it's #10:</strong> EmailWhiz makes inbox management smarter with AI categorization and auto-replies.</p>
+
+<p><strong>Key Features:</strong></p>
+<ul class="list-disc pl-6 space-y-2">
+  <li>Summarizes long emails</li>
+  <li>Suggests smart replies</li>
+  <li>Filters newsletters & promotions</li>
+</ul>
+
+<p><strong>Best For:</strong> Busy professionals, freelancers</p>
+
+<h2>Comparison Table — Top 10 AI Tools in 2025</h2>
+
+<div class="overflow-x-auto my-6">
+  <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Tool</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Best For</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Free Plan</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Pricing</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">ChatGPT</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">All-in-one productivity</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">✅</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$20/mo Plus</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Canva</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Design & content</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">✅</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$12.99/mo Pro</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Gemini</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Google ecosystem</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">✅</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Varies</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DeepSeek</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Coding & enterprise</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600">Limited</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Custom</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Adobe Firefly</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Creative workflows</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">✅</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">From $20/mo</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">iLovePDF</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Documents</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">✅</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$6/mo Premium</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Grok AI</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Real-time insights</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">❌</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$16/mo (X Premium+)</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Buzz Mail</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Email marketing</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600">Limited</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">From $15/mo</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">AIT Contacts Extractor</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Contact management</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600">Free trial</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Paid tiers</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">EmailWhiz</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Inbox productivity</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">✅</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">From $9.99/mo</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Final Verdict</h2>
+
+<p>The best AI tool in 2025 depends on your needs:</p>
+
+<ul class="list-disc pl-6 space-y-2">
+  <li><strong>General productivity</strong> → <a href="/tools/1" class="text-blue-600 hover:text-blue-800 underline">ChatGPT</a> or Gemini</li>
+  <li><strong>Design & creation</strong> → <a href="/tools/12" class="text-blue-600 hover:text-blue-800 underline">Canva</a> or Adobe Firefly</li>
+  <li><strong>Business tasks</strong> → iLovePDF, Buzz Mail, AIT Extractor</li>
+  <li><strong>Tech power users</strong> → DeepSeek, Grok AI</li>
+</ul>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+  <p class="text-blue-700">👉 <strong>Start exploring these tools today</strong> via our <a href="/tools" class="text-blue-600 hover:text-blue-800 underline">AI Tools Directory</a>.</p>
+</div>
+
+</div>`,
+    author: {
+      name: 'AI Expert',
+      avatar: '/avatars/ai-expert.jpg',
+      bio: 'Expert in AI tools and technologies with 5+ years of experience in reviewing and testing AI platforms.',
+      social: {
+        twitter: '@aiexpert',
+        linkedin: 'ai-expert'
+      }
+    },
+    category: {
+      id: '1',
+      name: 'AI Tools Reviews',
+      slug: 'ai-tools-reviews',
+      description: 'In-depth reviews and comparisons of AI tools',
+      color: '#2563eb',
+      icon: '⭐',
+      postCount: 1,
+      seoKeywords: ['AI tool review', 'best AI tools', 'AI software comparison', 'artificial intelligence review']
+    },
+    tags: ['Top AI Tools', 'AI Tools 2025', 'Best AI Tools', 'AI Productivity', 'AI Reviews'],
+    publishedAt: new Date('2025-08-24'),
+    updatedAt: new Date('2025-08-24'),
+    readingTime: 8,
+    featured: true,
+    seoTitle: 'Top 10 AI Tools in 2025 — Best AI Tools for Productivity & Creation',
+    seoDescription: 'Discover the Top 10 AI Tools in 2025. We ranked them based on features, pricing, ease of use, and real-world performance. Find the right AI tool for productivity, content creation, and daily tasks.',
+    coverImage: '/pictures/August Top10 AI.png',
+    status: 'published',
+    relatedTools: ['chatgpt', 'canva-ai', 'midjourney', 'github-copilot', 'grammarly'],
+    viewCount: 0,
+    shareCount: 0,
+    keywords: ['top AI tools 2025', 'best AI tools', 'AI productivity tools', 'AI tools comparison', 'AI tools review', 'ChatGPT alternatives', 'AI content creation tools']
+  }
+];
+
+// Blog service functions
+export async function getAllBlogPosts(filters?: BlogFilters): Promise<BlogPost[]> {
+  let posts = [...MOCK_BLOG_POSTS];
+
+  // Get real analytics data
+  const blogIds = posts.map(post => post.id);
+  const statsMap = await BlogAnalyticsService.getMultipleBlogStats(blogIds);
+
+  // Update posts with real stats
+  posts = posts.map(post => {
+    const stats = statsMap.get(post.id);
+    if (stats) {
+      return {
+        ...post,
+        viewCount: stats.viewCount,
+        shareCount: stats.shareCount,
+      };
+    }
+    return post;
+  });
+
+  // Apply filters if provided
+  if (filters) {
+    if (filters.category) {
+      posts = posts.filter(post => post.category.slug === filters.category);
+    }
+    
+    if (filters.featured !== undefined) {
+      posts = posts.filter(post => post.featured === filters.featured);
+    }
+    
+    if (filters.tags && filters.tags.length > 0) {
+      posts = posts.filter(post => 
+        filters.tags!.some(filterTag => 
+          post.tags.some(postTag => postTag.toLowerCase() === filterTag.toLowerCase())
+        )
+      );
+    }
+  }
+
+  return posts.filter(post => post.status === 'published');
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  const posts = await getAllBlogPosts();
+  return posts.find(post => post.slug === slug) || null;
+}
+
+// Alias for backward compatibility  
+export async function getBlogPost(slug: string): Promise<BlogPost | null> {
+  return getBlogPostBySlug(slug);
+}
+
+export async function getBlogPostById(id: string): Promise<BlogPost | null> {
+  const posts = await getAllBlogPosts();
+  return posts.find(post => post.id === id) || null;
+}
+
+export async function getFeaturedBlogPosts(): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  return posts.filter(post => post.featured);
+}
+
+export async function getTodaysBlogPosts(): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0]; // Get YYYY-MM-DD format
+  
+  return posts.filter(post => {
+    const postDate = new Date(post.publishedAt);
+    const postDateStr = postDate.toISOString().split('T')[0];
+    return postDateStr === todayStr;
+  }).sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+}
+
+export async function getTodaysFeaturedPosts(): Promise<BlogPost[]> {
+  // Get today's posts first
+  const todaysPosts = await getTodaysBlogPosts();
+  
+  if (todaysPosts.length > 0) {
+    // If there are posts published today, return them (prioritize featured ones)
+    const featuredTodaysPosts = todaysPosts.filter(post => post.featured);
+    if (featuredTodaysPosts.length > 0) {
+      return featuredTodaysPosts;
+    }
+    // If no featured posts today, return all today's posts
+    return todaysPosts;
+  } else {
+    // Fallback: Get posts from yesterday, then recent featured posts
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString().split('T')[0];
+    
+    const posts = await getAllBlogPosts();
+    const yesterdaysPosts = posts.filter(post => {
+      const postDate = new Date(post.publishedAt);
+      const postDateStr = postDate.toISOString().split('T')[0];
+      return postDateStr === yesterdayStr;
+    });
+    
+    if (yesterdaysPosts.length > 0) {
+      return yesterdaysPosts.slice(0, 3); // Limit to 3 recent posts
+    }
+    
+    // Final fallback to regular featured posts
+    return await getFeaturedBlogPosts();
+  }
+}
+
+export async function getRecentBlogPosts(limit: number = 5): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  return posts
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, limit);
+}
+
+export async function getBlogCategories(): Promise<BlogCategory[]> {
+  const posts = await getAllBlogPosts();
+  const categoryMap = new Map<string, BlogCategory>();
+
+  posts.forEach(post => {
+    const cat = post.category;
+    if (categoryMap.has(cat.id)) {
+      const existingCat = categoryMap.get(cat.id)!;
+      existingCat.postCount = (existingCat.postCount || 0) + 1;
+    } else {
+      categoryMap.set(cat.id, {
+        ...cat,
+        postCount: 1
+      });
+    }
+  });
+
+  return Array.from(categoryMap.values());
+}
+
+export async function getBlogCategory(slug: string): Promise<BlogCategory | null> {
+  const categories = await getBlogCategories();
+  return categories.find(category => category.slug === slug) || null;
+}
+
+export async function getPopularPosts(limit: number = 5): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  return posts
+    .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
+    .slice(0, limit);
+}
+
+export async function getBlogPostsByCategory(categorySlug: string): Promise<BlogPost[]> {
+  return getAllBlogPosts({ category: categorySlug });
+}
+
+export async function searchBlogPosts(query: string): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  const lowercaseQuery = query.toLowerCase();
+  
+  return posts.filter(post =>
+    post.title.toLowerCase().includes(lowercaseQuery) ||
+    post.excerpt.toLowerCase().includes(lowercaseQuery) ||
+    post.content.toLowerCase().includes(lowercaseQuery) ||
+    post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery)) ||
+    post.keywords.some(keyword => keyword.toLowerCase().includes(lowercaseQuery))
+  );
+}
+
+export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  return posts.filter(post => 
+    post.tags.some(t => t.toLowerCase() === tag.toLowerCase())
+  );
+}
+
+export async function getRelatedBlogPosts(postId: string, limit: number = 3): Promise<BlogPost[]> {
+  const currentPost = await getBlogPostById(postId);
+  if (!currentPost) return [];
+
+  const allPosts = await getAllBlogPosts();
+  const otherPosts = allPosts.filter(post => post.id !== postId);
+
+  // Calculate relevance score based on shared tags and category
+  const postsWithScore = otherPosts.map(post => {
+    let score = 0;
+    
+    // Same category gets high score
+    if (post.category.slug === currentPost.category.slug) {
+      score += 3;
+    }
+    
+    // Shared tags get score
+    const sharedTags = post.tags.filter(tag => 
+      currentPost.tags.some(currentTag => currentTag.toLowerCase() === tag.toLowerCase())
+    );
+    score += sharedTags.length;
+    
+    return { post, score };
+  });
+
+  return postsWithScore
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(item => item.post);
+}
+
+// Get all unique tags from all blog posts
+export async function getAllBlogTags(): Promise<string[]> {
+  const posts = await getAllBlogPosts();
+  const allTags = posts.flatMap(post => post.tags);
+  const uniqueTags = Array.from(new Set(allTags));
+  return uniqueTags.sort();
+}
+
+// Get popular tags with counts
+export async function getPopularBlogTags(limit: number = 20): Promise<Array<{ tag: string; count: number }>> {
+  const posts = await getAllBlogPosts();
+  const tagCounts: Record<string, number> = {};
+  
+  posts.forEach(post => {
+    post.tags.forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+  
+  return Object.entries(tagCounts)
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
+}
+
+// Alias for backward compatibility  
+export async function getRelatedPosts(postId: string, limit: number = 3): Promise<BlogPost[]> {
+  return getRelatedBlogPosts(postId, limit);
+}
