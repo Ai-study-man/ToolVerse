@@ -108,7 +108,7 @@ export default function FeaturedToolsGrid({ className = '', theme = 'dark' }: Fe
           </svg>
           No featured tools available yet
         </div>
-        <p className={themeStyles.textMuted}>Featured tools will appear here once they're added to the database</p>
+        <p className={themeStyles.textMuted}>Featured tools will appear here once they&apos;re added to the database</p>
       </div>
     );
   }
