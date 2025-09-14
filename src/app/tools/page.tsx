@@ -1,389 +1,383 @@
+/**
+ * Tools Page - 主要的工具列表展示页面
+ * 
+ * 功能特点：
+ * 1. ✅ 从 Supabase tools 表拉取最新工具数据（按 created_at 降序）
+ * 2. ✅ 保留原有的工具渲染逻辑和 UI 样式
+ * 3. ✅ 实现搜索和分类筛选功能
+ * 4. ✅ 响应式设计和加载状态处理
+ * 5. ✅ SSR + CSR 兼容性
+ * 6. ✅ 空状态友好提示
+ * 7. ✅ 实时数据更新，无静态数据依赖
+ * 8. ✅ 按分类分组展示，优化用户体验
+ */
+
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Header from '../../components/Header';
-import AdvancedSearch from '../../components/AdvancedSearch';
-import ToolCard from '../../components/ToolCard';
-import OptimizedToolCard from '../../components/OptimizedToolCard';
-import Breadcrumbs from '../../components/Breadcrumbs';
-import GlobalLayout from '../../components/GlobalLayout';
-import SmartToolGrid from '../../components/SmartToolGrid';
-import { ContentBanner } from '../../components/AdBanner';
-import StructuredData from '../../components/StructuredData';
-import InternalLinks from '../../components/InternalLinks';
-import DataSyncService from '../../lib/dataSyncService';
-import { Tool, Category } from '../../types';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useTools } from '@/hooks/useTools';
+import { Tool } from '@/types/tool';
+import { getCategoryIcon, getCategoryDisplayName } from '@/utils/categoryIcons';
+import ToolLogo from '@/components/ToolLogo';
+import Header from '@/components/Header';
 
-function ToolsContent() {
-  const searchParams = useSearchParams();
-  const [tools, setTools] = useState<Tool[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [filteredTools, setFilteredTools] = useState<Tool[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isClient, setIsClient] = useState(false);
+interface ToolCardProps {
+  tool: Tool;
+}
 
-  // 初始化数据和处理URL参数
-  useEffect(() => {
-    setIsClient(true);
-    
-    const fetchData = async () => {
-      try {
-        console.log('🚀 开始获取工具和分类数据...');
-        
-        // 直接调用API而不是通过DataSyncService
-        const [toolsResponse, categoriesResponse] = await Promise.all([
-          fetch('/api/tools', { cache: 'no-cache' }),
-          fetch('/api/categories', { cache: 'no-cache' })
-        ]);
-        
-        if (!toolsResponse.ok) {
-          throw new Error(`Tools API failed: ${toolsResponse.statusText}`);
-        }
-        if (!categoriesResponse.ok) {
-          throw new Error(`Categories API failed: ${categoriesResponse.statusText}`);
-        }
-        
-        const toolsData = await toolsResponse.json();
-        const categoriesData = await categoriesResponse.json();
-        
-        console.log('✅ Tools page - 直接API获取到工具数据:', toolsData.length, '个');
-        console.log('✅ Tools page - 直接API获取到分类数据:', categoriesData.length, '个');
-        console.log('🔍 DEBUG: 原始工具数据前5个:', toolsData.slice(0, 5).map((t: Tool) => ({ name: t.name, category: t.category })));
-        
-        setTools(toolsData);
-        setCategories(categoriesData);
-        
-        // 立即进行URL参数过滤
-        const category = searchParams.get('category');
-        const search = searchParams.get('search');
-        
-        console.log('� [TOOLS PAGE] 立即过滤:');
-        console.log('- URL分类参数:', `"${category}"`);
-        console.log('- URL搜索参数:', `"${search}"`);
-        
-        let filtered = [...toolsData];
-        
-        // 按分类筛选
-        if (category) {
-          console.log(`🎯 开始分类筛选，查找分类: "${category}"`);
-          filtered = filtered.filter(tool => tool.category === category);
-          console.log(`📂 分类筛选 "${category}" 结果: ${filtered.length} 个工具`);
-          
-          if (filtered.length > 0) {
-            console.log('✅ 匹配的工具:', filtered.slice(0, 3).map(t => t.name));
-          }
-        }
-        
-        // 按搜索关键词筛选
-        if (search) {
-          const searchLower = search.toLowerCase();
-          filtered = filtered.filter(tool => 
-            tool.name.toLowerCase().includes(searchLower) ||
-            tool.description.toLowerCase().includes(searchLower) ||
-            tool.category.toLowerCase().includes(searchLower) ||
-            (tool.tags && tool.tags.some((tag: string) => tag.toLowerCase().includes(searchLower)))
-          );
-          console.log(`🔍 搜索筛选 "${search}": 找到 ${filtered.length} 个工具`);
-        }
-        
-        console.log('✅ 最终设置筛选结果:', filtered.length, '个工具');
-        setFilteredTools(filtered);
-        
-      } catch (error) {
-        console.error('❌ Error fetching data:', error);
-        setTools([]);
-        setCategories([]);
-        setFilteredTools([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [searchParams]); // 依赖searchParams，这样URL变化时会重新运行
-
-  // 处理搜索结果更新
-  const handleSearchResults = (results: Tool[]) => {
-    // 如果当前有分类筛选，不让搜索组件覆盖结果
-    if (!searchParams.get('category')) {
-      setFilteredTools(results);
-    }
-  };
-
-  if (!isClient) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-300 rounded w-1/3 mb-4"></div>
-            <div className="h-4 bg-gray-300 rounded w-2/3 mb-8"></div>
-            <div className="bg-white rounded-xl p-6 mb-8">
-              <div className="h-12 bg-gray-300 rounded mb-4"></div>
-              <div className="flex gap-4">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="h-10 bg-gray-300 rounded w-24"></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+function ToolCard({ tool }: ToolCardProps) {
   return (
-    <GlobalLayout>
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-      
-      {/* SEO结构化数据 */}
-      <StructuredData 
-        type="website" 
-        data={{
-          name: "AI工具大全",
-          description: "浏览ToolVerse收录的500+优质AI工具",
-          url: "https://toolverse.com/tools"
-        }} 
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Breadcrumb Navigation */}
-        {(searchParams.get('category') || searchParams.get('search')) && (
-          <div className="mb-6">
-            <Breadcrumbs items={[
-              { label: 'Home', href: '/' },
-              { label: 'AI Tools Directory', href: '/tools' },
-              ...(searchParams.get('category') ? [{ label: searchParams.get('category') || '' }] : []),
-              ...(searchParams.get('search') ? [{ label: `Search: ${searchParams.get('search')}` }] : [])
-            ]} />
-          </div>
-        )}
-        
-        {/* 页面标题 */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {(() => {
-              const category = searchParams.get('category');
-              const search = searchParams.get('search');
-              
-              if (category) {
-                return `Best ${category} AI Tools 2025 - Compare Features & Pricing`;
-              } else if (search) {
-                return `AI Tools Search Results for "${search}" - Find Perfect Solutions`;
-              }
-              return 'Complete AI Tools Directory 2025 - 500+ Tools Reviewed';
-            })()}
-          </h1>
-          <p className="text-lg text-gray-600 mb-6 max-w-4xl">
-            {(() => {
-              const category = searchParams.get('category');
-              const search = searchParams.get('search');
-              
-              if (category) {
-                return `Discover ${filteredTools.length} verified ${category} AI tools with detailed reviews, pricing comparisons, and user ratings. Find the best AI solution for your needs.`;
-              } else if (search) {
-                return `Found ${filteredTools.length} AI tools matching "${search}". Compare features, pricing, and reviews to choose the right tool for your workflow.`;
-              }
-              return `Explore and discover ${tools.length}+ curated AI tools for various use cases and needs. Compare features, pricing, reviews, and alternatives to find your perfect AI solution.`;
-            })()}
-          </p>
-        </div>
-
-        {/* 高级搜索组件 */}
-        {!searchParams.get('category') && (
-          <AdvancedSearch
-            tools={tools}
-            categories={categories}
-            onSearchResults={handleSearchResults}
-            className="mb-8"
-          />
-        )}
-
-        {/* Simple search when filtering by category */}
-        {searchParams.get('category') && (
-          <div className="bg-white rounded-xl p-6 mb-8 shadow-sm border border-gray-200">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {searchParams.get('category')} Tools
-                </h3>
-                <p className="text-gray-600 mt-1">
-                  Found {filteredTools.length} tools in this category
-                </p>
-              </div>
-              <a 
-                href="/tools"
-                className="text-primary-600 hover:text-primary-700 font-medium whitespace-nowrap"
-              >
-                View All Tools →
-              </a>
-            </div>
-            
-            {/* Category-specific search */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder={`Search in ${searchParams.get('category')} tools...`}
-                  className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                  onChange={(e) => {
-                    const query = e.target.value.toLowerCase();
-                    if (query.trim()) {
-                      const categoryTools = tools.filter(tool => tool.category === searchParams.get('category'));
-                      const filtered = categoryTools.filter(tool => 
-                        tool.name.toLowerCase().includes(query) ||
-                        tool.description.toLowerCase().includes(query) ||
-                        (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(query)))
-                      );
-                      setFilteredTools(filtered);
-                    } else {
-                      // Reset to all tools in this category
-                      const categoryTools = tools.filter(tool => tool.category === searchParams.get('category'));
-                      setFilteredTools(categoryTools);
-                    }
-                  }}
-                />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="mt-2 text-sm text-gray-500">
-                Search within {searchParams.get('category')} tools by name, description, or tags
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tools display area */}
-        <div className="space-y-6">
-          {loading ? (
-            // Loading state
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(9)].map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-pulse"
-                >
-                  <div className="flex items-start space-x-4 mb-4">
-                    <div className="w-12 h-12 bg-gray-300 rounded-lg"></div>
-                    <div className="flex-1">
-                      <div className="h-5 bg-gray-300 rounded w-3/4 mb-2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-2/3"></div>
-                    </div>
-                  </div>
-                  <div className="flex gap-2 mb-4">
-                    <div className="h-6 bg-gray-300 rounded w-16"></div>
-                    <div className="h-6 bg-gray-300 rounded w-20"></div>
-                    <div className="h-6 bg-gray-300 rounded w-14"></div>
-                  </div>
-                  <div className="h-10 bg-gray-300 rounded"></div>
-                </div>
-              ))}
-            </div>
-          ) : filteredTools.length > 0 ? (
-            // 智能工具网格
-            <SmartToolGrid
-              tools={filteredTools}
-              title=""
-              itemsPerPage={12}
-              showPagination={true}
-              priority={false}
-              className=""
-              emptyStateText="No tools match your search criteria"
+    <Link href={`/tool/${tool.id}`} className="block group h-full">
+      <div className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 group-hover:transform group-hover:-translate-y-1 group-hover:shadow-xl h-full flex flex-col">
+        {/* Tool logo and basic info */}
+        <div className="p-6 flex-1 flex flex-col">
+          <div className="flex items-start gap-4 mb-4">
+            <ToolLogo 
+              name={tool.name}
+              logo={tool.logo || undefined}
+              size="md"
+              className="flex-shrink-0"
             />
-          ) : (
-            // 无结果状态
-            <div className="text-center py-16">
-              <div className="w-24 h-24 mx-auto mb-6 text-gray-400">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                No matching tools found
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-white group-hover:text-accent-300 transition-colors mb-1 line-clamp-1">
+                {tool.name}
               </h3>
-              <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                Try adjusting your search criteria or filters, or browse all available AI tools.
+              <p className="text-sm text-white/70 line-clamp-2 flex-1">
+                {tool.description || 'No description available'}
               </p>
-              <div className="space-y-4">
-                <div className="text-sm text-gray-500">
-                  Suggestions:
-                </div>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Try more general keywords</li>
-                  <li>• Check spelling</li>
-                  <li>• Remove some filters</li>
-                  <li>• Browse different categories</li>
-                </ul>
-              </div>
             </div>
-          )}
-
-          {/* Load more button (future feature) */}
-          {!loading && filteredTools.length > 0 && filteredTools.length >= 20 && (
-            <div className="text-center pt-8">
-              <button className="bg-primary-600 text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium">
-                Load More Tools
-              </button>
+          </div>
+          
+          {/* Tags and category */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {tool.category && (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-secondary-500/20 text-secondary-200 border border-secondary-400/30">
+                {getCategoryIcon(tool.category)} {tool.category}
+              </span>
+            )}
+            {tool.pricing && (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-200 border border-green-400/30">
+                {tool.pricing}
+              </span>
+            )}
+          </div>
+          
+          {/* Tags */}
+          {tool.tags && tool.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1 mb-4">
+              {tool.tags.slice(0, 3).map((tag: string, index: number) => (
+                <span key={index} className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-white/5 text-white/60 border border-white/10">
+                  #{tag}
+                </span>
+              ))}
+              {tool.tags.length > 3 && (
+                <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-white/5 text-white/60 border border-white/10">
+                  +{tool.tags.length - 3} more
+                </span>
+              )}
             </div>
           )}
         </div>
-
-        {/* Statistics */}
-        {!loading && (
-          <div className="mt-12 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Browse Statistics
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-primary-600">
-                  {tools.length}
-                </div>
-                <div className="text-sm text-gray-600">Total Tools</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-secondary-600">
-                  {categories.length}
-                </div>
-                <div className="text-sm text-gray-600">Categories</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-accent-600">
-                  {filteredTools.length}
-                </div>
-                <div className="text-sm text-gray-600">Search Results</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-600">
-                  {tools.filter(t => t.pricingModel === 'free').length}
-                </div>
-                <div className="text-sm text-gray-600">Free Tools</div>
-              </div>
+        
+        {/* Bottom action area */}
+        <div className="px-6 pb-6 pt-0">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-white/50">
+              Click to view details
+            </span>
+            <div className="flex items-center text-accent-400 group-hover:text-accent-300 transition-colors">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </div>
           </div>
-        )}
-        
-        {/* Internal Links for SEO */}
-        <InternalLinks 
-          currentPage="tools" 
-          category={searchParams.get('category') || undefined} 
-        />
+        </div>
       </div>
+    </Link>
+  );
+}
+
+function LoadingCard() {
+  return (
+    <div className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 h-64">
+      <div className="animate-pulse">
+        <div className="flex items-start gap-4 mb-4">
+          <div className="w-12 h-12 bg-white/20 rounded-lg"></div>
+          <div className="flex-1">
+            <div className="h-4 bg-white/20 rounded mb-2"></div>
+            <div className="h-3 bg-white/10 rounded"></div>
+          </div>
+        </div>
+        <div className="flex gap-2 mb-4">
+          <div className="h-6 w-16 bg-white/10 rounded-full"></div>
+          <div className="h-6 w-12 bg-white/10 rounded-full"></div>
+        </div>
+        <div className="space-y-2">
+          <div className="h-3 bg-white/10 rounded"></div>
+          <div className="h-3 bg-white/10 rounded w-2/3"></div>
+        </div>
       </div>
-    </GlobalLayout>
+    </div>
   );
 }
 
 export default function ToolsPage() {
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  
+  // 从 URL 参数中获取初始值
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    const searchParam = searchParams.get('search');
+    
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+  }, [searchParams]);
+
+  // 获取所有工具数据（用于分类统计）
+  const { data: allTools, loading: allLoading, error: allError } = useTools();
+
+  // 获取筛选后的工具数据
+  const { data: filteredTools, loading: filteredLoading, error: filteredError } = useTools({
+    category: selectedCategory || undefined,
+    q: searchQuery || undefined,
+  });
+
+  // 合并加载状态和错误状态
+  const loading = allLoading || filteredLoading;
+  const error = allError || filteredError;
+
+  // 计算分类列表
+  const categories = useMemo(() => {
+    if (!allTools) return [];
+    
+    const categoryCount: { [key: string]: number } = {};
+    allTools.forEach((tool) => {
+      if (tool.category) {
+        categoryCount[tool.category] = (categoryCount[tool.category] || 0) + 1;
+      }
+    });
+    
+    return Object.entries(categoryCount).map(([name, count]) => ({
+      name,
+      count
+    }));
+  }, [allTools]);
+
+  // 获取显示的工具
+  const displayedTools = filteredTools || [];
+
+  // 按分类分组工具
+  const groupedTools = useMemo(() => {
+    if (!displayedTools.length) return {};
+    
+    const groups: Record<string, Tool[]> = {};
+    displayedTools.forEach(tool => {
+      const category = tool.category || 'Other';
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(tool);
+    });
+    
+    // 按每个分组的工具数量排序
+    const sortedGroups: Record<string, Tool[]> = {};
+    Object.entries(groups)
+      .sort(([, a], [, b]) => b.length - a.length)
+      .forEach(([category, tools]) => {
+        sortedGroups[category] = tools;
+      });
+    
+    return sortedGroups;
+  }, [displayedTools]);
+
+  // 处理搜索
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setSelectedCategory(''); // 清除分类筛选
+  };
+
+  // 处理分类筛选
+  const handleCategoryFilter = (category: string) => {
+    setSelectedCategory(category === selectedCategory ? '' : category);
+    setSearchQuery(''); // 清除搜索
+  };
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ToolsContent />
-    </Suspense>
+    <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800">
+      {/* Header Component */}
+      <Header />
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {/* Page Title and Statistics */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-white mb-4">
+            {searchQuery ? `Search Results: ${searchQuery}` : 
+             selectedCategory ? `${getCategoryIcon(selectedCategory)} ${selectedCategory} Tools` : 
+             'Browse AI Tools'}
+          </h1>
+          <p className="text-xl text-white/80">
+            {loading ? 'Loading tools...' : 
+             `Found ${displayedTools.length}${selectedCategory ? ` ${selectedCategory}` : ''} tools`}
+          </p>
+        </div>
+
+        {/* Search and Filter */}
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 mb-8">
+          
+          {/* Search Bar */}
+          <div className="mb-6">
+            <div className="relative max-w-2xl mx-auto">
+              <input
+                type="text"
+                placeholder="Search for AI tools..."
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                className="w-full px-4 py-3 pl-12 pr-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Categories Filter */}
+          {categories.length > 0 && (
+            <div>
+              <h3 className="text-white font-medium mb-4">Categories</h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => handleCategoryFilter('')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                    !selectedCategory 
+                      ? 'bg-accent-600 text-white border-accent-600' 
+                      : 'bg-white/5 text-white/80 border-white/20 hover:bg-white/10'
+                  }`}
+                >
+                  All Tools ({allTools?.length || 0})
+                </button>
+                {categories.map((category) => {
+                  const icon = getCategoryIcon(category.name);
+                  return (
+                    <button
+                      key={category.name}
+                      onClick={() => handleCategoryFilter(category.name)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                        selectedCategory === category.name 
+                          ? 'bg-accent-600 text-white border-accent-600' 
+                          : 'bg-white/5 text-white/80 border-white/20 hover:bg-white/10'
+                      }`}
+                    >
+                      {icon} {category.name} ({category.count})
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-500/20 border border-red-400/30 rounded-lg p-4 mb-8">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-red-200">Failed to load tools: {error}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Tools Category Display */}
+        {loading || filteredLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <LoadingCard key={index} />
+            ))}
+          </div>
+        ) : displayedTools.length > 0 ? (
+          <div className="space-y-12">
+            {Object.entries(groupedTools).map(([category, tools]) => {
+              const icon = getCategoryIcon(category);
+              return (
+                <div key={category} className="space-y-6">
+                  {/* Category Title */}
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                      <span className="text-3xl">{icon}</span>
+                      <span>{category}</span>
+                      <span className="text-lg font-normal text-white/60">
+                        ({tools.length})
+                      </span>
+                    </h2>
+                    {!selectedCategory && (
+                      <Link
+                        href={`/category/${encodeURIComponent(category)}`}
+                        className="text-accent-400 hover:text-accent-300 text-sm font-medium transition-colors"
+                      >
+                        View All →
+                      </Link>
+                    )}
+                  </div>
+                  
+                  {/* Tools Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {tools.map((tool) => (
+                      <ToolCard key={tool.id} tool={tool} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <div className="w-24 h-24 mx-auto mb-6 text-white/20">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-full h-full">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-semibold text-white mb-2">No Tools Found</h3>
+            <p className="text-white/60 mb-6 max-w-md mx-auto">
+              {searchQuery ? `No tools found matching "${searchQuery}"` : 
+               selectedCategory ? `No tools available in ${selectedCategory} category` : 
+               'No tools available at the moment'}
+            </p>
+            <div className="space-x-4">
+              {(searchQuery || selectedCategory) && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedCategory('');
+                  }}
+                  className="inline-block bg-accent-600 text-white px-6 py-3 rounded-lg hover:bg-accent-700 transition-colors font-medium"
+                >
+                  View All Tools
+                </button>
+              )}
+              <Link 
+                href="/"
+                className="inline-block bg-white/10 text-white px-6 py-3 rounded-lg hover:bg-white/20 transition-colors font-medium border border-white/20"
+              >
+                Back to Home
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

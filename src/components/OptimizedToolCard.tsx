@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { StarIcon, HeartIcon, EyeIcon } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline';
 import { Tool } from '../types';
+import ToolLogo from './ToolLogo';
 
 interface OptimizedToolCardProps {
   tool: Tool;
@@ -67,26 +68,12 @@ function OptimizedToolCard({
       {/* 工具Logo和基本信息 */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className={`${compact ? 'w-10 h-10' : 'w-12 h-12'} flex-shrink-0 rounded-lg overflow-hidden bg-gray-100`}>
-            {tool.logo && !imageError ? (
-              <Image
-                src={tool.logo.startsWith('/') ? tool.logo : `/logos/${tool.logo}`}
-                alt={`${tool.name} logo`}
-                width={compact ? 40 : 48}
-                height={compact ? 40 : 48}
-                className="w-full h-full object-cover"
-                priority={priority}
-                loading={priority ? 'eager' : lazy ? 'lazy' : 'eager'}
-                onError={() => setImageError(true)}
-              />
-            ) : (
-              <div className={`w-full h-full flex items-center justify-center text-gray-400 ${
-                compact ? 'text-sm' : 'text-lg'
-              } font-bold`}>
-                {tool.name.charAt(0).toUpperCase()}
-              </div>
-            )}
-          </div>
+          <ToolLogo 
+            name={tool.name}
+            logo={tool.logo}
+            size={compact ? 'sm' : 'md'}
+            className="flex-shrink-0"
+          />
           
           <div className="flex-1 min-w-0">
             <h3 className={`font-semibold text-gray-900 group-hover:text-primary-600 transition-colors truncate ${
@@ -186,14 +173,14 @@ function OptimizedToolCard({
 
   if (compact) {
     return (
-      <Link href={`/tools/${tool.id}`} className="block">
+      <Link href={`/tool/${tool.id}`} className="block">
         {cardContent}
       </Link>
     );
   }
 
   return (
-    <Link href={`/tools/${tool.id}`} className="block relative">
+    <Link href={`/tool/${tool.id}`} className="block relative">
       {cardContent}
     </Link>
   );

@@ -79,9 +79,9 @@ const SmartToolGrid = memo(function SmartToolGrid({
   if (tools.length === 0) {
     return (
       <div className={`text-center py-12 ${className}`}>
-        <div className="text-6xl text-gray-300 mb-4">🔍</div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No Tools Found</h3>
-        <p className="text-gray-600">{emptyStateText}</p>
+        <div className="text-6xl text-white/30 mb-4">🔍</div>
+        <h3 className="text-lg font-medium text-white mb-2">No Tools Found</h3>
+        <p className="text-white/70">{emptyStateText}</p>
       </div>
     );
   }
@@ -90,8 +90,8 @@ const SmartToolGrid = memo(function SmartToolGrid({
     <div className={className}>
       {title && (
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-          <div className="text-sm text-gray-600">
+          <h2 className="text-2xl font-bold text-white">{title}</h2>
+          <div className="text-sm text-white/70">
             {tools.length} tool{tools.length !== 1 ? 's' : ''}
           </div>
         </div>
@@ -122,7 +122,7 @@ const SmartToolGrid = memo(function SmartToolGrid({
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1 || isLoading}
-            className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center px-3 py-2 text-sm font-medium text-white/70 bg-white/10 border border-white/20 rounded-md hover:bg-white/20 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <ChevronLeftIcon className="w-4 h-4 mr-1" />
             Previous
@@ -135,10 +135,10 @@ const SmartToolGrid = memo(function SmartToolGrid({
                 key={page}
                 onClick={() => handlePageChange(page)}
                 disabled={isLoading}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors backdrop-blur-sm ${
                   page === currentPage
-                    ? 'bg-primary-600 text-white'
-                    : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                    ? 'bg-white/30 text-white border border-white/40'
+                    : 'text-white/70 bg-white/10 border border-white/20 hover:bg-white/20'
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 {page}
@@ -150,7 +150,7 @@ const SmartToolGrid = memo(function SmartToolGrid({
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages || isLoading}
-            className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center px-3 py-2 text-sm font-medium text-white/70 bg-white/10 border border-white/20 rounded-md hover:bg-white/20 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Next
             <ChevronRightIcon className="w-4 h-4 ml-1" />
@@ -160,7 +160,7 @@ const SmartToolGrid = memo(function SmartToolGrid({
 
       {/* 分页信息 */}
       {showPagination && totalPages > 1 && (
-        <div className="text-center mt-4 text-sm text-gray-600">
+        <div className="text-center mt-4 text-sm text-white/70">
           Showing {startIndex + 1}-{Math.min(endIndex, tools.length)} of {tools.length} tools
         </div>
       )}

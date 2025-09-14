@@ -143,7 +143,7 @@ export default function SuperSearchBar({
         id: `tool-${tool.id}`,
         title: tool.name,
         type: 'tool' as const,
-        url: `/tools/${tool.id}`,
+        url: `/tool/${tool.id}`,
         description: tool.category,
         icon: tool.logo
       }));
@@ -159,7 +159,7 @@ export default function SuperSearchBar({
         id: `category-${category.id}`,
         title: category.name,
         type: 'category' as const,
-        url: `/tools?category=${encodeURIComponent(category.name)}`,
+        url: `/category/${encodeURIComponent(category.name)}`,
         description: `${category.toolCount} tools`,
         icon: category.icon
       }));

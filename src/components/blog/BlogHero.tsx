@@ -9,12 +9,12 @@ interface BlogHeroProps {
 
 export default function BlogHero({ categories }: BlogHeroProps) {
   return (
-    <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-green-500 text-white py-20">
+    <section className="bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800 text-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Breadcrumb */}
           <nav className="flex justify-center mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-2 text-blue-100">
+            <ol className="flex items-center space-x-2 text-white/70">
               <li>
                 <Link href="/" className="hover:text-white transition-colors duration-200">
                   Home
@@ -31,12 +31,12 @@ export default function BlogHero({ categories }: BlogHeroProps) {
 
           {/* Hero Content */}
           <div className="px-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100 leading-relaxed pb-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-accent-300 leading-relaxed pb-2">
               <span className="block sm:inline whitespace-nowrap">AI Tools</span>
               <span className="block sm:inline sm:ml-4 whitespace-nowrap">Blog</span>
             </h1>
           </div>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-blue-100 leading-relaxed">
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90 leading-relaxed">
             Expert reviews, tutorials, and insights on the latest AI tools. 
             Stay ahead with ChatGPT, Midjourney, GitHub Copilot, and emerging AI technologies.
           </p>
@@ -78,11 +78,11 @@ export default function BlogHero({ categories }: BlogHeroProps) {
                 type="text"
                 placeholder="Search articles..."
                 className="w-full px-4 py-3 pl-12 bg-white/20 backdrop-blur-sm border border-white/30 
-                         rounded-full text-white placeholder-blue-100 focus:outline-none 
+                         rounded-full text-white placeholder-white/70 focus:outline-none 
                          focus:ring-2 focus:ring-white/50 focus:bg-white/30 transition-all duration-300"
               />
               <svg 
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-100"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/70"
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"

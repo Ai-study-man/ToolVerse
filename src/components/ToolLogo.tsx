@@ -17,6 +17,7 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'Microsoft Translator': '/logos/microsoft translator.jpeg',
   'Papago': '/logos/papago.jpeg',
   'Whisper by OpenAI': '/logos/whisper by openai.jpeg',
+  'Face Swap': '/logos/Face Swap.png',
   
   // Conversational AI - using stable CDN and official sources
   'ChatGPT': '/logos/chatgpt.svg',
@@ -63,6 +64,11 @@ const SIMPLE_LOGOS: Record<string, string> = {
   'LetsEnhance': '/logos/letsenhance.jpeg',
   // 目录中同时存在 PNG/JPEG，这里优先已有的 JPEG
   'IMGCreator AI': '/logos/IMGCreator ai.jpeg',
+  'Spellbook': '/logos/spellbook.png',
+  'BigJPG': '/logos/bigjpg.svg',
+  'Remini': '/logos/Remini.jpeg',
+  'Topaz Gigapixel': '/logos/topaz-gigapixel.jpeg',
+  'WorldTune': '/logos/worldtune.svg',
   
   // Business & Productivity
   'Notion AI': '/logos/notion-ai.svg',
@@ -156,6 +162,7 @@ const EMOJI_LOGOS: Record<string, string> = {
   'Microsoft Translator': '/logos/microsoft translator.jpeg',
   'Papago': '/logos/papago.jpeg',
   'Whisper by OpenAI': '/logos/whisper by openai.jpeg',
+  'Face Swap': '/logos/Face Swap.png',
   
   'ChatGPT': '/logos/chatgpt.svg',
   'Claude': '/logos/claude.svg',

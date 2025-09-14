@@ -71,7 +71,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
   const handleViewTool = async () => {
     await trackViewTool(tool.id);
     // 导航到工具详情页
-    window.location.href = `/tools/${tool.id}`;
+    window.location.href = `/tool/${tool.id}`;
   };
 
   // 处理访问官网
@@ -86,7 +86,7 @@ export const ToolCardWithTracking: React.FC<ToolCardWithTrackingProps> = ({
     e.stopPropagation();
     await trackShare(tool.id, platform);
     
-    const shareUrl = `${window.location.origin}/tools/${tool.id}`;
+    const shareUrl = `${window.location.origin}/tool/${tool.id}`;
     const shareText = `Check out ${tool.name}: ${tool.description}`;
     
     switch (platform) {

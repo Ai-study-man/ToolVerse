@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Perplexity AI",
+    "url": "https://perplexity.ai",
+    "category": "AI Search",
+    "description": "Perplexity AI is an AI-powered search engine that provides accurate, real-time answers with citations from reliable sources.",
+    "pricing": "Free / $20/month Pro"
+  },
+  {
+    "name": "Runway ML Gen-2",
+    "url": "https://runwayml.com/ai-tools/gen-2",
+    "category": "Video Generation",
+    "description": "Runway's Gen-2 is an advanced AI video generation tool that creates videos from text prompts or images.",
+    "pricing": "$12/month basic plan"
+  },
+  {
+    "name": "Replit AI",
+    "url": "https://replit.com/ai",
+    "category": "Code Generation",
+    "description": "Replit AI is an intelligent coding assistant that helps developers write, debug, and explain code directly in the browser.",
+    "pricing": "Free / $20/month Hacker plan"
+  }
+]

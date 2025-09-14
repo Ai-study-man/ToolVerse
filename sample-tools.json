@@ -1,0 +1,53 @@
+[
+  {
+    "name": "ChatGPT by OpenAI",
+    "description": "ChatGPT是由OpenAI开发的强大对话AI模型，能够进行自然语言对话、回答问题、协助写作、编程和各种创作任务。基于GPT-4架构，具有出色的理解和生成能力。",
+    "shortDescription": "OpenAI开发的强大对话AI助手",
+    "website": "https://chat.openai.com",
+    "category": "AI Assistants",
+    "subcategory": "Conversational AI",
+    "pricingModel": "freemium",
+    "pricing": "免费版本可用，Plus版本$20/月",
+    "rating": 4.8,
+    "reviewCount": 50000,
+    "tags": ["对话AI", "写作助手", "编程助手", "创作工具"],
+    "features": ["自然语言对话", "代码生成", "文本写作", "问题解答", "创意内容生成"],
+    "useCases": ["客户服务", "内容创作", "编程辅助", "学习研究", "创意写作"],
+    "modelUsed": "GPT-4",
+    "developer": "OpenAI"
+  },
+  {
+    "name": "Claude by Anthropic",
+    "description": "Claude是Anthropic开发的AI助手，专注于安全、有用和无害的AI交互。具有强大的推理能力和文档分析能力，支持长文本处理。",
+    "shortDescription": "Anthropic开发的安全AI助手",
+    "website": "https://claude.ai",
+    "category": "AI Assistants",
+    "subcategory": "Conversational AI",
+    "pricingModel": "freemium",
+    "pricing": "免费使用有限制，Pro版本$20/月",
+    "rating": 4.7,
+    "reviewCount": 15000,
+    "tags": ["AI助手", "文档分析", "安全AI", "推理能力"],
+    "features": ["长文本处理", "文档上传分析", "安全对话", "推理分析", "多语言支持"],
+    "useCases": ["文档分析", "研究助理", "内容审查", "学术研究", "数据分析"],
+    "modelUsed": "Claude-3",
+    "developer": "Anthropic"
+  },
+  {
+    "name": "DALL-E 3",
+    "description": "DALL-E 3是OpenAI开发的最新AI图像生成模型，能够根据文本描述生成高质量、富有创意的图像。支持多种艺术风格和复杂场景生成。",
+    "shortDescription": "OpenAI的AI图像生成工具",
+    "website": "https://openai.com/dall-e-3",
+    "category": "Image Generation",
+    "subcategory": "AI Art",
+    "pricingModel": "paid",
+    "pricing": "通过ChatGPT Plus或API使用",
+    "rating": 4.6,
+    "reviewCount": 25000,
+    "tags": ["图像生成", "AI艺术", "创意设计", "视觉内容"],
+    "features": ["文本到图像", "高分辨率输出", "多种艺术风格", "创意场景生成", "商用授权"],
+    "useCases": ["广告设计", "艺术创作", "产品展示", "社交媒体", "概念设计"],
+    "modelUsed": "DALL-E 3",
+    "developer": "OpenAI"
+  }
+]

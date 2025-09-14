@@ -152,7 +152,7 @@ export default async function BlogPage() {
       {/* Header */}
       <Header />
       
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800">
         {/* Hero Section */}
         <BlogHero categories={categories} />
         

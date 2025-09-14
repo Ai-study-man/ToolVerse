@@ -22,10 +22,10 @@ export default function InternalLinks({ currentPage, category }: InternalLinksPr
       { href: '/faq', text: 'AI Tools FAQ', description: 'Common questions answered' },
     ],
     categories: [
-      { href: '/tools?category=Conversational%20AI', text: 'AI Chatbots', description: 'ChatGPT alternatives' },
-      { href: '/tools?category=Image%20Generation', text: 'AI Image Generators', description: 'Create images with AI' },
-      { href: '/tools?category=Code%20Development', text: 'AI Coding Tools', description: 'Programming assistants' },
-      { href: '/tools?category=Content%20Writing', text: 'AI Writing Tools', description: 'Content creation' },
+      { href: '/category/Writing%20%26%20Content', text: 'AI Chatbots', description: 'ChatGPT alternatives' },
+      { href: '/category/Design%20%26%20Art', text: 'AI Image Generators', description: 'Create images with AI' },
+      { href: '/category/Developer%20Tools', text: 'AI Coding Tools', description: 'Programming assistants' },
+      { href: '/category/Writing%20%26%20Content', text: 'AI Writing Tools', description: 'Content creation' },
     ],
     blog: [
       { href: '/tools', text: 'Browse AI Tools', description: 'Find your perfect AI tool' },
@@ -44,7 +44,7 @@ export default function InternalLinks({ currentPage, category }: InternalLinksPr
   const currentLinks = links[currentPage] || links.home;
 
   return (
-    <section className="py-12 bg-gray-50 border-t">
+    <section className="py-12 bg-gradient-to-br from-secondary-50 via-white to-primary-50 border-t border-primary-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h3 className="text-lg font-semibold text-gray-900 mb-6 text-center">
           Explore More AI Tools & Resources
@@ -113,7 +113,7 @@ export default function InternalLinks({ currentPage, category }: InternalLinksPr
               ].filter(cat => cat !== category).slice(0, 4).map((cat, index) => (
                 <Link
                   key={index}
-                  href={`/tools?category=${encodeURIComponent(cat)}`}
+                  href={`/category/${encodeURIComponent(cat)}`}
                   className="px-3 py-1 text-xs bg-white border border-gray-300 hover:border-primary-300 text-gray-700 hover:text-primary-700 rounded-full transition-colors"
                 >
                   {cat}

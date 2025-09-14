@@ -61,7 +61,7 @@ const FilteredToolsGrid: React.FC<FilteredToolsGridProps> = ({
                   {categoryTools.length} tool{categoryTools.length !== 1 ? 's' : ''}
                 </span>
                 <a 
-                  href={`/tools?category=${encodeURIComponent(category.name)}`}
+                  href={`/category/${encodeURIComponent(category.name)}`}
                   className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                 >
                   View all →
@@ -80,7 +80,7 @@ const FilteredToolsGrid: React.FC<FilteredToolsGridProps> = ({
             {categoryTools.length > 6 && (
               <div className="mt-6 text-center">
                 <a 
-                  href={`/tools?category=${encodeURIComponent(category.name)}`}
+                  href={`/category/${encodeURIComponent(category.name)}`}
                   className="inline-flex items-center px-4 py-2 border border-primary-600 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
                 >
                   View {categoryTools.length - 6} more {category.name} tools
@@ -186,7 +186,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
           {getPricingLabel(tool.pricingModel)}
         </span>
         <a 
-          href={`/tools/${tool.id}`}
+          href={`/tool/${tool.id}`}
           className="text-primary-600 hover:text-primary-700 text-sm font-medium"
         >
           Learn more →

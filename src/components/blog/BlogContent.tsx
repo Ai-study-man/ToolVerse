@@ -97,8 +97,8 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
           onClick={() => handleCategoryChange('all')}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
             selectedCategory === 'all'
-              ? 'bg-blue-600 text-white shadow-lg'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-accent-600 text-white shadow-lg'
+              : 'bg-white/20 backdrop-blur-sm text-white/90 hover:bg-white/30 border border-white/20'
           }`}
         >
           ⭐ All Articles
@@ -119,7 +119,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
                 selectedCategory === category.slug
                   ? 'text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-white/20 backdrop-blur-sm text-white/90 hover:bg-white/30 border border-white/20'
               }`}
               style={{
                 backgroundColor: selectedCategory === category.slug ? category.color : undefined
@@ -130,7 +130,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
               <span className={`text-xs px-1.5 py-0.5 rounded-full ${
                 selectedCategory === category.slug 
                   ? 'bg-white/30' 
-                  : 'bg-gray-200'
+                  : 'bg-white/30'
               }`}>
                 {categoryPostCount}
               </span>
@@ -141,14 +141,14 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
 
       {/* Search Results Info & Posts Count */}
       <div className="flex items-center justify-between">
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-white/70">
           {searchQuery && (
             <div className="mb-2">
-              <span className="text-gray-700 font-medium">
+              <span className="text-white font-medium">
                 Search results for &quot;{searchQuery}&quot;
               </span>
               {selectedCategory !== 'all' && (
-                <span className="text-gray-500">
+                <span className="text-white/70">
                   {' '}in {categories.find(c => c.slug === selectedCategory)?.name}
                 </span>
               )}
@@ -179,7 +179,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
               url.searchParams.delete('search');
               window.history.pushState({}, '', url.toString());
             }}
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+            className="text-sm text-accent-300 hover:text-accent-200 font-medium"
           >
             Clear filters
           </button>
@@ -190,13 +190,13 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
       {loading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden animate-pulse">
-              <div className="aspect-video bg-gray-200"></div>
+            <div key={i} className="bg-white/20 backdrop-blur-sm rounded-xl shadow-md overflow-hidden animate-pulse border border-white/20">
+              <div className="aspect-video bg-white/10"></div>
               <div className="p-6">
-                <div className="h-4 bg-gray-200 rounded w-1/3 mb-3"></div>
-                <div className="h-6 bg-gray-200 rounded w-full mb-3"></div>
-                <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                <div className="h-4 bg-white/20 rounded w-1/3 mb-3"></div>
+                <div className="h-6 bg-white/20 rounded w-full mb-3"></div>
+                <div className="h-4 bg-white/20 rounded w-full mb-2"></div>
+                <div className="h-4 bg-white/20 rounded w-2/3"></div>
               </div>
             </div>
           ))}
@@ -214,10 +214,10 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
           <div className="w-16 h-16 mx-auto mb-4 text-4xl">
             {searchQuery ? '🔍' : (categories.find(c => c.slug === selectedCategory)?.icon || '📝')}
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <h3 className="text-xl font-bold text-white mb-4">
             {searchQuery ? 'No search results found' : 'No articles in this category yet'}
           </h3>
-          <p className="text-gray-600 mb-8">
+          <p className="text-white/70 mb-8">
             {searchQuery 
               ? `No articles match your search for "${searchQuery}". Try different keywords or browse all articles.`
               : 'We\'re working on creating amazing content for this category. Check back soon for new articles!'
@@ -233,7 +233,7 @@ export default function BlogContent({ initialPosts, categories }: BlogContentPro
               url.searchParams.delete('search');
               window.history.pushState({}, '', url.toString());
             }}
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors"
           >
             View All Articles
           </button>

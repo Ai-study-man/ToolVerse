@@ -130,7 +130,7 @@ export default function RelatedTools({
           <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
           {category && (
             <Link 
-              href={`/tools?category=${encodeURIComponent(category)}`}
+              href={`/category/${encodeURIComponent(category)}`}
               className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
             >
               View all in {category} →

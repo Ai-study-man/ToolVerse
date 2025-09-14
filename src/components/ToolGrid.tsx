@@ -12,7 +12,7 @@ interface ToolGridProps {
 const ToolCard = memo(function ToolCard({ tool }: { tool: any }) {
   return (
     <Link 
-      href={`/tools/${tool.id}`}
+      href={`/tool/${tool.id}`}
       className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-all duration-200 hover:scale-[1.02] block"
     >
       <div className="flex items-start space-x-4">

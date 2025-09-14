@@ -21,9 +21,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
 
 # Local env files
 .env*.local
+.env
 
 # Vercel
 .vercel
@@ -31,3 +33,21 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Reports and temporary files
+*_report.json
+pricing_report_*.json
+error.log
+dead_links*.json
+import_report.json
+super_delete_report.json
+update_report.json
+
+# Test files
+test-*.js
+*.test.js
+*.test.ts
+
+# Temporary development files
+temp/
+tmp/

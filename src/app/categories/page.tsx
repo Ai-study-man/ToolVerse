@@ -9,7 +9,8 @@ import StructuredData from '../../components/StructuredData';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import GlobalLayout from '../../components/GlobalLayout';
 import { LoadingSkeleton } from '../../components/LoadingSkeleton';
-import DataSyncService from '../../lib/dataSyncService';
+import { getCategoryIcon } from '../../utils/categoryIcons';
+import { DataSyncService } from '../../lib/dataSyncService';
 import { Category, Tool } from '../../types';
 
 export default function CategoriesPage() {
@@ -39,11 +40,15 @@ export default function CategoriesPage() {
     fetchData();
   }, []);
 
-  // Update categories with filtered tool counts
+  // Update categories with filtered tool counts and icons
   const getCategoriesWithFilteredCounts = () => {
     return categories.map(category => {
       const toolCount = filteredTools.filter(tool => tool.category === category.name).length;
-      return { ...category, toolCount };
+      return { 
+        ...category, 
+        toolCount,
+        icon: getCategoryIcon(category.name) // 确保使用统一的图标系统
+      };
     });
   };
 
@@ -62,15 +67,15 @@ export default function CategoriesPage() {
 
   return (
     <GlobalLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-gray-100">
         <Header />
         
         {/* SEO结构化数据 */}
         <StructuredData 
           type="website" 
           data={{
-            name: "AI工具分类",
-            description: "按分类浏览AI工具：对话AI、图像生成、代码开发等",
+            name: "AI Tools Categories",
+            description: "Browse AI tools by category: Conversational AI, Image Generation, Code Development and more",
             url: "https://toolverse.com/categories"
           }} 
         />
@@ -86,7 +91,7 @@ export default function CategoriesPage() {
         </div>
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-16">
+      <section className="bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             AI Tools Categories 2025 - Browse by Use Case
@@ -135,7 +140,7 @@ export default function CategoriesPage() {
       </section>
 
       {/* Advanced Filters Section */}
-      <section className="py-6 bg-gray-50 border-b">
+      <section className="py-6 bg-gradient-to-br from-primary-50 via-white to-secondary-50 border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
             <div>
@@ -201,7 +206,7 @@ export default function CategoriesPage() {
                     category={category}
                     icon={category.icon}
                     toolCount={category.toolCount}
-                    onClick={() => window.location.href = `/tools?category=${encodeURIComponent(category.name)}`}
+                    onClick={() => window.location.href = `/category/${encodeURIComponent(category.name)}`}
                   />
                 ))}
               </div>
@@ -245,18 +250,18 @@ export default function CategoriesPage() {
 
       {/* Popular Categories Section */}
       {!searchQuery && !loading && (
-        <section className="py-12 bg-gray-100">
+        <section className="py-12 bg-gradient-to-br from-secondary-50 via-white to-primary-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Popular AI Tool Categories</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {categories
+              {categoriesWithCounts
                 .sort((a, b) => b.toolCount - a.toolCount)
                 .slice(0, 4)
                 .map((category) => (
                   <div
                     key={category.id}
                     className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => window.location.href = `/tools?category=${encodeURIComponent(category.name)}`}
+                    onClick={() => window.location.href = `/category/${encodeURIComponent(category.name)}`}
                   >
                     <div className="text-2xl mb-3">{category.icon}</div>
                     <h3 className="font-semibold text-gray-900 mb-2">{category.name}</h3>

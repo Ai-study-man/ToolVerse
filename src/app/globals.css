@@ -10,6 +10,41 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* 工具卡片样式 */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 修复 select 下拉框样式 */
+select option {
+  background-color: #374151 !important;
+  color: white !important;
+  padding: 8px 12px;
+}
+
+select option:hover {
+  background-color: #4b5563 !important;
+}
+
+select option:checked {
+  background-color: #6366f1 !important;
+}
+
+/* 确保下拉框在深色背景下可见 */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
 /* 博客文章样式增强 */
 @layer utilities {
   .line-clamp-2 {

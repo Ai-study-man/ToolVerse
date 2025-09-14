@@ -25,13 +25,13 @@ export default function FeaturedPost({ post, layout = 'hero' }: FeaturedPostProp
 
   if (layout === 'compact') {
     return (
-      <article className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+      <article className="group bg-white/20 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-white/20">
         <div className="relative aspect-[4/3]">
           <SafeImage
             src={post.coverImage || '/blog/default-cover.svg'}
             alt={post.title}
             fill
-            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 p-4"
+            className="object-contain group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-white/10 to-white/5 p-4"
           />
           <div className="absolute top-4 left-4">
             <span 
@@ -49,7 +49,7 @@ export default function FeaturedPost({ post, layout = 'hero' }: FeaturedPostProp
         </div>
         
         <div className="p-6">
-          <div className="flex items-center gap-3 mb-3 text-sm text-gray-500">
+          <div className="flex items-center gap-3 mb-3 text-sm text-white/70">
             <span>{formatDate(post.publishedAt)}</span>
             <span>•</span>
             <span>{post.readingTime} min read</span>
@@ -57,32 +57,32 @@ export default function FeaturedPost({ post, layout = 'hero' }: FeaturedPostProp
             <span>{post.viewCount.toLocaleString()} views</span>
           </div>
           
-          <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-3 line-clamp-2">
+          <h3 className="text-xl font-bold text-white group-hover:text-accent-300 transition-colors duration-300 mb-3 line-clamp-2">
             <Link href={`/blog/${post.slug}`}>
               {post.title}
             </Link>
           </h3>
           
-          <p className="text-gray-600 mb-4 line-clamp-3">
+          <p className="text-white/80 mb-4 line-clamp-3">
             {post.excerpt}
           </p>
           
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                 </svg>
               </div>
               <div>
-                <p className="font-medium text-gray-900 text-sm">{post.author.name}</p>
-                <p className="text-xs text-gray-500">AI Tools Expert</p>
+                <p className="font-medium text-white text-sm">{post.author.name}</p>
+                <p className="text-xs text-white/70">AI Tools Expert</p>
               </div>
             </div>
             
             <Link 
               href={`/blog/${post.slug}`}
-              className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm group-hover:translate-x-1 transition-transform duration-300"
+              className="inline-flex items-center text-accent-300 hover:text-accent-200 font-medium text-sm group-hover:translate-x-1 transition-transform duration-300"
             >
               Read More
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

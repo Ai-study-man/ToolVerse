@@ -44,6 +44,7 @@ export interface Tool {
   developer?: string;   // 开发者/公司名称
   reviews?: any[];      // 用户评论
   lastUpdated?: string; // 最后更新时间
+  status?: 'active' | 'inactive'; // 工具状态
 }
 
 export interface Category {

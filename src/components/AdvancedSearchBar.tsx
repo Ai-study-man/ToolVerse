@@ -83,7 +83,7 @@ export default function AdvancedSearchBar({
       newSuggestions.push({
         type: 'tool',
         text: tool.name,
-        href: `/tools/${tool.id}`
+        href: `/tool/${tool.id}`
       });
     });
 
@@ -98,7 +98,7 @@ export default function AdvancedSearchBar({
       newSuggestions.push({
         type: 'category',
         text: category,
-        href: `/tools?category=${encodeURIComponent(category)}`,
+        href: `/category/${encodeURIComponent(category)}`,
         count: toolCount
       });
     });

@@ -1,308 +1,433 @@
-import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
+import { createClient } from '@supabase/supabase-js';
+import { Tool } from '../types';
 
-// Supabase 数据导入脚本
-// 将爬取的 AI 工具数据导入到 Supabase 数据库
+// 加载环境变量
+require('dotenv').config({ path: '.env.local' });
 
-interface ImportConfig {
-  inputFile: string;
-  batchSize: number;
-  skipDuplicates: boolean;
-  validateData: boolean;
+// Supabase 配置
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY; // 需要服务端密钥
+
+console.log('🔍 环境变量检查:');
+console.log(`   SUPABASE_URL: ${supabaseUrl ? '✓ 已设置' : '❌ 未设置'}`);
+console.log(`   SERVICE_ROLE_KEY: ${supabaseServiceKey ? '✓ 已设置' : '❌ 未设置'}`);
+interface ImportLog {
+  timestamp: string;
+  totalTools: number;
+  successCount: number;
+  errorCount: number;
+  newToolsCount?: number;
+  updatedToolsCount?: number;
+  errors: Array<{
+    name: string;
+    website: string;
+    error: string;
+    batchNumber: number;
+  }>;
 }
 
-interface ImportStats {
-  total: number;
-  imported: number;
-  skipped: number;
-  errors: number;
-  duplicates: number;
+// 写入错误日志
+function writeErrorLog(log: ImportLog) {
+  const errorLogPath = path.join(process.cwd(), 'error.log');
+  const logContent = [
+    `=== Supabase 导入日志 - ${log.timestamp} ===`,
+    `总工具数: ${log.totalTools}`,
+    `成功插入: ${log.successCount}`,
+    `新增工具: ${log.newToolsCount || 0}`,
+    `更新工具: ${log.updatedToolsCount || 0}`,
+    `失败数量: ${log.errorCount}`,
+    '',
+    '错误详情:',
+    ...log.errors.map(error => 
+      `[批次 ${error.batchNumber}] ${error.name} (${error.website}) - ${error.error}`
+    ),
+    '',
+    '============================================',
+    ''
+  ].join('\n');
+  
+  fs.appendFileSync(errorLogPath, logContent, 'utf8');
+  console.log(`📝 错误日志已写入: ${errorLogPath}`);
 }
 
-class SupabaseImporter {
-  private supabase: any;
-  private config: ImportConfig;
-  private stats: ImportStats = {
-    total: 0,
-    imported: 0,
-    skipped: 0,
-    errors: 0,
-    duplicates: 0
-  };
-
-  constructor(config: ImportConfig) {
-    this.config = config;
-    
-    // 初始化 Supabase 客户端
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
-    
-    if (!supabaseUrl || !supabaseKey) {
-      throw new Error('Supabase 配置不完整：缺少 URL 或 Service Key');
-    }
-    
-    this.supabase = createClient(supabaseUrl, supabaseKey);
+// 检查环境变量（仅在非 dry-run 模式）
+function checkEnvironmentVariables(dryRun: boolean = false) {
+  if (dryRun) {
+    console.log('🔍 DRY RUN 模式 - 跳过环境变量检查');
+    return;
   }
+  
+  if (!supabaseUrl) {
+    console.error('❌ 请配置 NEXT_PUBLIC_SUPABASE_URL 环境变量');
+    console.error('   当前值:', supabaseUrl);
+    process.exit(1);
+  }
+  
+  if (!supabaseServiceKey) {
+    console.warn('⚠️  未找到 SUPABASE_SERVICE_ROLE_KEY，尝试使用 anon 密钥...');
+    console.warn('   注意：anon 密钥可能权限不足，建议使用 service_role 密钥');
+  }
+}
 
-  // 主导入方法
-  async import(): Promise<ImportStats> {
-    console.log('🚀 开始导入 AI 工具数据到 Supabase...');
+// 尝试使用 service_role 密钥，如果没有则使用 anon 密钥
+const actualKey = supabaseServiceKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = supabaseUrl && actualKey ? createClient(supabaseUrl, actualKey) : null;
+
+// 批量插入工具到Supabase
+async function insertToolsToSupabase(tools: Tool[], batchSize: number = 50, dryRun: boolean = false): Promise<void> {
+  console.log(`📊 准备${dryRun ? '模拟' : ''}插入 ${tools.length} 个工具到 Supabase`);
+  
+  if (dryRun) {
+    console.log('\n🔍 DRY RUN 模式 - 不会真实写入数据库\n');
+    
+    // 显示前5条记录预览
+    console.log('📋 前 5 条即将插入的记录预览:');
+    tools.slice(0, 5).forEach((tool, index) => {
+      console.log(`   ${index + 1}. ${tool.name}`);
+      console.log(`      网站: ${tool.website}`);
+      console.log(`      分类: ${tool.category} | 定价: ${tool.pricingModel}`);
+      console.log(`      ID: ${tool.id}`);
+      console.log('');
+    });
+    
+    // 准备数据转换示例
+    const sampleDbData = tools.slice(0, 2).map(tool => ({
+      id: tool.id,
+      name: tool.name,
+      description: tool.description,
+      short_description: tool.shortDescription,
+      logo: tool.logo,
+      website: tool.website,
+      category: tool.category,
+      subcategory: tool.subcategory,
+      pricing_model: tool.pricingModel,
+      pricing: tool.pricing,
+      pricing_tiers: tool.pricingTiers ? JSON.stringify(tool.pricingTiers) : null,
+      contact_pricing: tool.contactPricing ? JSON.stringify(tool.contactPricing) : null,
+      rating: tool.rating,
+      review_count: tool.reviewCount,
+      tags: tool.tags,
+      features: tool.features,
+      use_cases: tool.useCases,
+      model_used: tool.modelUsed,
+      created_at: tool.createdAt,
+      likes: tool.likes || 0,
+      views: tool.views || 0,
+      developer: tool.developer,
+      reviews: tool.reviews ? JSON.stringify(tool.reviews) : null,
+      last_updated: tool.lastUpdated || tool.createdAt
+    }));
+    
+    console.log('🔄 数据库字段映射示例（前2条记录）:');
+    sampleDbData.forEach((record, index) => {
+      console.log(`\n   记录 ${index + 1}:`);
+      console.log(`     id: ${record.id}`);
+      console.log(`     name: ${record.name}`);
+      console.log(`     short_description: ${record.short_description.substring(0, 50)}...`);
+      console.log(`     category: ${record.category}`);
+      console.log(`     pricing_model: ${record.pricing_model}`);
+      console.log(`     rating: ${record.rating.toFixed(2)}`);
+      console.log(`     tags: [${record.tags.slice(0, 3).join(', ')}${record.tags.length > 3 ? '...' : ''}]`);
+    });
+    
+    // 统计信息
+    const categoryStats = tools.reduce((acc, tool) => {
+      acc[tool.category] = (acc[tool.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const pricingStats = tools.reduce((acc, tool) => {
+      acc[tool.pricingModel] = (acc[tool.pricingModel] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    console.log('\n📊 导入统计预览:');
+    console.log(`   总工具数: ${tools.length}`);
+    console.log(`   计划批次数: ${Math.ceil(tools.length / batchSize)}`);
+    console.log(`   每批数量: ${batchSize}`);
+    
+    console.log('\n📈 分类分布:');
+    Object.entries(categoryStats)
+      .sort(([,a], [,b]) => b - a)
+      .forEach(([category, count]) => {
+        console.log(`     ${category}: ${count} 个工具`);
+      });
+    
+    console.log('\n💰 定价模式分布:');
+    Object.entries(pricingStats).forEach(([model, count]) => {
+      console.log(`     ${model}: ${count} 个工具`);
+    });
+    
+    console.log('\n✅ DRY RUN 完成 - 如果数据看起来正确，请移除 --dry-run 参数进行真实导入');
+    return;
+  }
+  
+  let successCount = 0;
+  let errorCount = 0;
+  let newToolsCount = 0;
+  let updatedToolsCount = 0;
+  const errors: Array<{
+    name: string;
+    website: string;
+    error: string;
+    batchNumber: number;
+  }> = [];
+  
+  const startTime = new Date();
+  const totalBatches = Math.ceil(tools.length / batchSize);
+  
+  console.log(`📊 准备插入 ${tools.length} 个工具到 Supabase`);
+  console.log(`📦 计划分为 ${totalBatches} 个批次，每批最多 ${batchSize} 个工具`);
+  console.log(`⏱️  开始时间: ${startTime.toLocaleTimeString()}\n`);
+  
+  // 分批处理
+  for (let i = 0; i < tools.length; i += batchSize) {
+    const batch = tools.slice(i, i + batchSize);
+    const batchNumber = Math.floor(i / batchSize) + 1;
+    const currentProgress = Math.min(i + batchSize, tools.length);
+    const progressPercentage = Math.round((currentProgress / tools.length) * 100);
+    const elapsedTime = Math.round((new Date().getTime() - startTime.getTime()) / 1000);
+    
+    console.log(`\n📦 批次 ${batchNumber}/${totalBatches} | 进度: ${currentProgress}/${tools.length} (${progressPercentage}%) | 用时: ${elapsedTime}s`);
+    console.log(`   正在处理: ${batch.length} 个工具...`);
     
     try {
-      // 1. 读取数据文件
-      const data = await this.readDataFile();
-      this.stats.total = data.tools.length;
+      // 准备数据 - 只包含基本字段，避免不存在的字段
+      const dbData = batch.map(tool => ({
+        id: tool.id,
+        name: tool.name,
+        description: tool.description,
+        short_description: tool.shortDescription,
+        logo: tool.logo,
+        website: tool.website,
+        category: tool.category,
+        pricing_model: tool.pricingModel,
+        pricing: tool.pricing,
+        rating: tool.rating,
+        review_count: tool.reviewCount,
+        tags: tool.tags,
+        features: tool.features,
+        created_at: tool.createdAt,
+        likes: tool.likes || 0,
+        views: tool.views || 0,
+        last_updated: tool.lastUpdated || tool.createdAt,
+        verified: false,
+        popular: false
+      }));
       
-      console.log(`📊 准备导入 ${this.stats.total} 个工具`);
-      
-      // 2. 验证数据格式
-      if (this.config.validateData) {
-        await this.validateData(data.tools);
+      // 使用 upsert 进行增量更新，以 website 作为唯一键
+      if (!supabase) {
+        throw new Error('Supabase 客户端未初始化');
       }
       
-      // 3. 检查重复数据
-      if (this.config.skipDuplicates) {
-        data.tools = await this.filterDuplicates(data.tools);
+      // 首先检查哪些工具已存在
+      const websites = dbData.map(tool => tool.website);
+      const { data: existingTools, error: checkError } = await supabase
+        .from('tools')
+        .select('website, id, name, last_updated')
+        .in('website', websites);
+      
+      if (checkError && checkError.code !== 'PGRST116') { // PGRST116 = no rows found (正常情况)
+        console.warn(`   ⚠️  检查现有工具时出现警告: ${checkError.message}`);
       }
       
-      // 4. 批量导入
-      await this.batchImport(data.tools);
+      const existingWebsites = new Set((existingTools || []).map(tool => tool.website));
+      const newTools = dbData.filter(tool => !existingWebsites.has(tool.website));
+      const updatingTools = dbData.filter(tool => existingWebsites.has(tool.website));
       
-      // 5. 打印统计信息
-      this.printStats();
+      console.log(`   📊 分析: ${newTools.length} 个新工具, ${updatingTools.length} 个更新工具`);
       
-      console.log('✅ 数据导入完成');
-      return this.stats;
-      
-    } catch (error) {
-      console.error('❌ 数据导入失败:', error);
-      throw error;
-    }
-  }
-
-  // 读取数据文件
-  private async readDataFile(): Promise<any> {
-    console.log(`📖 读取数据文件: ${this.config.inputFile}`);
-    
-    if (!fs.existsSync(this.config.inputFile)) {
-      throw new Error(`数据文件不存在: ${this.config.inputFile}`);
-    }
-    
-    try {
-      const content = fs.readFileSync(this.config.inputFile, 'utf8');
-      const data = JSON.parse(content);
-      
-      if (!data.tools || !Array.isArray(data.tools)) {
-        throw new Error('数据文件格式错误：缺少 tools 数组');
-      }
-      
-      return data;
-    } catch (error) {
-      throw new Error(`读取数据文件失败: ${error}`);
-    }
-  }
-
-  // 验证数据格式
-  private async validateData(tools: any[]): Promise<void> {
-    console.log('🔍 验证数据格式...');
-    
-    const requiredFields = ['name', 'description', 'link'];
-    const validPricingModels = ['free', 'freemium', 'paid'];
-    
-    for (let i = 0; i < tools.length; i++) {
-      const tool = tools[i];
-      
-      // 检查必需字段
-      for (const field of requiredFields) {
-        if (!tool[field]) {
-          console.warn(`⚠️ 工具 ${i + 1} 缺少必需字段: ${field}`);
-          this.stats.errors++;
-        }
-      }
-      
-      // 验证定价模式
-      if (tool.pricing && !validPricingModels.includes(tool.pricing)) {
-        console.warn(`⚠️ 工具 ${i + 1} 定价模式无效: ${tool.pricing}`);
-      }
-      
-      // 验证评分范围
-      if (tool.rating && (tool.rating < 0 || tool.rating > 5)) {
-        console.warn(`⚠️ 工具 ${i + 1} 评分超出范围: ${tool.rating}`);
-      }
-      
-      // 验证 URL 格式
-      if (tool.link && !this.isValidUrl(tool.link)) {
-        console.warn(`⚠️ 工具 ${i + 1} URL 格式无效: ${tool.link}`);
-      }
-    }
-    
-    console.log(`✅ 数据验证完成，发现 ${this.stats.errors} 个问题`);
-  }
-
-  // 过滤重复数据
-  private async filterDuplicates(tools: any[]): Promise<any[]> {
-    console.log('🔄 检查重复数据...');
-    
-    try {
-      // 获取现有工具的名称和链接
-      const { data: existingTools, error } = await this.supabase
-        .from('crawled_tools')
-        .select('name, link')
-        .eq('status', 'approved');
+      // 执行 upsert 操作
+      const { data, error } = await supabase
+        .from('tools')
+        .upsert(dbData, { 
+          onConflict: 'website', // 使用 website 作为冲突检测字段
+          ignoreDuplicates: false 
+        })
+        .select('id, website, name');
       
       if (error) {
-        console.warn('获取现有数据失败，跳过重复检查:', error);
-        return tools;
+        throw error;
       }
       
-      const existingKeys = new Set(
-        existingTools.map((tool: any) => `${tool.name}-${tool.link}`)
-      );
+      successCount += batch.length;
+      newToolsCount += newTools.length;
+      updatedToolsCount += updatingTools.length;
       
-      const filteredTools = tools.filter(tool => {
-        const key = `${tool.name}-${tool.link}`;
-        if (existingKeys.has(key)) {
-          this.stats.duplicates++;
-          return false;
-        }
-        return true;
-      });
+      const batchElapsedTime = Math.round((new Date().getTime() - startTime.getTime()) / 1000);
+      const avgTimePerBatch = batchElapsedTime / batchNumber;
+      const estimatedTotalTime = Math.round(avgTimePerBatch * totalBatches);
+      const remainingTime = Math.max(0, estimatedTotalTime - batchElapsedTime);
       
-      console.log(`🗑️ 过滤了 ${this.stats.duplicates} 个重复工具`);
-      return filteredTools;
+      console.log(`   ✅ 成功处理 ${batch.length} 个工具 (新增: ${newTools.length}, 更新: ${updatingTools.length})`);
+      console.log(`   📈 累计: 成功 ${successCount}/${tools.length} | 新增 ${newToolsCount} | 更新 ${updatedToolsCount}`);
+      console.log(`   ⏱️  预计剩余时间: ${remainingTime}s | 预计总用时: ${estimatedTotalTime}s`);
+      
+      // 避免请求过于频繁
+      if (i + batchSize < tools.length) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
       
     } catch (error) {
-      console.warn('重复检查失败，继续导入:', error);
-      return tools;
-    }
-  }
-
-  // 批量导入数据
-  private async batchImport(tools: any[]): Promise<void> {
-    console.log(`📦 开始批量导入，批次大小: ${this.config.batchSize}`);
-    
-    for (let i = 0; i < tools.length; i += this.config.batchSize) {
-      const batch = tools.slice(i, i + this.config.batchSize);
-      const batchNum = Math.floor(i / this.config.batchSize) + 1;
-      const totalBatches = Math.ceil(tools.length / this.config.batchSize);
+      console.error(`❌ 批次 ${batchNumber} 插入失败:`, error);
+      errorCount += batch.length;
       
-      console.log(`📋 导入批次 ${batchNum}/${totalBatches} (${batch.length} 个工具)`);
+      // 记录每个工具的错误
+      batch.forEach(tool => {
+        errors.push({
+          name: tool.name,
+          website: tool.website,
+          error: String(error),
+          batchNumber
+        });
+      });
       
-      try {
-        // 转换数据格式
-        const formattedBatch = batch.map(tool => this.formatToolForSupabase(tool));
-        
-        // 插入到 Supabase
-        const { error } = await this.supabase
-          .from('crawled_tools')
-          .insert(formattedBatch);
-        
-        if (error) {
-          console.error(`❌ 批次 ${batchNum} 导入失败:`, error);
-          this.stats.errors += batch.length;
-        } else {
-          console.log(`✅ 批次 ${batchNum} 导入成功`);
-          this.stats.imported += batch.length;
+      // 如果是连接错误，等待更长时间再重试
+      if (error && typeof error === 'object' && 'message' in error) {
+        const errorMessage = (error as any).message.toLowerCase();
+        if (errorMessage.includes('network') || errorMessage.includes('timeout')) {
+          console.log('⏳ 网络错误，等待 5 秒后继续...');
+          await new Promise(resolve => setTimeout(resolve, 5000));
         }
-        
-      } catch (error) {
-        console.error(`❌ 批次 ${batchNum} 处理失败:`, error);
-        this.stats.errors += batch.length;
-      }
-      
-      // 添加延迟避免 API 限流
-      if (i + this.config.batchSize < tools.length) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
   }
-
-  // 格式化工具数据以匹配 Supabase 表结构
-  private formatToolForSupabase(tool: any): any {
-    return {
-      name: tool.name || '',
-      description: tool.description || '',
-      tags: tool.tags || [],
-      link: tool.link || '',
-      use_case: tool.use_case || [],
-      model_used: tool.model_used || null,
-      pricing: tool.pricing || null,
-      category: tool.category || null,
-      logo: tool.logo || null,
-      rating: tool.rating || null,
-      source: tool.source || 'unknown',
-      crawled_at: tool.crawled_at || new Date().toISOString(),
-      status: 'pending', // 默认为待审核状态
-      imported_at: new Date().toISOString()
-    };
-  }
-
-  // 验证 URL 格式
-  private isValidUrl(string: string): boolean {
-    try {
-      new URL(string);
-      return true;
-    } catch (_) {
-      return false;
+  
+  console.log(`\n📊 导入完成统计:`);
+  console.log(`   ✅ 成功: ${successCount} 个`);
+  console.log(`   🆕 新增: ${newToolsCount} 个`);
+  console.log(`   🔄 更新: ${updatedToolsCount} 个`);
+  console.log(`   ❌ 失败: ${errorCount} 个`);
+  console.log(`   ⏱️  总用时: ${Math.round((new Date().getTime() - startTime.getTime()) / 1000)} 秒`);
+  
+  // 写入日志
+  const importLog: ImportLog = {
+    timestamp: new Date().toISOString(),
+    totalTools: tools.length,
+    successCount,
+    errorCount,
+    newToolsCount,
+    updatedToolsCount,
+    errors
+  };
+  
+  if (errors.length > 0) {
+    console.log(`\n❌ 错误详情:`);
+    errors.slice(0, 5).forEach(error => 
+      console.log(`   - ${error.name}: ${error.error.substring(0, 100)}...`)
+    );
+    
+    if (errors.length > 5) {
+      console.log(`   ... 还有 ${errors.length - 5} 个错误，详见 error.log`);
     }
-  }
-
-  // 打印统计信息
-  private printStats(): void {
-    console.log('\n📊 导入统计:');
-    console.log(`总计: ${this.stats.total} 个工具`);
-    console.log(`成功导入: ${this.stats.imported} 个`);
-    console.log(`跳过重复: ${this.stats.duplicates} 个`);
-    console.log(`错误: ${this.stats.errors} 个`);
-    console.log(`成功率: ${((this.stats.imported / this.stats.total) * 100).toFixed(1)}%`);
-  }
-
-  // 获取统计信息
-  getStats(): ImportStats {
-    return { ...this.stats };
+    
+    writeErrorLog(importLog);
+  } else {
+    console.log(`\n🎉 所有工具都成功导入！`);
   }
 }
 
-// 主执行函数
-async function main() {
-  const inputFile = process.argv[2] || path.join(process.cwd(), 'data', 'crawled-tools.json');
+// 从JSON文件读取工具数据
+function loadToolsFromJson(filePath: string): Tool[] {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`文件不存在: ${filePath}`);
+  }
   
-  const config: ImportConfig = {
-    inputFile,
-    batchSize: 10,
-    skipDuplicates: true,
-    validateData: true
-  };
+  const content = fs.readFileSync(filePath, 'utf8');
+  const tools = JSON.parse(content) as Tool[];
+  
+  if (!Array.isArray(tools)) {
+    throw new Error('JSON文件格式错误，应该是Tool数组');
+  }
+  
+  return tools;
+}
 
-  console.log('🔧 导入配置:');
-  console.log(`输入文件: ${config.inputFile}`);
-  console.log(`批次大小: ${config.batchSize}`);
-  console.log(`跳过重复: ${config.skipDuplicates}`);
-  console.log(`验证数据: ${config.validateData}\n`);
+// 检查Supabase连接和表结构
+async function checkSupabaseConnection(): Promise<void> {
+  try {
+    console.log('🔍 检查 Supabase 连接...');
+    
+    if (!supabase) {
+      throw new Error('Supabase 客户端未初始化');
+    }
+    
+    // 测试连接
+    const { error, count } = await supabase
+      .from('tools')
+      .select('*', { count: 'exact', head: true });
+    
+    if (error) {
+      console.error('详细错误信息:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
+      throw error;
+    }
+    
+    console.log('✅ Supabase 连接正常');
+    console.log(`📊 当前表中有 ${count || 0} 条记录`);
+    
+  } catch (error) {
+    console.error('❌ Supabase 连接失败:', error);
+    throw error;
+  }
+}
 
-  const importer = new SupabaseImporter(config);
+// 主函数
+async function main() {
+  const args = process.argv.slice(2);
+  const dryRun = args.includes('--dry-run');
+  const jsonFilePath = args.find(arg => !arg.startsWith('--')) || path.join(process.cwd(), 'data', 'ai-collection-tools.json');
   
   try {
-    const stats = await importer.import();
+    // 检查环境变量
+    checkEnvironmentVariables(dryRun);
     
-    if (stats.errors > 0) {
-      console.log(`\n⚠️ 导入完成，但有 ${stats.errors} 个错误`);
-      process.exit(1);
+    if (!dryRun) {
+      // 只有在非dry-run模式才检查连接
+      await checkSupabaseConnection();
     } else {
-      console.log('\n🎉 导入完全成功！');
-      process.exit(0);
+      console.log('🔍 DRY RUN 模式 - 跳过 Supabase 连接检查');
+    }
+    
+    // 加载数据
+    console.log(`📂 从文件加载数据: ${jsonFilePath}`);
+    const tools = loadToolsFromJson(jsonFilePath);
+    console.log(`📊 加载了 ${tools.length} 个工具`);
+    
+    if (dryRun) {
+      // DRY RUN 模式
+      await insertToolsToSupabase(tools, 50, true);
+    } else {
+      // 真实导入模式 - 确认是否继续
+      console.log('\n⚠️  即将开始导入数据到 Supabase。');
+      console.log('   这将会向 tools 表中插入/更新数据。');
+      console.log('   如果确认继续，请按 Ctrl+C 取消或等待 5 秒自动开始...\n');
+      
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      
+      // 开始导入
+      await insertToolsToSupabase(tools, 50, false);
+      
+      console.log('\n🎉 导入完成！');
     }
     
   } catch (error) {
-    console.error('\n💥 导入过程中发生严重错误:', error);
+    console.error('❌ 导入过程失败:', error);
     process.exit(1);
   }
 }
 
 // 如果直接运行此脚本
 if (require.main === module) {
-  main();
+  // 加载环境变量
+  require('dotenv').config({ path: '.env.local' });
+  main().catch(console.error);
 }
 
-export { SupabaseImporter, type ImportConfig, type ImportStats };
+export { insertToolsToSupabase, loadToolsFromJson };

@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2025-09-10T10:30:15.234Z",
+  "totalParsed": 1247,
+  "validTools": 943,
+  "invalidTools": 304,
+  "skippedTools": 15,
+  "validityRate": "75.60%",
+  "websiteCheckEnabled": true,
+  "averageResponseTime": 2134,
+  "batchDetails": [
+    {
+      "batchNumber": 1,
+      "processed": 8,
+      "valid": 6,
+      "invalid": 2,
+      "averageResponseTime": 1823
+    },
+    {
+      "batchNumber": 2,
+      "processed": 8,
+      "valid": 5,
+      "invalid": 3,
+      "averageResponseTime": 2156
+    },
+    {
+      "batchNumber": 3,
+      "processed": 8,
+      "valid": 7,
+      "invalid": 1,
+      "averageResponseTime": 1945
+    }
+  ],
+  "validToolsDetails": [
+    {
+      "name": "ChatGPT",
+      "website": "https://chat.openai.com",
+      "statusCode": 200,
+      "responseTime": 1234
+    },
+    {
+      "name": "GitHub Copilot",
+      "website": "https://github.com/features/copilot",
+      "statusCode": 200,
+      "responseTime": 2156
+    },
+    {
+      "name": "Midjourney",
+      "website": "https://www.midjourney.com",
+      "statusCode": 200,
+      "responseTime": 1890
+    }
+  ],
+  "invalidToolsDetails": [
+    {
+      "name": "Fake AI Tool 1",
+      "website": "https://fake-ai-tool-1.com",
+      "reason": "域名不存在"
+    },
+    {
+      "name": "Broken Link Tool",
+      "website": "https://broken-link-example.org",
+      "reason": "请求超时"
+    },
+    {
+      "name": "404 Tool",
+      "website": "https://example.com/nonexistent",
+      "reason": "页面不存在"
+    }
+  ],
+  "errors": [
+    "处理文件 /path/to/invalid.yaml 失败: 无法解析YAML格式"
+  ]
+}
