@@ -18,10 +18,12 @@ import GlobalLayout from '../components/GlobalLayout';
 import SuperSearchBar from '../components/SuperSearchBar';
 import SmartToolGrid from '../components/SmartToolGrid';
 import LatestToolsGrid from '../components/LatestToolsGrid';
+import FeaturedToolsGrid from '../components/FeaturedToolsGrid';
 import { useTools } from '../hooks/useTools';
 import { navigateToUrl } from '../lib/navigation';
 import { getCategoryIcon, getCategoriesWithIcons, mapToUnifiedCategory } from '../utils/categoryIcons';
 import Hero3DImage from '../components/Hero3DImage';
+import ConfigurationError from '../components/ConfigurationError';
 import { Tool, Category } from '../types/tool';
 
 // 动态导入非关键组件
@@ -181,6 +183,16 @@ export default function Home() {
       }).slice(0, 3);
     };
   }, [featuredTools]);
+
+  // 检查是否是配置错误
+  if (error && error.includes('Supabase 未正确配置')) {
+    return (
+      <ConfigurationError 
+        title="Configuration Required"
+        message="Supabase environment variables are missing. Please set up your database connection to display AI tools."
+      />
+    );
+  }
 
   return (
     <GlobalLayout>
@@ -363,18 +375,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Featured AI Tools - Latest from Database
+              Featured AI Tools
             </h2>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
-              Discover the newest AI tools added to our database. These tools are directly fetched from Supabase with real-time updates and verified for quality.
+              Discover the most popular and powerful AI tools that are transforming industries. These featured tools are carefully selected based on popularity, quality, and user impact.
             </p>
           </div>
           
-          {/* 使用新的 LatestToolsGrid 组件 */}
+          {/* 使用新的 FeaturedToolsGrid 组件 - 2行4列布局 */}
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-8">
-            <LatestToolsGrid 
-              limit={6}
-              showTitle={false}
+            <FeaturedToolsGrid 
               theme="dark"
               className="text-white"
             />
@@ -390,58 +400,6 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800 text-white relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-2 h-2 bg-white rounded-full animate-ping opacity-30"></div>
-          <div className="absolute top-20 right-20 w-1 h-1 bg-accent-300 rounded-full animate-pulse opacity-50"></div>
-          <div className="absolute bottom-20 left-20 w-1.5 h-1.5 bg-white rounded-full animate-bounce opacity-40"></div>
-          <div className="absolute bottom-32 right-32 w-1 h-1 bg-secondary-300 rounded-full animate-ping opacity-30"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Stay Updated with Latest AI Tools & News
-          </h2>
-          <p className="text-lg md:text-xl opacity-90 mb-8 max-w-3xl mx-auto">
-            Get weekly updates on new AI tools, detailed reviews, pricing comparisons, and industry insights delivered to your inbox. Join 50,000+ professionals staying ahead in AI.
-          </p>
-          
-          {/* Coming Soon Newsletter */}
-          <div className="max-w-md mx-auto">
-            <div className="flex gap-4 opacity-60 pointer-events-none mb-4">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 border-0 focus:outline-none"
-                disabled
-              />
-              <button 
-                className="bg-gradient-to-r from-accent-600/50 to-accent-700/50 text-white px-6 py-3 rounded-lg font-medium cursor-not-allowed backdrop-blur-sm"
-                disabled
-              >
-                Subscribe
-              </button>
-            </div>
-            
-            {/* Coming Soon Badge */}
-            <div className="inline-flex items-center gap-2 bg-orange-500/20 backdrop-blur-sm border border-orange-400/30 rounded-full px-4 py-2 text-orange-200">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className="text-sm font-medium">Coming Soon</span>
-            </div>
-            
-            <p className="text-xs text-gray-300 mt-3">
-              We&apos;re working hard to bring you an amazing newsletter experience!
-            </p>
           </div>
         </div>
       </section>

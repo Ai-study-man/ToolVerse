@@ -20,8 +20,13 @@ const finalSupabaseAnonKey = supabaseAnonKey || 'placeholder-anon-key';
 
 // 运行时检查
 if (typeof window !== 'undefined' && isPlaceholder) {
-  console.error('[Supabase Client] Missing environment variables in production!');
-  console.error('Please check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel dashboard');
+  console.error('❌ [Supabase Client] Missing environment variables in production!');
+  console.error('📝 Setup Guide:');
+  console.error('1. Login to Vercel Dashboard');
+  console.error('2. Go to your project → Settings → Environment Variables');
+  console.error('3. Add: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  console.error('4. Redeploy your application');
+  console.error('📚 More help: /docs/SUPABASE_RLS_GUIDE.md');
 }
 
 // 创建 Supabase 客户端
