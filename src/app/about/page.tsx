@@ -19,13 +19,13 @@ export default function AboutPage() {
 
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 mb-8">
             <p className="text-white/90 text-lg leading-relaxed mb-6">
-              We built ToolVerse to solve a common problem: finding the right AI tool shouldn't feel overwhelming. 
-              With new apps launching every day, it's easy to get lost. That's why we created a smarter way to 
+              We built ToolVerse to solve a common problem: finding the right AI tool shouldn&apos;t feel overwhelming. 
+              With new apps launching every day, it&apos;s easy to get lost. That&apos;s why we created a smarter way to 
               explore, compare, and choose the tools that truly matter.
             </p>
             
             <div className="space-y-6 mt-8">
-              <h3 className="text-xl font-semibold text-white mb-4">On ToolVerse, you'll find:</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">On ToolVerse, you&apos;ll find:</h3>
               
               <div className="space-y-4">
                 <div className="flex items-start space-x-4">
@@ -61,7 +61,7 @@ export default function AboutPage() {
             </p>
             
             <p className="text-white/90 text-lg leading-relaxed mb-6">
-              Whether you're a creator, developer, or business leader, ToolVerse helps you stay ahead 
+              Whether you&apos;re a creator, developer, or business leader, ToolVerse helps you stay ahead 
               of the curve — discovering tools that save time, spark ideas, and unlock new possibilities.
             </p>
           </div>

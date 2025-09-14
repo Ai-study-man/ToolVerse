@@ -164,7 +164,7 @@ function readFileData(filePath: string): RawToolData[] {
         columns: true,
         skip_empty_lines: true,
         trim: true,
-      });
+      }) as RawToolData[];
       return records;
     } else {
       throw new Error(`不支持的文件格式: ${fileExtension}。仅支持 .json 和 .csv 文件`);
@@ -415,7 +415,7 @@ async function checkWebsitesBatch(
     
     // 分类结果
     for (const result of results) {
-      if (result.valid && 'tool' in result) {
+      if (result.valid && 'tool' in result && result.tool) {
         validTools.push({ tool: result.tool, index: result.index });
       }
     }

@@ -113,7 +113,7 @@ const ToolsDirectory: React.FC = () => {
         <div className="text-center py-12">
           <div className="text-6xl mb-4">🔍</div>
           <h3 className="text-xl font-semibold text-gray-600 mb-2">
-            暂无 "{selectedCategory}" 分类的工具
+            暂无 &quot;{selectedCategory}&quot; 分类的工具
           </h3>
           <p className="text-gray-500">
             试试选择其他分类或添加新工具

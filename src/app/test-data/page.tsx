@@ -2,6 +2,7 @@
 
 import { useTools } from '@/hooks/useTools';
 import ToolCard from '@/components/ToolCard';
+import { Tool } from '@/types/index'; // 使用正确的类型定义
 
 export default function TestData() {
   const { data: tools, loading, error, refresh } = useTools({ limit: 12 });
@@ -81,10 +82,15 @@ export default function TestData() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {tools.map((tool) => (
+              {tools.filter(tool => tool.description).map((tool) => (
                 <ToolCard 
                   key={tool.id} 
-                  tool={tool}
+                  tool={{
+                    ...tool,
+                    description: tool.description || '',
+                    shortDescription: tool.shortDescription || tool.description || '',
+                    pricingModel: (tool.pricingModel as 'free' | 'paid' | 'freemium') || 'free'
+                  } as Tool}
                 />
               ))}
             </div>

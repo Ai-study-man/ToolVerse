@@ -184,7 +184,7 @@ function EmptyState({ theme = 'light' }: { theme?: 'light' | 'dark' }) {
       </div>
       <h3 className={`text-lg font-medium ${isDark ? 'text-white' : 'text-gray-900'} mb-2`}>No tools available yet 🚀</h3>
       <p className={`${isDark ? 'text-gray-400' : 'text-gray-500'} mb-6 max-w-sm`}>
-        We're working hard to bring you the best AI tools. Check back soon!
+        We&apos;re working hard to bring you the best AI tools. Check back soon!
       </p>
       <Link 
         href="/submit"

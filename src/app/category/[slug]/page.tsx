@@ -159,7 +159,7 @@ function CategoryNotFound({ categorySlug }: { categorySlug: string }) {
       </div>
       <h3 className="text-2xl font-semibold text-white mb-2">Category Not Found</h3>
       <p className="text-white/60 mb-6 max-w-md mx-auto">
-        Sorry, the category "{categorySlug}" does not exist or has no related tools.
+        Sorry, the category &quot;{categorySlug}&quot; does not exist or has no related tools.
       </p>
       <div className="space-x-4">
         <Link

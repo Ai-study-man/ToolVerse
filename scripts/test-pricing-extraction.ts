@@ -36,7 +36,7 @@ interface PricingResult {
 // 从HTML中提取价格信息
 function extractPricing(html: string, url: string): PricingResult {
   const $ = cheerio.load(html);
-  const text = $.text().toLowerCase();
+  const text = $('body').text().toLowerCase();
   
   // 查找价格
   const foundPrices: string[] = [];

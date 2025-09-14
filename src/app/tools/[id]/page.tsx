@@ -43,7 +43,7 @@ function ToolNotFound() {
         </div>
         <h1 className="text-4xl font-bold text-white mb-4">Tool Not Found</h1>
         <p className="text-xl text-white/80 mb-8 max-w-md mx-auto">
-          Sorry, the AI tool you're looking for doesn't exist or has been removed.
+          Sorry, the AI tool you&apos;re looking for doesn&apos;t exist or has been removed.
         </p>
         <div className="space-x-4">
           <Link 
