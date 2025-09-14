@@ -195,6 +195,14 @@ export default function CategoryPage() {
         setLoading(true);
         setError(null);
 
+        // 检查是否为构建时环境
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+          console.log('Supabase not available, using empty data');
+          setTools([]);
+          setLoading(false);
+          return;
+        }
+
         // 获取所有工具
         const { data, error: queryError } = await supabase
           .from('tools')

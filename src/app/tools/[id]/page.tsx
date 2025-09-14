@@ -67,6 +67,12 @@ function ToolNotFound() {
 // 获取工具数据
 async function getToolData(id: string): Promise<ToolData | null> {
   try {
+    // 检查是否为构建时环境，如果是，返回 null
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+      console.log('Supabase not available during build, skipping data fetch');
+      return null;
+    }
+
     const { data: tools, error } = await supabase
       .from('tools')
       .select('*');
@@ -126,6 +132,12 @@ interface PageProps {
 // 生成静态页面参数
 export async function generateStaticParams() {
   try {
+    // 检查是否为构建时环境，如果是，返回空数组（无静态生成的页面）
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+      console.log('Supabase not available during build, skipping static params generation');
+      return [];
+    }
+
     const { data: tools } = await supabase
       .from('tools')
       .select('id');

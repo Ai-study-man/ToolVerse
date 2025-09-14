@@ -259,6 +259,14 @@ export default function LatestToolsGrid({
       setLoading(true);
       setError(null);
 
+      // 检查是否为构建时环境
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        console.log('Supabase not available, using empty data');
+        setSupabaseTools([]);
+        setLoading(false);
+        return;
+      }
+
       const { data, error: queryError } = await supabase
         .from('tools')
         .select('id, name, description, logo, category, pricing, website, created_at')

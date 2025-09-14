@@ -14,7 +14,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -124,7 +124,8 @@ function LoadingCard() {
   );
 }
 
-export default function ToolsPage() {
+// 内部组件处理搜索参数
+function ToolsPageContent() {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -379,5 +380,24 @@ export default function ToolsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+// 主导出组件，包装 Suspense
+export default function ToolsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800">
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center text-white">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+            <p>Loading tools...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <ToolsPageContent />
+    </Suspense>
   );
 }
