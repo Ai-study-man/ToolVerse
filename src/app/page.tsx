@@ -37,6 +37,17 @@ export default function Home() {
   // 使用新的 useTools hook 获取所有工具
   const { data: allTools, loading, error } = useTools();
   
+  // 调试日志：监控首页数据状态
+  useEffect(() => {
+    console.log('[HomePage] 数据状态更新:', {
+      toolsCount: allTools?.length || 0,
+      loading,
+      error,
+      hasData: !!allTools,
+      timestamp: new Date().toISOString()
+    });
+  }, [allTools, loading, error]);
+  
   // 获取分类描述的辅助函数 - 更新为11个核心分类
   const getDescriptionForCategory = (categoryName: string): string => {
     const descriptions: Record<string, string> = {

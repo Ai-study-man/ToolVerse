@@ -43,7 +43,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase, supabaseConfig } from '@/lib/supabaseClient';
 import { Tool, ToolQueryOptions, UseToolsResult } from '@/types/tool';
 
 export function useTools(options: ToolQueryOptions = {}): UseToolsResult {
@@ -58,6 +58,20 @@ export function useTools(options: ToolQueryOptions = {}): UseToolsResult {
       setLoading(true);
       setError(null);
 
+      // 调试日志：检查 Supabase 配置
+      console.log('[useTools] 开始获取数据:', {
+        options,
+        supabaseConfig,
+        timestamp: new Date().toISOString()
+      });
+
+      // 检查 Supabase 是否正确配置
+      if (!supabaseConfig.isConfigured) {
+        const errorMsg = 'Supabase 未正确配置，环境变量缺失';
+        console.error('[useTools] 配置错误:', errorMsg);
+        throw new Error(errorMsg);
+      }
+
       // 构建查询
       let query = supabase
         .from('tools')
@@ -67,31 +81,52 @@ export function useTools(options: ToolQueryOptions = {}): UseToolsResult {
       // 应用分类筛选
       if (category) {
         query = query.eq('category', category);
+        console.log('[useTools] 应用分类筛选:', category);
       }
 
       // 应用搜索筛选
       if (q) {
         query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%`);
+        console.log('[useTools] 应用搜索筛选:', q);
       }
 
       // 应用数量限制
       if (limit) {
         query = query.limit(limit);
+        console.log('[useTools] 应用数量限制:', limit);
       }
 
+      console.log('[useTools] 发送查询到 Supabase...');
       const { data: tools, error: queryError } = await query;
+
+      console.log('[useTools] Supabase 响应:', {
+        success: !queryError,
+        dataCount: tools?.length || 0,
+        error: queryError?.message || null,
+        firstTool: tools?.[0] ? { 
+          id: tools[0].id, 
+          name: tools[0].name, 
+          category: tools[0].category 
+        } : null
+      });
 
       if (queryError) {
         throw new Error(`数据库查询失败: ${queryError.message}`);
       }
 
       setData(tools || []);
+      console.log(`[useTools] 成功设置数据，共 ${tools?.length || 0} 个工具`);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : '未知错误';
+      console.error('[useTools] 捕获错误:', {
+        error: err,
+        message: errorMessage,
+        stack: err instanceof Error ? err.stack : null
+      });
       setError(errorMessage);
-      console.error('useTools 错误:', err);
     } finally {
       setLoading(false);
+      console.log('[useTools] 数据获取完成，loading 设为 false');
     }
   }, [limit, category, q]);
 
