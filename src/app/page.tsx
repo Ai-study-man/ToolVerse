@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import AdvancedSearchBar from '../components/AdvancedSearchBar';
@@ -19,7 +20,10 @@ import SuperSearchBar from '../components/SuperSearchBar';
 import SmartToolGrid from '../components/SmartToolGrid';
 import LatestToolsGrid from '../components/LatestToolsGrid';
 import FeaturedToolsGrid from '../components/FeaturedToolsGrid';
+import SEOMetaTags, { generateHomeSEO } from '../components/SEOMetaTags';
+import SEOOptimizations from '../components/SEOOptimizations';
 import { useTools } from '../hooks/useTools';
+import { usePrefetchOptimization } from '../hooks/usePerformanceOptimization';
 import { navigateToUrl } from '../lib/navigation';
 import { getCategoryIcon, getCategoriesWithIcons, mapToUnifiedCategory } from '../utils/categoryIcons';
 import Hero3DImage from '../components/Hero3DImage';
@@ -38,6 +42,13 @@ export default function Home() {
   
   // 使用新的 useTools hook 获取所有工具
   const { data: allTools, loading, error } = useTools();
+  // 应用性能优化
+  usePrefetchOptimization();
+  
+  // 动态生成首页SEO优化数据
+  const seoData = useMemo(() => {
+    return generateHomeSEO();
+  }, []);
   
   // 调试日志：监控首页数据状态
   useEffect(() => {
@@ -196,6 +207,16 @@ export default function Home() {
 
   return (
     <GlobalLayout>
+      {/* 动态SEO优化 */}
+      <SEOMetaTags 
+        title={seoData.title}
+        description={seoData.description}
+        keywords={seoData.keywords}
+        canonicalUrl={seoData.canonicalUrl}
+        structuredData={seoData.structuredData}
+      />
+      <SEOOptimizations />
+      
       {/* SEO结构化数据 */}
       <StructuredData type="website" data={{ tools: featuredTools }} />
       <StructuredData type="organization" data={{}} />
@@ -227,10 +248,11 @@ export default function Home() {
         ]} 
       />
       
-      <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800">
-        <Header />
+      {/* Header 组件 */}
+      <Header />
       
-      {/* Hero Section */}
+      <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800">
+        {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800 text-white py-8 lg:py-12 overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-20">
@@ -271,22 +293,22 @@ export default function Home() {
               
               {/* SEO优化的快速导航 - 使用11个核心分类 */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <a href="/category/Chatbots%20%26%20Assistants" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10">
+                <Link href="/category/Chatbots%20%26%20Assistants" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10" prefetch={true}>
                   <div className="font-semibold group-hover:text-accent-300 transition-colors">AI Chatbots</div>
                   <div className="text-xs opacity-80">ChatGPT, Claude & more</div>
-                </a>
-                <a href="/category/Image%20Generation%20%26%20Design" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10">
+                </Link>
+                <Link href="/category/Image%20Generation%20%26%20Design" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10" prefetch={true}>
                   <div className="font-semibold group-hover:text-accent-300 transition-colors">AI Image Tools</div>
                   <div className="text-xs opacity-80">Midjourney, DALL-E alternatives</div>
-                </a>
-                <a href="/category/Developer%20Tools" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10">
+                </Link>
+                <Link href="/category/Developer%20Tools" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10" prefetch={true}>
                   <div className="font-semibold group-hover:text-accent-300 transition-colors">AI Coding Tools</div>
                   <div className="text-xs opacity-80">GitHub Copilot & assistants</div>
-                </a>
-                <a href="/category/Writing%20%26%20Content" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10">
+                </Link>
+                <Link href="/category/Writing%20%26%20Content" className="group bg-white/10 hover:bg-white/20 rounded-lg p-3 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10" prefetch={true}>
                   <div className="font-semibold group-hover:text-accent-300 transition-colors">Writing Tools</div>
                   <div className="text-xs opacity-80">Content creation & writing</div>
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -391,15 +413,16 @@ export default function Home() {
           </div>
           
           <div className="text-center mt-12">
-            <a 
+            <Link 
               href="/tools"
               className="inline-flex items-center bg-gradient-to-r from-accent-600 to-accent-700 text-white px-8 py-3 rounded-lg hover:from-accent-700 hover:to-accent-800 transition-all duration-300 text-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105"
+              prefetch={true}
             >
               View All Tools
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -434,24 +457,24 @@ export default function Home() {
             <div>
               <h3 className="font-semibold mb-4">Explore</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="/tools" className="hover:text-white transition-colors">All Tools</a></li>
-                <li><a href="/categories" className="hover:text-white transition-colors">Categories</a></li>
-                <li><a href="/featured" className="hover:text-white transition-colors">Featured</a></li>
+                <li><Link href="/tools" className="hover:text-white transition-colors" prefetch={true}>All Tools</Link></li>
+                <li><Link href="/categories" className="hover:text-white transition-colors" prefetch={true}>Categories</Link></li>
+                <li><Link href="/featured" className="hover:text-white transition-colors" prefetch={true}>Featured</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="/about" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="/contact" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="/submit" className="hover:text-white transition-colors">Submit Tool</a></li>
+                <li><Link href="/about" className="hover:text-white transition-colors" prefetch={true}>About</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors" prefetch={true}>Contact</Link></li>
+                <li><Link href="/submit" className="hover:text-white transition-colors" prefetch={true}>Submit Tool</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Legal</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><Link href="/privacy" className="hover:text-white transition-colors" prefetch={true}>Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-white transition-colors" prefetch={true}>Terms of Service</Link></li>
               </ul>
             </div>
           </div>

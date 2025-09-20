@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { getCategoryIcon } from '@/utils/categoryIcons';
+import ClientSEOWrapper from '@/components/ClientSEOWrapper';
 
 // 简化的工具数据类型
 interface ToolData {
@@ -224,6 +225,9 @@ export default async function ToolDetailPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800">
+      {/* 动态SEO优化 */}
+      <ClientSEOWrapper toolData={tool} />
+      
       {/* Header */}
       <nav className="bg-white/10 backdrop-blur-sm border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

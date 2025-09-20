@@ -102,6 +102,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'weekly' as const,
         priority: 0.9,
       },
+      // 新增的高价值SEO页面
+      {
+        url: `${baseUrl}/best-free-ai-tools-2025`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/chatgpt-alternatives`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/ai-tools-for-small-business`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+      },
     ]
 
     // 工具页面

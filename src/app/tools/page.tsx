@@ -23,6 +23,8 @@ import { Tool } from '@/types/tool';
 import { getCategoryIcon, getCategoryDisplayName } from '@/utils/categoryIcons';
 import ToolLogo from '@/components/ToolLogo';
 import Header from '@/components/Header';
+import SEOMetaTags, { generateToolsListSEO } from '@/components/SEOMetaTags';
+import SEOOptimizations from '@/components/SEOOptimizations';
 
 interface ToolCardProps {
   tool: Tool;
@@ -155,6 +157,11 @@ function ToolsPageContent() {
   // 合并加载状态和错误状态
   const loading = allLoading || filteredLoading;
   const error = allError || filteredError;
+  
+  // 动态生成工具列表页SEO数据
+  const seoData = useMemo(() => {
+    return generateToolsListSEO(searchQuery, selectedCategory);
+  }, [searchQuery, selectedCategory]);
 
   // 计算分类列表
   const categories = useMemo(() => {
@@ -214,6 +221,16 @@ function ToolsPageContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-800">
+      {/* 动态SEO优化 */}
+      <SEOMetaTags 
+        title={seoData.title}
+        description={seoData.description}
+        keywords={seoData.keywords}
+        canonicalUrl={seoData.canonicalUrl}
+        structuredData={seoData.structuredData}
+      />
+      <SEOOptimizations />
+      
       {/* Header Component */}
       <Header />
 

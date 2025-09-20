@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import GlobalLayout from '@/components/GlobalLayout';
 import ToolLogo from '@/components/ToolLogo';
 import { supabase } from '@/lib/supabaseClient';
 import { getCategoryIcon } from '@/utils/categoryIcons';
@@ -241,41 +242,47 @@ function RelatedToolsSection({ tool }: { tool: Tool }) {
 // Loading component
 function LoadingState() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900 flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-        <p className="text-white/90">Loading tool details...</p>
+    <GlobalLayout>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white/90">Loading tool details...</p>
+        </div>
       </div>
-    </div>
+    </GlobalLayout>
   );
 }
 
 // Not found component
 function ToolNotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900 flex items-center justify-center">
-      <div className="text-center px-4 max-w-md">
-        <div className="text-6xl mb-6">🔍</div>
-        <h1 className="text-3xl font-bold text-white mb-4">Tool Not Found</h1>
-        <p className="text-white/80 mb-8">
-          Sorry, the AI tool you&apos;re looking for doesn&apos;t exist or has been removed.
-        </p>
-        <div className="space-x-4">
-          <Link 
-            href="/tools"
-            className="inline-block bg-white text-purple-700 px-6 py-3 rounded-lg hover:bg-white/90 transition-colors font-medium"
-          >
-            Browse All Tools
-          </Link>
-          <Link 
-            href="/"
-            className="inline-block border border-white/30 text-white px-6 py-3 rounded-lg hover:bg-white/10 transition-colors font-medium"
-          >
-            Go Home
-          </Link>
+    <GlobalLayout>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900 flex items-center justify-center">
+        <div className="text-center px-4 max-w-md">
+          <div className="text-6xl mb-6">🔍</div>
+          <h1 className="text-3xl font-bold text-white mb-4">Tool Not Found</h1>
+          <p className="text-white/80 mb-8">
+            Sorry, the AI tool you&apos;re looking for doesn&apos;t exist or has been removed.
+          </p>
+          <div className="space-x-4">
+            <Link 
+              href="/tools"
+              className="inline-block bg-white text-purple-700 px-6 py-3 rounded-lg hover:bg-white/90 transition-colors font-medium"
+            >
+              Browse All Tools
+            </Link>
+            <Link 
+              href="/"
+              className="inline-block border border-white/30 text-white px-6 py-3 rounded-lg hover:bg-white/10 transition-colors font-medium"
+            >
+              Go Home
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </GlobalLayout>
   );
 }
 
@@ -321,177 +328,179 @@ export default function ToolPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900">
+    <GlobalLayout>
       {/* 统一的 Header 组件 */}
       <Header />
       
-      {/* 优化的面包屑导航 - 与Header对齐 */}
-      <div className="bg-white/5 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
-            {/* 左侧 - Back to Tools，与 ToolVerse logo 对齐 */}
-            <div className="flex items-center">
-              <Link 
-                href="/tools"
-                className="flex items-center text-white/90 hover:text-white transition-colors group"
-              >
-                <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                <span className="font-medium">Back to Tools</span>
-              </Link>
-            </div>
-            
-            {/* 右侧 - Tool Details，与 Submit Tool 对齐 */}
-            <div className="flex items-center">
-              <span className="text-white/80 font-medium">Tool Details</span>
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900">
+        {/* 优化的面包屑导航 - 与Header对齐 */}
+        <div className="bg-white/5 backdrop-blur-sm border-b border-white/10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between py-4">
+              {/* 左侧 - Back to Tools，与 ToolVerse logo 对齐 */}
+              <div className="flex items-center">
+                <Link 
+                  href="/tools"
+                  className="flex items-center text-white/90 hover:text-white transition-colors group"
+                >
+                  <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  <span className="font-medium">Back to Tools</span>
+                </Link>
+              </div>
+              
+              {/* 右侧 - Tool Details，与 Submit Tool 对齐 */}
+              <div className="flex items-center">
+                <span className="text-white/80 font-medium">Tool Details</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-10 gap-8">
-          {/* Left Column - Tool Details (70%) */}
-          <div className="lg:col-span-7">
-            {/* Tool Details Card */}
-            <div className="bg-gradient-to-br from-purple-600/30 via-purple-700/20 to-indigo-600/30 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 overflow-hidden">
-              {/* Header with gradient background */}
-              <div className="bg-gradient-to-r from-purple-600 to-purple-800 px-8 py-8">
-                <div className="flex items-start gap-6">
-                  {/* Logo */}
-                  <div className="flex-shrink-0">
-                    <div className="w-24 h-24 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center overflow-hidden">
-                      <ToolLogo 
-                        name={tool.name}
-                        logo={tool.logo || undefined}
-                        size="lg"
-                        className="w-20 h-20"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Tool Info */}
-                  <div className="flex-1 min-w-0">
-                    <h1 className="text-4xl font-bold text-white mb-3">
-                      {tool.name}
-                    </h1>
-                    
-                    {/* Category and Pricing Badges */}
-                    <div className="flex flex-wrap gap-3 mb-4">
-                      {tool.category && (
-                        <Link
-                          href={`/category/${encodeURIComponent(tool.category)}`}
-                          className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-white/30 transition-colors"
-                        >
-                          <span className="text-lg">{getCategoryIcon(tool.category)}</span>
-                          {tool.category}
-                        </Link>
-                      )}
-                      
-                      {tool.pricing && (
-                        <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold border ${getPricingBadgeStyle(tool.pricing)}`}>
-                          💰 {tool.pricing}
-                        </span>
-                      )}
-                    </div>
-
-                    <p className="text-white/90 text-lg leading-relaxed">
-                      {tool.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Content - 紫色渐变背景 */}
-              <div className="p-8 bg-gradient-to-br from-purple-500/20 via-purple-600/15 to-indigo-500/20">
-                <div className="space-y-8">
-                  {/* Features */}
-                  {tool.features && tool.features.length > 0 && (
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-4">Key Features</h3>
-                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {tool.features.slice(0, 8).map((feature, index) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <span className="text-green-400 mt-1 flex-shrink-0">✓</span>
-                            <span className="text-purple-100">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Tags */}
-                  {tool.tags && tool.tags.length > 0 && (
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-4">Related Tags</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {tool.tags.slice(0, 10).map((tag, index) => (
-                          <span 
-                            key={index}
-                            className="bg-white/20 text-purple-100 px-4 py-2 rounded-full text-sm font-medium border border-white/30 backdrop-blur-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+        {/* Main Content */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-10 gap-8">
+            {/* Left Column - Tool Details (70%) */}
+            <div className="lg:col-span-7">
+              {/* Tool Details Card */}
+              <div className="bg-gradient-to-br from-purple-600/30 via-purple-700/20 to-indigo-600/30 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 overflow-hidden">
+                {/* Header with gradient background */}
+                <div className="bg-gradient-to-r from-purple-600 to-purple-800 px-8 py-8">
+                  <div className="flex items-start gap-6">
+                    {/* Logo */}
+                    <div className="flex-shrink-0">
+                      <div className="w-24 h-24 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center overflow-hidden">
+                        <ToolLogo 
+                          name={tool.name}
+                          logo={tool.logo || undefined}
+                          size="lg"
+                          className="w-20 h-20"
+                        />
                       </div>
                     </div>
-                  )}
 
-                  {/* Tool Information */}
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-4">Tool Information</h3>
-                    <div className="bg-gradient-to-br from-purple-400/30 via-purple-500/20 to-indigo-400/30 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-lg">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Official Website */}
-                        {tool.website && (
-                          <div>
-                            <h4 className="text-sm font-semibold text-purple-200 mb-2">OFFICIAL WEBSITE</h4>
-                            <a
-                              href={tool.website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
-                            >
-                              Visit Website
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                              </svg>
-                            </a>
-                          </div>
+                    {/* Tool Info */}
+                    <div className="flex-1 min-w-0">
+                      <h1 className="text-4xl font-bold text-white mb-3">
+                        {tool.name}
+                      </h1>
+                      
+                      {/* Category and Pricing Badges */}
+                      <div className="flex flex-wrap gap-3 mb-4">
+                        {tool.category && (
+                          <Link
+                            href={`/category/${encodeURIComponent(tool.category)}`}
+                            className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-white/30 transition-colors"
+                          >
+                            <span className="text-lg">{getCategoryIcon(tool.category)}</span>
+                            {tool.category}
+                          </Link>
                         )}
+                        
+                        {tool.pricing && (
+                          <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold border ${getPricingBadgeStyle(tool.pricing)}`}>
+                            💰 {tool.pricing}
+                          </span>
+                        )}
+                      </div>
 
-                        {/* Added Date */}
-                        <div>
-                          <h4 className="text-sm font-semibold text-purple-200 mb-2">ADDED TO DIRECTORY</h4>
-                          <p className="text-white font-medium">
-                            {new Date(tool.created_at).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
-                          </p>
+                      <p className="text-white/90 text-lg leading-relaxed">
+                        {tool.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content - 紫色渐变背景 */}
+                <div className="p-8 bg-gradient-to-br from-purple-500/20 via-purple-600/15 to-indigo-500/20">
+                  <div className="space-y-8">
+                    {/* Features */}
+                    {tool.features && tool.features.length > 0 && (
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-4">Key Features</h3>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {tool.features.slice(0, 8).map((feature, index) => (
+                            <li key={index} className="flex items-start gap-3">
+                              <span className="text-green-400 mt-1 flex-shrink-0">✓</span>
+                              <span className="text-purple-100">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Tags */}
+                    {tool.tags && tool.tags.length > 0 && (
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-4">Related Tags</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {tool.tags.slice(0, 10).map((tag, index) => (
+                            <span 
+                              key={index}
+                              className="bg-white/20 text-purple-100 px-4 py-2 rounded-full text-sm font-medium border border-white/30 backdrop-blur-sm"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tool Information */}
+                    <div>
+                      <h3 className="text-xl font-bold text-white mb-4">Tool Information</h3>
+                      <div className="bg-gradient-to-br from-purple-400/30 via-purple-500/20 to-indigo-400/30 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-lg">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          {/* Official Website */}
+                          {tool.website && (
+                            <div>
+                              <h4 className="text-sm font-semibold text-purple-200 mb-2">OFFICIAL WEBSITE</h4>
+                              <a
+                                href={tool.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
+                              >
+                                Visit Website
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                              </a>
+                            </div>
+                          )}
+
+                          {/* Added Date */}
+                          <div>
+                            <h4 className="text-sm font-semibold text-purple-200 mb-2">ADDED TO DIRECTORY</h4>
+                            <p className="text-white font-medium">
+                              {new Date(tool.created_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                              })}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* Comments Section */}
+              <div className="mt-8">
+                <CommentsSection />
+              </div>
             </div>
 
-            {/* Comments Section */}
-            <div className="mt-8">
-              <CommentsSection />
+            {/* Right Column - Related Tools (30%) */}
+            <div className="lg:col-span-3">
+              <RelatedToolsSection tool={tool} />
             </div>
           </div>
-
-          {/* Right Column - Related Tools (30%) */}
-          <div className="lg:col-span-3">
-            <RelatedToolsSection tool={tool} />
-          </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </GlobalLayout>
   );
 }

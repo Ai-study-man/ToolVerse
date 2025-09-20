@@ -29,7 +29,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, priority = false }) => {
   const categoryIcon = getCategoryIcon(tool.category);
 
   return (
-    <Link href={`/tool/${tool.id}`} className="block group">
+    <Link href={`/tool/${tool.id}`} className="block group" prefetch={priority}>
       <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:border-blue-300 group-hover:scale-[1.02] h-full flex flex-col">
         {/* Header with Logo and Pricing */}
         <div className="flex items-start justify-between mb-4">
