@@ -324,7 +324,7 @@ export default function AIToolsForSmallBusinessPage() {
                 Why Every Small Business Needs AI in 2025
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                AI isn't just for big corporations anymore. Small businesses using AI tools report 
+                AI isn&apos;t just for big corporations anymore. Small businesses using AI tools report 
                 significant competitive advantages and operational efficiencies.
               </p>
             </div>
@@ -787,7 +787,7 @@ export default function AIToolsForSmallBusinessPage() {
                     Best Free AI Tools 2025
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Discover 25+ powerful AI tools that won't cost you a penny. Perfect starting point for small businesses.
+                    Discover 25+ powerful AI tools that won&apos;t cost you a penny. Perfect starting point for small businesses.
                   </p>
                   <div className="mt-4 text-primary-600 font-medium text-sm group-hover:text-primary-700">
                     Read More →

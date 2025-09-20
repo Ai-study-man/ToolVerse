@@ -17,7 +17,7 @@ export default function BestFreeAIToolsPage() {
     },
     {
       question: "Are free AI tools as good as paid versions?",
-      answer: "Free AI tools often provide excellent functionality but with limitations such as usage caps, lower resolution outputs, fewer features, and limited commercial usage. However, they're perfect for personal projects, learning, and small-scale applications."
+      answer: "Free AI tools often provide excellent functionality but with limitations such as usage caps, lower resolution outputs, fewer features, and limited commercial usage. However, they&apos;re perfect for personal projects, learning, and small-scale applications."
     },
     {
       question: "Can I use free AI tools for commercial purposes?",
@@ -77,7 +77,7 @@ export default function BestFreeAIToolsPage() {
           limitations: "15 free credits per month, commercial usage restrictions",
           website: "https://openai.com/dall-e-2",
           pros: ["High quality", "Easy to use", "Precise control"],
-          cons: ["Limited free credits", "Can't generate faces", "Expensive after free tier"]
+          cons: ["Limited free credits", "Can&apos;t generate faces", "Expensive after free tier"]
         },
         {
           name: "Stable Diffusion (Web UI)",
@@ -232,7 +232,7 @@ export default function BestFreeAIToolsPage() {
                 Best Free AI Tools 2025
               </h1>
               <p className="text-xl md:text-2xl mb-8 leading-relaxed text-purple-100">
-                Discover 25+ powerful AI tools that won't cost you a penny. From conversational AI to image generation, coding assistants to content creation - find the perfect free AI tool for your needs.
+                Discover 25+ powerful AI tools that won&apos;t cost you a penny. From conversational AI to image generation, coding assistants to content creation - find the perfect free AI tool for your needs.
               </p>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto">
                 <p className="text-purple-100 text-base">

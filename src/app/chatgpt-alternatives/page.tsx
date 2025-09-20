@@ -96,7 +96,7 @@ export default function ChatGPTAlternativesPage() {
     },
     {
       question: "Can I migrate my ChatGPT conversations to other platforms?",
-      answer: "Most platforms don't directly support importing ChatGPT conversations. You can manually export important conversations from ChatGPT and reference them in new platforms. Some third-party tools may help with migration, but check their security and terms of use."
+      answer: "Most platforms don&apos;t directly support importing ChatGPT conversations. You can manually export important conversations from ChatGPT and reference them in new platforms. Some third-party tools may help with migration, but check their security and terms of use."
     },
     {
       question: "Which alternative works best for research and fact-checking?",
@@ -353,8 +353,8 @@ export default function ChatGPTAlternativesPage() {
               </h1>
               
               <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
-                Discover powerful AI assistants that rival ChatGPT. From Claude's superior reasoning to 
-                Gemini's real-time search - find the perfect AI companion for your specific needs.
+                Discover powerful AI assistants that rival ChatGPT. From Claude&apos;s superior reasoning to 
+                Gemini&apos;s real-time search - find the perfect AI companion for your specific needs.
               </p>
 
               {/* 快速对比选择器 */}
@@ -1120,7 +1120,7 @@ export default function ChatGPTAlternativesPage() {
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
                 <h3 className="text-lg font-semibold text-blue-900 mb-2">📝 Note on Screenshots</h3>
                 <p className="text-blue-800 text-sm">
-                  These are placeholder representations of each platform's interface. 
+                  These are placeholder representations of each platform&apos;s interface. 
                   For actual screenshots and detailed UI reviews, please visit our 
                   <Link href="/tools" className="underline hover:text-blue-600"> comprehensive tool reviews</Link>.
                   Interface designs may change over time as platforms update their user experience.
